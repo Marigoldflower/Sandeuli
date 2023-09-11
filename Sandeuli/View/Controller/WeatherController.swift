@@ -217,71 +217,75 @@ extension WeatherController: ViewDrawable {
                     
                     print("시간의 종합을 보여줘 \(hourlyWeather.date)")
                     // 임시로 실험하기 위한 데이터
-                    let check = hourlyWeather.date.addingTimeInterval(82800)
+//                    let check = hourlyWeather.date.addingTimeInterval(46800)
+//                    let checkFormatter = DateFormatter()
+//                    checkFormatter.dateFormat = "yyyy-MM-dd HH"
+//                    let checkData = checkFormatter.string(from: check)
+//                    print("우리나라 시간의 총합은 \(checkData)")
+                    
+                    let check = hourlyWeather.date
                     let checkFormatter = DateFormatter()
                     checkFormatter.dateFormat = "yyyy-MM-dd HH"
                     let checkData = checkFormatter.string(from: check)
-                    
-                    // MARK: - 배열로 보낼 데이터 값
-                    let hourly = hourlyWeather.date
-                    let formatter = DateFormatter()
-                    formatter.dateFormat = "HH시"
-                    let hourlyData = formatter.string(from: hourly)
+//                    print("우리나라 시간의 총합은 \(checkData)")
                     
                     // MARK: - 현재 시간을 기점으로 후에 있는 데이터만 배열로 보내기 위해 만들어진 기준점
                     let currentFormatter = DateFormatter()
                     currentFormatter.dateFormat = "HH시"
                     let currentHourData = currentFormatter.string(from: Date())
                     
-                    // MARK: - 현재 날짜와 일치하는지 비교하기 위한 날짜
+                    // MARK: - 배열로 보낼 데이터 값
+                    let hourly = hourlyWeather.date
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "HH시"
+                    let hourlyData = formatter.string(from: hourly)
+                    print("여기엔 무슨 데이터가 들어와? \(hourlyData)")
+                    
+                    // MARK: - 현재 날짜와 같거나 뒤에 있는 날짜만 통과시키기 위한 기준 시간
                     let compareFormatter = DateFormatter()
                     compareFormatter.dateFormat = "yyyy-MM-dd"
-                    let compareToday = compareFormatter.string(from: Date())
+                    let compareDate = compareFormatter.string(from: hourly)
                     
                     // MARK: - 내 현재 날짜
                     let userFormatter = DateFormatter()
                     userFormatter.dateFormat = "yyyy-MM-dd"
                     let userToday = userFormatter.string(from: Date())
                     
-                    // MARK: - 시간 데이터
-                    // 오늘이라면
-                    if userToday.contains(compareToday) {
-                        print("여기에 들어올 수 있는 값을 알려줘 \(checkData)")
-                        
+                    // MARK: - 현재 날짜보다 뒤에 있으면서 현재 시간보다 뒤에 있는 시간대만 통과시키겠다는 로직
+                    if userToday <= compareDate {
                         if currentHourData <= hourlyData {
+                            // MARK: - 시간 데이터
                             self?.hourlyForecastView.timeArray.append(hourlyData)
+                            
+                            // MARK: - 날씨 이미지 데이터
+                            switch hourlyWeather.symbolName {
+                            case "sun.max":
+                                guard let sunImage = UIImage(systemName: "\(hourlyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.dayImage])) else { return }
+                                self?.hourlyForecastView.weatherImageArray.append(sunImage)
+                            case "moon.stars":
+                                guard let moonImage = UIImage(systemName: "\(hourlyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.nightImage, .white])) else { return }
+                                self?.hourlyForecastView.weatherImageArray.append(moonImage)
+                            case "cloud":
+                                guard let cloudImage = UIImage(systemName: "\(hourlyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.cloudyImage, .white])) else { return }
+                                self?.hourlyForecastView.weatherImageArray.append(cloudImage)
+                            case "cloud.drizzle":
+                                guard let drizzle = UIImage(systemName: "\(hourlyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.rainyImage, .systemCyan])) else { return }
+                                self?.hourlyForecastView.weatherImageArray.append(drizzle)
+                            case "cloud.rain":
+                                guard let rain = UIImage(systemName: "\(hourlyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.rainyImage, .systemCyan])) else { return }
+                                self?.hourlyForecastView.weatherImageArray.append(rain)
+                            case "cloud.bolt.rain":
+                                guard let thunderBolt = UIImage(systemName: "\(hourlyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.rainyImage, .systemCyan])) else { return }
+                                self?.hourlyForecastView.weatherImageArray.append(thunderBolt)
+                            default:
+                                break
+                            }
+                            
+                            // MARK: - 온도 데이터
+                            let temperatureData = String(round(hourlyWeather.temperature.value * 10) / 10)
+                            self?.hourlyForecastView.temperatureArray.append(temperatureData)
                         }
-                    } else { // 오늘이 아니라면
-                        self?.hourlyForecastView.timeArray.append(hourlyData)
                     }
-                    
-                    // MARK: - 날씨 이미지 데이터
-                    switch hourlyWeather.symbolName {
-                    case "sun.max":
-                        guard let sunImage = UIImage(systemName: "\(hourlyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.dayImage])) else { return }
-                        self?.hourlyForecastView.weatherImageArray.append(sunImage)
-                    case "moon.stars":
-                        guard let moonImage = UIImage(systemName: "\(hourlyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.nightImage, .white])) else { return }
-                        self?.hourlyForecastView.weatherImageArray.append(moonImage)
-                    case "cloud":
-                        guard let cloudImage = UIImage(systemName: "\(hourlyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.cloudyImage, .white])) else { return }
-                        self?.hourlyForecastView.weatherImageArray.append(cloudImage)
-                    case "cloud.drizzle":
-                        guard let drizzle = UIImage(systemName: "\(hourlyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.rainyImage, .systemCyan])) else { return }
-                        self?.hourlyForecastView.weatherImageArray.append(drizzle)
-                    case "cloud.rain":
-                        guard let rain = UIImage(systemName: "\(hourlyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.rainyImage, .systemCyan])) else { return }
-                        self?.hourlyForecastView.weatherImageArray.append(rain)
-                    case "cloud.bolt.rain":
-                        guard let thunderBolt = UIImage(systemName: "\(hourlyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.rainyImage, .systemCyan])) else { return }
-                        self?.hourlyForecastView.weatherImageArray.append(thunderBolt)
-                    default:
-                        break
-                    }
-                    
-                    // MARK: - 온도 데이터
-                    let temperatureData = String(round(hourlyWeather.temperature.value))
-                    self?.hourlyForecastView.temperatureArray.append(temperatureData)
                 }
             }
             .store(in: &cancellables)
