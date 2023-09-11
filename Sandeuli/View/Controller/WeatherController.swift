@@ -550,9 +550,9 @@ extension WeatherController {
                 if mainInformationView.backgroundColor == .snowyBackground || mainInformationView.backgroundColor == .rainyBackground ||
                 mainInformationView.backgroundColor == .nightBackground ||
                 mainInformationView.backgroundColor == .foggyBackground {
-                mainInformationView.particulateMatter.attributedText = coloringTextMethod(text: "미세", colorText: "보통", color: .particulateGoodColorNight)
+                mainInformationView.particulateMatter.attributedText = coloringTextMethod(text: "미세", colorText: "보통", color: .particulateNormalColorNight)
                 } else {
-                   mainInformationView.particulateMatter.attributedText = coloringTextMethod(text: "미세", colorText: "보통", color: .particulateGoodColorDay)
+                   mainInformationView.particulateMatter.attributedText = coloringTextMethod(text: "미세", colorText: "보통", color: .particulateNormalColorDay)
                 }
                 
             case 81...150:
@@ -560,9 +560,9 @@ extension WeatherController {
                 if mainInformationView.backgroundColor == .snowyBackground || mainInformationView.backgroundColor == .rainyBackground ||
                 mainInformationView.backgroundColor == .nightBackground ||
                 mainInformationView.backgroundColor == .foggyBackground {
-                mainInformationView.particulateMatter.attributedText = coloringTextMethod(text: "미세", colorText: "나쁨", color: .particulateGoodColorNight)
+                mainInformationView.particulateMatter.attributedText = coloringTextMethod(text: "미세", colorText: "나쁨", color: .particulateBadColorNight)
                 } else {
-                    mainInformationView.particulateMatter.attributedText = coloringTextMethod(text: "미세", colorText: "나쁨", color: .particulateGoodColorDay)
+                    mainInformationView.particulateMatter.attributedText = coloringTextMethod(text: "미세", colorText: "나쁨", color: .particulateBadColorDay)
                 }
                 
             case 151...:
@@ -570,9 +570,9 @@ extension WeatherController {
                 if mainInformationView.backgroundColor == .snowyBackground || mainInformationView.backgroundColor == .rainyBackground ||
                    mainInformationView.backgroundColor == .nightBackground ||
                    mainInformationView.backgroundColor == .foggyBackground {
-                   mainInformationView.particulateMatter.attributedText = coloringTextMethod(text: "미세", colorText: "매우나쁨", color: .particulateGoodColorNight)
+                   mainInformationView.particulateMatter.attributedText = coloringTextMethod(text: "미세", colorText: "매우나쁨", color: .particulateVeryBadColorNight)
                 } else {
-                    mainInformationView.particulateMatter.attributedText = coloringTextMethod(text: "미세", colorText: "매우나쁨", color: .particulateGoodColorDay)
+                    mainInformationView.particulateMatter.attributedText = coloringTextMethod(text: "미세", colorText: "매우나쁨", color: .particulateVeryBadColorDay)
                 }
                 
             default: return
@@ -601,9 +601,9 @@ extension WeatherController {
                 if mainInformationView.backgroundColor == .snowyBackground || mainInformationView.backgroundColor == .rainyBackground ||
                 mainInformationView.backgroundColor == .nightBackground ||
                 mainInformationView.backgroundColor == .foggyBackground {
-                mainInformationView.ultraParticulateMatter.attributedText = coloringTextMethod(text: "초미세", colorText: "보통", color: .particulateGoodColorNight)
+                mainInformationView.ultraParticulateMatter.attributedText = coloringTextMethod(text: "초미세", colorText: "보통", color: .particulateNormalColorNight)
                 } else {
-                    mainInformationView.ultraParticulateMatter.attributedText = coloringTextMethod(text: "초미세", colorText: "보통", color: .particulateGoodColorDay)
+                    mainInformationView.ultraParticulateMatter.attributedText = coloringTextMethod(text: "초미세", colorText: "보통", color: .particulateNormalColorDay)
                 }
                 
             case 36...75:
@@ -611,9 +611,9 @@ extension WeatherController {
                 if mainInformationView.backgroundColor == .snowyBackground || mainInformationView.backgroundColor == .rainyBackground ||
                     mainInformationView.backgroundColor == .nightBackground ||
                     mainInformationView.backgroundColor == .foggyBackground {
-                    mainInformationView.ultraParticulateMatter.attributedText = coloringTextMethod(text: "초미세", colorText: "나쁨", color: .particulateGoodColorNight)
+                    mainInformationView.ultraParticulateMatter.attributedText = coloringTextMethod(text: "초미세", colorText: "나쁨", color: .particulateBadColorNight)
                 } else {
-                  mainInformationView.ultraParticulateMatter.attributedText = coloringTextMethod(text: "초미세", colorText: "나쁨", color: .particulateGoodColorDay)
+                  mainInformationView.ultraParticulateMatter.attributedText = coloringTextMethod(text: "초미세", colorText: "나쁨", color: .particulateBadColorDay)
                 }
                 
             case 76...:
@@ -621,9 +621,9 @@ extension WeatherController {
                 if mainInformationView.backgroundColor == .snowyBackground || mainInformationView.backgroundColor == .rainyBackground ||
                     mainInformationView.backgroundColor == .nightBackground ||
                     mainInformationView.backgroundColor == .foggyBackground {
-                    mainInformationView.ultraParticulateMatter.attributedText = coloringTextMethod(text: "초미세", colorText: "매우나음", color: .particulateGoodColorNight)
+                    mainInformationView.ultraParticulateMatter.attributedText = coloringTextMethod(text: "초미세", colorText: "매우나음", color: .particulateVeryBadColorNight)
                 } else {
-                   mainInformationView.ultraParticulateMatter.attributedText = coloringTextMethod(text: "초미세", colorText: "좋음", color: .particulateGoodColorDay)
+                   mainInformationView.ultraParticulateMatter.attributedText = coloringTextMethod(text: "초미세", colorText: "좋음", color: .particulateVeryBadColorDay)
                 }
                 
             default: return

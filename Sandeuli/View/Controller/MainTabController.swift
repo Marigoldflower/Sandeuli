@@ -30,7 +30,7 @@ final class MainTabController: UITabBarController {
         appearance.configureWithOpaqueBackground()  // 탭 바 투명하지 않게
         appearance.backgroundColor = .white     // 탭 바 색상설정
         
-        tabBar.tintColor = .white
+        tabBar.tintColor = .dayImage
         tabBar.scrollEdgeAppearance = appearance
         
         // 탭바 이미지 설정

@@ -49,7 +49,7 @@ final class MainInformationViewModel {
                 case .failure:
                     print("오류 발생 ㅠㅠ")
                 case .finished:
-                    print("끝!")
+                    print("미세먼지 네트워크 끝!")
                 }
             } receiveValue: { [weak self] particulateMatter in
                 self?.particulateMatter = particulateMatter
@@ -63,7 +63,7 @@ final class MainInformationViewModel {
                 case .failure:
                     print("오류 발생 ㅠㅠ")
                 case .finished:
-                    print("끝!")
+                    print("초미세먼지 네트워크 끝!")
                 }
             } receiveValue: { [weak self] ultraParticulate in
                 self?.ultraParticulateMatter = ultraParticulate
