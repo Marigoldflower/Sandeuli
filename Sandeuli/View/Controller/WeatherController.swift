@@ -19,6 +19,7 @@ final class WeatherController: UIViewController {
     // MARK: - ViewModel
     private let mainInformationViewModel = MainInformationViewModel()
     private let hourlyForecastViewModel = HourlyForecastViewModel()
+    private let dailyForecastViewModel = DailyForecastViewModel()
     
     // MARK: - CLLocationManager
     private let locationManager = CLLocationManager()
@@ -37,8 +38,8 @@ final class WeatherController: UIViewController {
         return view
     }()
 
-    private let tenDaysForecastView: TenDaysForecastView = {
-        let view = TenDaysForecastView()
+    private let dailyForecastView: DailyForecastView = {
+        let view = DailyForecastView()
         view.layer.cornerRadius = 15
         view.layer.masksToBounds = true
         return view
@@ -127,7 +128,8 @@ extension WeatherController: ViewDrawable {
                 self?.mainInformationView.todayWeatherTemperature.text = String(round(currentWeather.temperature.value * 10) / 10)
                 
                 // MARK: - 사용자의 위치
-                self?.mainInformationView.currentLocation.text = self?.userLocation
+                guard let userLocation = self?.userLocation else { return }
+                self?.mainInformationView.currentLocation.text = userLocation + ", "
                 
                 // MARK: - 하늘상태
                 self?.mainInformationView.currentSky.text = currentWeather.condition.description
@@ -261,6 +263,9 @@ extension WeatherController: ViewDrawable {
                             case "cloud":
                                 guard let cloudImage = UIImage(systemName: "\(hourlyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.cloudyImage, .white])) else { return }
                                 self?.hourlyForecastView.weatherImageArray.append(cloudImage)
+                            case "cloud.sun":
+                                guard let cloudSunImage = UIImage(systemName: "\(hourlyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.cloudyImage, .dayImage])) else { return }
+                                self?.hourlyForecastView.weatherImageArray.append(cloudSunImage)
                             case "cloud.drizzle":
                                 guard let drizzle = UIImage(systemName: "\(hourlyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.rainyImage, .systemCyan])) else { return }
                                 self?.hourlyForecastView.weatherImageArray.append(drizzle)
@@ -294,6 +299,9 @@ extension WeatherController: ViewDrawable {
                         case "cloud":
                             guard let cloudImage = UIImage(systemName: "\(hourlyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.cloudyImage, .white])) else { return }
                             self?.hourlyForecastView.weatherImageArray.append(cloudImage)
+                        case "cloud.sun":
+                            guard let cloudSunImage = UIImage(systemName: "\(hourlyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.cloudyImage, .dayImage])) else { return }
+                            self?.hourlyForecastView.weatherImageArray.append(cloudSunImage)
                         case "cloud.drizzle":
                             guard let drizzle = UIImage(systemName: "\(hourlyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.rainyImage, .systemCyan])) else { return }
                             self?.hourlyForecastView.weatherImageArray.append(drizzle)
@@ -355,6 +363,75 @@ extension WeatherController: ViewDrawable {
             }
         }
         .store(in: &cancellables)
+        setDailyForecastData()
+    }
+    
+    private func setDailyForecastData() {
+        dailyForecastViewModel.$dailyForecast
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] dailyForecast in
+                for dailyWeather in dailyForecast {
+                    // MARK: - 현재 날짜와 같거나 뒤에 있는 날짜만 통과시키기 위한 기준 시간
+                    let daily = dailyWeather.date
+                    let compareFormatter = DateFormatter()
+                    compareFormatter.dateFormat = "yyyy-MM-dd"
+                    let compareDate = compareFormatter.string(from: daily)
+                    
+                    // MARK: - 내 현재 날짜
+                    let userFormatter = DateFormatter()
+                    userFormatter.dateFormat = "yyyy-MM-dd"
+                    let userToday = userFormatter.string(from: Date())
+                    
+                    // MARK: - 요일 데이터
+                    let weekDayFormatter = DateFormatter()
+                    weekDayFormatter.dateFormat = "EEEE"
+                    let weekDay = weekDayFormatter.string(from: daily)
+                    print("현재 요일은 \(weekDay)")
+
+                    if userToday <= compareDate {
+                        
+                        // MARK: - 요일 데이터
+                        self?.dailyForecastView.weekDayArray.append(weekDay)
+                        
+                        // MARK: - 날씨 이미지 데이터
+                        switch dailyWeather.symbolName {
+                        case "sun.max":
+                            guard let sunImage = UIImage(systemName: "\(dailyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.dayImage])) else { return }
+                            self?.dailyForecastView.weatherImageArray.append(sunImage)
+                        case "moon.stars":
+                            guard let moonImage = UIImage(systemName: "\(dailyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.nightImage, .white])) else { return }
+                            self?.dailyForecastView.weatherImageArray.append(moonImage)
+                        case "cloud":
+                            guard let cloudImage = UIImage(systemName: "\(dailyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.cloudyImage, .white])) else { return }
+                            self?.dailyForecastView.weatherImageArray.append(cloudImage)
+                        case "cloud.sun":
+                            guard let cloudSunImage = UIImage(systemName: "\(dailyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.cloudyImage, .dayImage])) else { return }
+                            self?.dailyForecastView.weatherImageArray.append(cloudSunImage)
+                        case "cloud.drizzle":
+                            guard let drizzle = UIImage(systemName: "\(dailyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.rainyImage, .systemCyan])) else { return }
+                            self?.dailyForecastView.weatherImageArray.append(drizzle)
+                        case "cloud.rain":
+                            guard let rain = UIImage(systemName: "\(dailyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.rainyImage, .systemCyan])) else { return }
+                            self?.dailyForecastView.weatherImageArray.append(rain)
+                        case "cloud.bolt.rain":
+                            guard let thunderBolt = UIImage(systemName: "\(dailyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.rainyImage, .systemCyan])) else { return }
+                            self?.dailyForecastView.weatherImageArray.append(thunderBolt)
+                        default:
+                            break
+                        }
+                        
+                        // MARK: - 최고 온도
+                        let highestTemperature = String(round(dailyWeather.highTemperature.value * 10) / 10)
+                        self?.dailyForecastView.highestCelsiusArray.append(highestTemperature)
+                        
+                        // MARK: - 최저 온도
+                        let lowestTemperature = String(round(dailyWeather.lowTemperature.value * 10) / 10)
+                        self?.dailyForecastView.highestCelsiusArray.append(lowestTemperature)
+                        
+                    }
+                }
+            }
+            .store(in: &cancellables)
     }
     
     func setAutolayout() {
@@ -388,7 +465,7 @@ extension WeatherController: ViewDrawable {
     }
     
     private func fillStackView() {
-        let companyArray = [mainInformationView, hourlyForecastView, tenDaysForecastView]
+        let companyArray = [mainInformationView, hourlyForecastView, dailyForecastView]
         for company in companyArray {
             var elementView = UIView()
             elementView = company
@@ -421,7 +498,10 @@ extension WeatherController {
             detailColoring(mainInformationView: mainInformationView, backgroundColor: .nightBackground, mainLabelColor: .nightMainLabel, sideLabelColor: .nightSideLabel, symbolName: symbolName, paletteColors1: .nightImage, paletteColors2: .white, paletteColors3: .clear)
             
         case "cloud":
-            detailColoring(mainInformationView: mainInformationView, backgroundColor: .cloudyBackground, mainLabelColor: .cloudyMainLabel, sideLabelColor: .cloudySideLabel, symbolName: symbolName, paletteColors1: .cloudyImage, paletteColors2: .white, paletteColors3: .clear)
+            detailColoring(mainInformationView: mainInformationView, backgroundColor: .cloudyBackground, mainLabelColor: .cloudyMainLabel, sideLabelColor: .cloudySideLabel, symbolName: symbolName, paletteColors1: .cloudyImage, paletteColors2: .cloudyImage, paletteColors3: .clear)
+            
+        case "cloud.sun":
+            detailColoring(mainInformationView: mainInformationView, backgroundColor: .cloudyBackground, mainLabelColor: .cloudyMainLabel, sideLabelColor: .cloudySideLabel, symbolName: symbolName, paletteColors1: .cloudyImage, paletteColors2: .dayImage, paletteColors3: .clear)
             
         case "cloud.drizzle":
             detailColoring(mainInformationView: mainInformationView, backgroundColor: .rainyBackground, mainLabelColor: .rainyMainLabel, sideLabelColor: .rainySideLabel, symbolName: symbolName, paletteColors1: .rainyImage, paletteColors2: .systemCyan, paletteColors3: .clear)
@@ -737,6 +817,7 @@ extension WeatherController: CLLocationManagerDelegate {
         // MARK: - WeatherKit 실행
         mainInformationViewModel.fetchWeather(location: location)
         hourlyForecastViewModel.fetchWeather(location: location)
+        dailyForecastViewModel.fetchWeather(location: location)
         
     }
 }

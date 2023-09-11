@@ -19,7 +19,7 @@
 		EA1D87D42AA8903800A3368E /* MainInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D87D32AA8903800A3368E /* MainInformationViewModel.swift */; };
 		EA1D87D72AA8952A00A3368E /* MainInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D87D62AA8952A00A3368E /* MainInformationView.swift */; };
 		EA1D87D92AA8954200A3368E /* HourlyForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D87D82AA8954200A3368E /* HourlyForecastView.swift */; };
-		EA1D87DB2AA8954C00A3368E /* TenDaysForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D87DA2AA8954C00A3368E /* TenDaysForecastView.swift */; };
+		EA1D87DB2AA8954C00A3368E /* DailyForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D87DA2AA8954C00A3368E /* DailyForecastView.swift */; };
 		EA1D87DD2AA8955A00A3368E /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D87DC2AA8955A00A3368E /* Colors.swift */; };
 		EA1D87DF2AA8984600A3368E /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D87DE2AA8984600A3368E /* SearchResultViewController.swift */; };
 		EA1D87E12AA898A700A3368E /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D87E02AA898A700A3368E /* SearchBar.swift */; };
@@ -47,6 +47,8 @@
 		EA1D88272AA9D27800A3368E /* HourlyForecastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D88262AA9D27800A3368E /* HourlyForecastCell.swift */; };
 		EA1D882B2AA9D2CC00A3368E /* GradientContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D882A2AA9D2CC00A3368E /* GradientContainerView.swift */; };
 		EA1D882D2AA9D40100A3368E /* HourlyForecastViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D882C2AA9D40100A3368E /* HourlyForecastViewModel.swift */; };
+		EA1D88312AAEEE8100A3368E /* DailyForecastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D88302AAEEE8100A3368E /* DailyForecastCell.swift */; };
+		EA1D88332AAEF04D00A3368E /* DailyForecastViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D88322AAEF04D00A3368E /* DailyForecastViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,7 +69,7 @@
 		EA1D87D32AA8903800A3368E /* MainInformationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInformationViewModel.swift; sourceTree = "<group>"; };
 		EA1D87D62AA8952A00A3368E /* MainInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInformationView.swift; sourceTree = "<group>"; };
 		EA1D87D82AA8954200A3368E /* HourlyForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyForecastView.swift; sourceTree = "<group>"; };
-		EA1D87DA2AA8954C00A3368E /* TenDaysForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenDaysForecastView.swift; sourceTree = "<group>"; };
+		EA1D87DA2AA8954C00A3368E /* DailyForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyForecastView.swift; sourceTree = "<group>"; };
 		EA1D87DC2AA8955A00A3368E /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		EA1D87DE2AA8984600A3368E /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		EA1D87E02AA898A700A3368E /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
@@ -97,6 +99,8 @@
 		EA1D88262AA9D27800A3368E /* HourlyForecastCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyForecastCell.swift; sourceTree = "<group>"; };
 		EA1D882A2AA9D2CC00A3368E /* GradientContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientContainerView.swift; sourceTree = "<group>"; };
 		EA1D882C2AA9D40100A3368E /* HourlyForecastViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyForecastViewModel.swift; sourceTree = "<group>"; };
+		EA1D88302AAEEE8100A3368E /* DailyForecastCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyForecastCell.swift; sourceTree = "<group>"; };
+		EA1D88322AAEF04D00A3368E /* DailyForecastViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyForecastViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,7 +167,7 @@
 			children = (
 				EA1D87D62AA8952A00A3368E /* MainInformationView.swift */,
 				EA1D87D82AA8954200A3368E /* HourlyForecastView.swift */,
-				EA1D87DA2AA8954C00A3368E /* TenDaysForecastView.swift */,
+				EA1D87DA2AA8954C00A3368E /* DailyForecastView.swift */,
 				EA1D88292AA9D2AF00A3368E /* CustomView */,
 				EA1D88282AA9D27B00A3368E /* Cell */,
 				EA1D87D52AA8951400A3368E /* Controller */,
@@ -176,6 +180,7 @@
 			children = (
 				EA1D87D32AA8903800A3368E /* MainInformationViewModel.swift */,
 				EA1D882C2AA9D40100A3368E /* HourlyForecastViewModel.swift */,
+				EA1D88322AAEF04D00A3368E /* DailyForecastViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -246,6 +251,7 @@
 			isa = PBXGroup;
 			children = (
 				EA1D88262AA9D27800A3368E /* HourlyForecastCell.swift */,
+				EA1D88302AAEEE8100A3368E /* DailyForecastCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -402,16 +408,18 @@
 			files = (
 				EA1D87BB2AA875E800A3368E /* WeatherController.swift in Sources */,
 				EA1D87DD2AA8955A00A3368E /* Colors.swift in Sources */,
-				EA1D87DB2AA8954C00A3368E /* TenDaysForecastView.swift in Sources */,
+				EA1D87DB2AA8954C00A3368E /* DailyForecastView.swift in Sources */,
 				EA1D88232AA97DBF00A3368E /* PatriculateMatterNetworkManager.swift in Sources */,
 				EA1D87D72AA8952A00A3368E /* MainInformationView.swift in Sources */,
 				EA1D87D42AA8903800A3368E /* MainInformationViewModel.swift in Sources */,
 				EA1D87E12AA898A700A3368E /* SearchBar.swift in Sources */,
 				EA1D87B72AA875E800A3368E /* AppDelegate.swift in Sources */,
+				EA1D88312AAEEE8100A3368E /* DailyForecastCell.swift in Sources */,
 				EA1D87E32AA8999800A3368E /* MainTabController.swift in Sources */,
 				EA1D87D22AA88C0400A3368E /* Location.swift in Sources */,
 				EA1D88272AA9D27800A3368E /* HourlyForecastCell.swift in Sources */,
 				EA1D882D2AA9D40100A3368E /* HourlyForecastViewModel.swift in Sources */,
+				EA1D88332AAEF04D00A3368E /* DailyForecastViewModel.swift in Sources */,
 				EA1D87D92AA8954200A3368E /* HourlyForecastView.swift in Sources */,
 				EA1D87DF2AA8984600A3368E /* SearchResultViewController.swift in Sources */,
 				EA1D88202AA97DA100A3368E /* ParticulateMatter.swift in Sources */,

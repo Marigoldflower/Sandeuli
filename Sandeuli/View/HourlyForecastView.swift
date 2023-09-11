@@ -25,6 +25,10 @@ final class HourlyForecastView: UIView {
         return collectionView
     }()
     
+    // MARK: - 일출 & 일몰 한 번만 didSet이 불리도록 하는 변수
+    var sunriseDidSetCallCount = Int()
+    var sunsetDidSetCallCount = Int()
+    
     // MARK: - Data Components
     var timeArray: [String] = [] {
         didSet {
@@ -54,24 +58,31 @@ final class HourlyForecastView: UIView {
     }
     var sunrise: String = String() {
         didSet {
-            print("Sunrise에 값이 들어왔습니다 \(sunrise)")
-            if let sunriseIndex = timeArray.firstIndex(of: sunriseCompareWithCollectionView) {
-                
-                self.timeArray.insert(sunrise, at: sunriseIndex + 1)
-                self.temperatureArray.insert("일출", at: sunriseIndex + 1)
-                self.weatherImageArray.insert(UIImage(systemName: "sunrise.fill")?.withRenderingMode(.alwaysOriginal) ?? UIImage(), at: sunriseIndex + 1)
-            }
+            sunriseDidSetCallCount += 1
             
+            if sunsetDidSetCallCount == 1 {
+                print("Sunrise에 값이 들어왔습니다 \(sunrise)")
+                if let sunriseIndex = timeArray.firstIndex(of: sunriseCompareWithCollectionView) {
+                    
+                    self.timeArray.insert(sunrise, at: sunriseIndex + 1)
+                    self.temperatureArray.insert("일출", at: sunriseIndex + 1)
+                    self.weatherImageArray.insert(UIImage(systemName: "sunrise.fill")?.withRenderingMode(.alwaysOriginal) ?? UIImage(), at: sunriseIndex + 1)
+                }
+            }
         }
     }
     var sunset: String = String() {
         didSet {
-            print("Sunset에 값이 들어왔습니다 \(sunset)")
-            if let sunsetIndex = timeArray.firstIndex(of: sunsetCompareWithCollectionView) {
-                
-                self.timeArray.insert(sunset, at: sunsetIndex + 1)
-                self.temperatureArray.insert("일몰", at: sunsetIndex + 1)
-                self.weatherImageArray.insert(UIImage(systemName: "sunset.fill")?.withRenderingMode(.alwaysOriginal) ?? UIImage(), at: sunsetIndex + 1)
+            sunsetDidSetCallCount += 1
+            
+            if sunsetDidSetCallCount == 1 {
+                print("Sunset에 값이 들어왔습니다 \(sunset)")
+                if let sunsetIndex = timeArray.firstIndex(of: sunsetCompareWithCollectionView) {
+                    
+                    self.timeArray.insert(sunset, at: sunsetIndex + 1)
+                    self.temperatureArray.insert("일몰", at: sunsetIndex + 1)
+                    self.weatherImageArray.insert(UIImage(systemName: "sunset.fill")?.withRenderingMode(.alwaysOriginal) ?? UIImage(), at: sunsetIndex + 1)
+                }
             }
         }
     }

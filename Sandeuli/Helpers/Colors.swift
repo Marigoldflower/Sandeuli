@@ -34,8 +34,8 @@ extension UIColor {
    
     // MARK: - Cloudy
     static let cloudyBackground = UIColor(red: 0.87, green: 0.93, blue: 0.95, alpha: 1.00)
-//    static let cloudyImage = UIColor(red: 0.41, green: 0.81, blue: 0.90, alpha: 1.00)
-    static let cloudyImage = UIColor(red: 0.99, green: 0.99, blue: 0.99, alpha: 1.00)
+    static let cloudyImage = UIColor(red: 0.41, green: 0.81, blue: 0.90, alpha: 1.00)
+//    static let cloudyImage = UIColor(red: 0.99, green: 0.99, blue: 0.99, alpha: 1.00)
     static let cloudyMainLabel = UIColor(red: 0.28, green: 0.29, blue: 0.51, alpha: 1.00)
     static let cloudySideLabel = UIColor(red: 0.28, green: 0.29, blue: 0.51, alpha: 1.00)
 
