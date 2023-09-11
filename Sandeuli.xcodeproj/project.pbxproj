@@ -7,23 +7,96 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		323BFBFF9AB1A5CF77232F30 /* Pods_Sandeuli.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F6235A04B2CF57F0DC4731 /* Pods_Sandeuli.framework */; };
 		EA1D87B72AA875E800A3368E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D87B62AA875E800A3368E /* AppDelegate.swift */; };
 		EA1D87B92AA875E800A3368E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D87B82AA875E800A3368E /* SceneDelegate.swift */; };
-		EA1D87BB2AA875E800A3368E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D87BA2AA875E800A3368E /* ViewController.swift */; };
+		EA1D87BB2AA875E800A3368E /* WeatherController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D87BA2AA875E800A3368E /* WeatherController.swift */; };
 		EA1D87BE2AA875E800A3368E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA1D87BC2AA875E800A3368E /* Main.storyboard */; };
 		EA1D87C02AA875E900A3368E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA1D87BF2AA875E900A3368E /* Assets.xcassets */; };
 		EA1D87C32AA875E900A3368E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA1D87C12AA875E900A3368E /* LaunchScreen.storyboard */; };
+		EA1D87D02AA87A6800A3368E /* ViewDrawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D87CF2AA87A6800A3368E /* ViewDrawable.swift */; };
+		EA1D87D22AA88C0400A3368E /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D87D12AA88C0400A3368E /* Location.swift */; };
+		EA1D87D42AA8903800A3368E /* MainInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D87D32AA8903800A3368E /* MainInformationViewModel.swift */; };
+		EA1D87D72AA8952A00A3368E /* MainInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D87D62AA8952A00A3368E /* MainInformationView.swift */; };
+		EA1D87D92AA8954200A3368E /* HourlyForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D87D82AA8954200A3368E /* HourlyForecastView.swift */; };
+		EA1D87DB2AA8954C00A3368E /* TenDaysForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D87DA2AA8954C00A3368E /* TenDaysForecastView.swift */; };
+		EA1D87DD2AA8955A00A3368E /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D87DC2AA8955A00A3368E /* Colors.swift */; };
+		EA1D87DF2AA8984600A3368E /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D87DE2AA8984600A3368E /* SearchResultViewController.swift */; };
+		EA1D87E12AA898A700A3368E /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D87E02AA898A700A3368E /* SearchBar.swift */; };
+		EA1D87E32AA8999800A3368E /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D87E22AA8999700A3368E /* MainTabController.swift */; };
+		EA1D88092AA8A57C00A3368E /* Poppins-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = EA1D87FA2AA8A54F00A3368E /* Poppins-Black.otf */; };
+		EA1D880A2AA8A57E00A3368E /* Poppins-BlackItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = EA1D88072AA8A55000A3368E /* Poppins-BlackItalic.otf */; };
+		EA1D880B2AA8A58000A3368E /* Poppins-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = EA1D87F92AA8A54F00A3368E /* Poppins-Bold.otf */; };
+		EA1D880C2AA8A58200A3368E /* Poppins-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = EA1D88032AA8A55000A3368E /* Poppins-BoldItalic.otf */; };
+		EA1D880D2AA8A58400A3368E /* Poppins-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = EA1D87F72AA8A54F00A3368E /* Poppins-ExtraBold.otf */; };
+		EA1D880E2AA8A58600A3368E /* Poppins-ExtraBoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = EA1D87FB2AA8A55000A3368E /* Poppins-ExtraBoldItalic.otf */; };
+		EA1D880F2AA8A58800A3368E /* Poppins-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = EA1D88012AA8A55000A3368E /* Poppins-ExtraLight.otf */; };
+		EA1D88102AA8A58A00A3368E /* Poppins-ExtraLightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = EA1D88082AA8A55000A3368E /* Poppins-ExtraLightItalic.otf */; };
+		EA1D88112AA8A58C00A3368E /* Poppins-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = EA1D87FF2AA8A55000A3368E /* Poppins-Italic.otf */; };
+		EA1D88122AA8A58E00A3368E /* Poppins-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = EA1D88002AA8A55000A3368E /* Poppins-Light.otf */; };
+		EA1D88132AA8A59000A3368E /* Poppins-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = EA1D88022AA8A55000A3368E /* Poppins-LightItalic.otf */; };
+		EA1D88142AA8A59200A3368E /* Poppins-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = EA1D87FD2AA8A55000A3368E /* Poppins-Medium.otf */; };
+		EA1D88152AA8A59600A3368E /* Poppins-MediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = EA1D87F82AA8A54F00A3368E /* Poppins-MediumItalic.otf */; };
+		EA1D88162AA8A59800A3368E /* Poppins-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = EA1D88052AA8A55000A3368E /* Poppins-Regular.otf */; };
+		EA1D88172AA8A59A00A3368E /* Poppins-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = EA1D87FE2AA8A55000A3368E /* Poppins-SemiBold.otf */; };
+		EA1D88182AA8A59C00A3368E /* Poppins-SemiBoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = EA1D87FC2AA8A55000A3368E /* Poppins-SemiBoldItalic.otf */; };
+		EA1D88192AA8A59F00A3368E /* Poppins-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = EA1D88062AA8A55000A3368E /* Poppins-Thin.otf */; };
+		EA1D881A2AA8A5A100A3368E /* Poppins-ThinItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = EA1D88042AA8A55000A3368E /* Poppins-ThinItalic.otf */; };
+		EA1D88202AA97DA100A3368E /* ParticulateMatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D881F2AA97DA100A3368E /* ParticulateMatter.swift */; };
+		EA1D88232AA97DBF00A3368E /* PatriculateMatterNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D88222AA97DBF00A3368E /* PatriculateMatterNetworkManager.swift */; };
+		EA1D88272AA9D27800A3368E /* HourlyForecastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D88262AA9D27800A3368E /* HourlyForecastCell.swift */; };
+		EA1D882B2AA9D2CC00A3368E /* GradientContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D882A2AA9D2CC00A3368E /* GradientContainerView.swift */; };
+		EA1D882D2AA9D40100A3368E /* HourlyForecastViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D882C2AA9D40100A3368E /* HourlyForecastViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		01B5754B7D806A41F48E9C84 /* Pods-Sandeuli.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sandeuli.release.xcconfig"; path = "Target Support Files/Pods-Sandeuli/Pods-Sandeuli.release.xcconfig"; sourceTree = "<group>"; };
+		50D6950D84863E635F5774E3 /* Pods-Sandeuli.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sandeuli.debug.xcconfig"; path = "Target Support Files/Pods-Sandeuli/Pods-Sandeuli.debug.xcconfig"; sourceTree = "<group>"; };
+		63F6235A04B2CF57F0DC4731 /* Pods_Sandeuli.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sandeuli.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA1D87B32AA875E800A3368E /* Sandeuli.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sandeuli.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA1D87B62AA875E800A3368E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EA1D87B82AA875E800A3368E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		EA1D87BA2AA875E800A3368E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		EA1D87BA2AA875E800A3368E /* WeatherController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherController.swift; sourceTree = "<group>"; };
 		EA1D87BD2AA875E800A3368E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EA1D87BF2AA875E900A3368E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EA1D87C22AA875E900A3368E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EA1D87C42AA875E900A3368E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EA1D87CD2AA8785800A3368E /* Sandeuli.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Sandeuli.entitlements; sourceTree = "<group>"; };
+		EA1D87CF2AA87A6800A3368E /* ViewDrawable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewDrawable.swift; sourceTree = "<group>"; };
+		EA1D87D12AA88C0400A3368E /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		EA1D87D32AA8903800A3368E /* MainInformationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInformationViewModel.swift; sourceTree = "<group>"; };
+		EA1D87D62AA8952A00A3368E /* MainInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInformationView.swift; sourceTree = "<group>"; };
+		EA1D87D82AA8954200A3368E /* HourlyForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyForecastView.swift; sourceTree = "<group>"; };
+		EA1D87DA2AA8954C00A3368E /* TenDaysForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenDaysForecastView.swift; sourceTree = "<group>"; };
+		EA1D87DC2AA8955A00A3368E /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		EA1D87DE2AA8984600A3368E /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
+		EA1D87E02AA898A700A3368E /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		EA1D87E22AA8999700A3368E /* MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
+		EA1D87F72AA8A54F00A3368E /* Poppins-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-ExtraBold.otf"; path = "../../../SandeulSandeul/SandeulSandeul/Font/Poppins-ExtraBold.otf"; sourceTree = "<group>"; };
+		EA1D87F82AA8A54F00A3368E /* Poppins-MediumItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-MediumItalic.otf"; path = "../../../SandeulSandeul/SandeulSandeul/Font/Poppins-MediumItalic.otf"; sourceTree = "<group>"; };
+		EA1D87F92AA8A54F00A3368E /* Poppins-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-Bold.otf"; path = "../../../SandeulSandeul/SandeulSandeul/Font/Poppins-Bold.otf"; sourceTree = "<group>"; };
+		EA1D87FA2AA8A54F00A3368E /* Poppins-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-Black.otf"; path = "../../../SandeulSandeul/SandeulSandeul/Font/Poppins-Black.otf"; sourceTree = "<group>"; };
+		EA1D87FB2AA8A55000A3368E /* Poppins-ExtraBoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-ExtraBoldItalic.otf"; path = "../../../SandeulSandeul/SandeulSandeul/Font/Poppins-ExtraBoldItalic.otf"; sourceTree = "<group>"; };
+		EA1D87FC2AA8A55000A3368E /* Poppins-SemiBoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-SemiBoldItalic.otf"; path = "../../../SandeulSandeul/SandeulSandeul/Font/Poppins-SemiBoldItalic.otf"; sourceTree = "<group>"; };
+		EA1D87FD2AA8A55000A3368E /* Poppins-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-Medium.otf"; path = "../../../SandeulSandeul/SandeulSandeul/Font/Poppins-Medium.otf"; sourceTree = "<group>"; };
+		EA1D87FE2AA8A55000A3368E /* Poppins-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-SemiBold.otf"; path = "../../../SandeulSandeul/SandeulSandeul/Font/Poppins-SemiBold.otf"; sourceTree = "<group>"; };
+		EA1D87FF2AA8A55000A3368E /* Poppins-Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-Italic.otf"; path = "../../../SandeulSandeul/SandeulSandeul/Font/Poppins-Italic.otf"; sourceTree = "<group>"; };
+		EA1D88002AA8A55000A3368E /* Poppins-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-Light.otf"; path = "../../../SandeulSandeul/SandeulSandeul/Font/Poppins-Light.otf"; sourceTree = "<group>"; };
+		EA1D88012AA8A55000A3368E /* Poppins-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-ExtraLight.otf"; path = "../../../SandeulSandeul/SandeulSandeul/Font/Poppins-ExtraLight.otf"; sourceTree = "<group>"; };
+		EA1D88022AA8A55000A3368E /* Poppins-LightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-LightItalic.otf"; path = "../../../SandeulSandeul/SandeulSandeul/Font/Poppins-LightItalic.otf"; sourceTree = "<group>"; };
+		EA1D88032AA8A55000A3368E /* Poppins-BoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-BoldItalic.otf"; path = "../../../SandeulSandeul/SandeulSandeul/Font/Poppins-BoldItalic.otf"; sourceTree = "<group>"; };
+		EA1D88042AA8A55000A3368E /* Poppins-ThinItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-ThinItalic.otf"; path = "../../../SandeulSandeul/SandeulSandeul/Font/Poppins-ThinItalic.otf"; sourceTree = "<group>"; };
+		EA1D88052AA8A55000A3368E /* Poppins-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-Regular.otf"; path = "../../../SandeulSandeul/SandeulSandeul/Font/Poppins-Regular.otf"; sourceTree = "<group>"; };
+		EA1D88062AA8A55000A3368E /* Poppins-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-Thin.otf"; path = "../../../SandeulSandeul/SandeulSandeul/Font/Poppins-Thin.otf"; sourceTree = "<group>"; };
+		EA1D88072AA8A55000A3368E /* Poppins-BlackItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-BlackItalic.otf"; path = "../../../SandeulSandeul/SandeulSandeul/Font/Poppins-BlackItalic.otf"; sourceTree = "<group>"; };
+		EA1D88082AA8A55000A3368E /* Poppins-ExtraLightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-ExtraLightItalic.otf"; path = "../../../SandeulSandeul/SandeulSandeul/Font/Poppins-ExtraLightItalic.otf"; sourceTree = "<group>"; };
+		EA1D881B2AA8B8E600A3368E /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
+		EA1D881C2AA8B8E600A3368E /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		EA1D881F2AA97DA100A3368E /* ParticulateMatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticulateMatter.swift; sourceTree = "<group>"; };
+		EA1D88222AA97DBF00A3368E /* PatriculateMatterNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatriculateMatterNetworkManager.swift; sourceTree = "<group>"; };
+		EA1D88262AA9D27800A3368E /* HourlyForecastCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyForecastCell.swift; sourceTree = "<group>"; };
+		EA1D882A2AA9D2CC00A3368E /* GradientContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientContainerView.swift; sourceTree = "<group>"; };
+		EA1D882C2AA9D40100A3368E /* HourlyForecastViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyForecastViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +104,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				323BFBFF9AB1A5CF77232F30 /* Pods_Sandeuli.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CBA4C4C3046E00FA3B81E9AF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				50D6950D84863E635F5774E3 /* Pods-Sandeuli.debug.xcconfig */,
+				01B5754B7D806A41F48E9C84 /* Pods-Sandeuli.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		EA1D87AA2AA875E700A3368E = {
 			isa = PBXGroup;
 			children = (
 				EA1D87B52AA875E800A3368E /* Sandeuli */,
 				EA1D87B42AA875E800A3368E /* Products */,
+				CBA4C4C3046E00FA3B81E9AF /* Pods */,
+				EE4FE625B82005F22B1F5E8C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,15 +141,129 @@
 		EA1D87B52AA875E800A3368E /* Sandeuli */ = {
 			isa = PBXGroup;
 			children = (
+				EA1D87CD2AA8785800A3368E /* Sandeuli.entitlements */,
 				EA1D87B62AA875E800A3368E /* AppDelegate.swift */,
 				EA1D87B82AA875E800A3368E /* SceneDelegate.swift */,
-				EA1D87BA2AA875E800A3368E /* ViewController.swift */,
+				EA1D88212AA97DB000A3368E /* Network */,
+				EA1D87E42AA89AF200A3368E /* Fonts */,
+				EA1D87CE2AA87A5D00A3368E /* Helpers */,
+				EA1D87CC2AA875FE00A3368E /* Model */,
+				EA1D87CB2AA875F400A3368E /* ViewModel */,
+				EA1D87CA2AA875F000A3368E /* View */,
 				EA1D87BC2AA875E800A3368E /* Main.storyboard */,
 				EA1D87BF2AA875E900A3368E /* Assets.xcassets */,
 				EA1D87C12AA875E900A3368E /* LaunchScreen.storyboard */,
 				EA1D87C42AA875E900A3368E /* Info.plist */,
 			);
 			path = Sandeuli;
+			sourceTree = "<group>";
+		};
+		EA1D87CA2AA875F000A3368E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EA1D87D62AA8952A00A3368E /* MainInformationView.swift */,
+				EA1D87D82AA8954200A3368E /* HourlyForecastView.swift */,
+				EA1D87DA2AA8954C00A3368E /* TenDaysForecastView.swift */,
+				EA1D88292AA9D2AF00A3368E /* CustomView */,
+				EA1D88282AA9D27B00A3368E /* Cell */,
+				EA1D87D52AA8951400A3368E /* Controller */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		EA1D87CB2AA875F400A3368E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				EA1D87D32AA8903800A3368E /* MainInformationViewModel.swift */,
+				EA1D882C2AA9D40100A3368E /* HourlyForecastViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		EA1D87CC2AA875FE00A3368E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				EA1D881F2AA97DA100A3368E /* ParticulateMatter.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		EA1D87CE2AA87A5D00A3368E /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				EA1D87CF2AA87A6800A3368E /* ViewDrawable.swift */,
+				EA1D87D12AA88C0400A3368E /* Location.swift */,
+				EA1D87DC2AA8955A00A3368E /* Colors.swift */,
+				EA1D87E02AA898A700A3368E /* SearchBar.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		EA1D87D52AA8951400A3368E /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				EA1D87E22AA8999700A3368E /* MainTabController.swift */,
+				EA1D87BA2AA875E800A3368E /* WeatherController.swift */,
+				EA1D87DE2AA8984600A3368E /* SearchResultViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		EA1D87E42AA89AF200A3368E /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				EA1D87FA2AA8A54F00A3368E /* Poppins-Black.otf */,
+				EA1D88072AA8A55000A3368E /* Poppins-BlackItalic.otf */,
+				EA1D87F92AA8A54F00A3368E /* Poppins-Bold.otf */,
+				EA1D88032AA8A55000A3368E /* Poppins-BoldItalic.otf */,
+				EA1D87F72AA8A54F00A3368E /* Poppins-ExtraBold.otf */,
+				EA1D87FB2AA8A55000A3368E /* Poppins-ExtraBoldItalic.otf */,
+				EA1D88012AA8A55000A3368E /* Poppins-ExtraLight.otf */,
+				EA1D88082AA8A55000A3368E /* Poppins-ExtraLightItalic.otf */,
+				EA1D87FF2AA8A55000A3368E /* Poppins-Italic.otf */,
+				EA1D88002AA8A55000A3368E /* Poppins-Light.otf */,
+				EA1D88022AA8A55000A3368E /* Poppins-LightItalic.otf */,
+				EA1D87FD2AA8A55000A3368E /* Poppins-Medium.otf */,
+				EA1D87F82AA8A54F00A3368E /* Poppins-MediumItalic.otf */,
+				EA1D88052AA8A55000A3368E /* Poppins-Regular.otf */,
+				EA1D87FE2AA8A55000A3368E /* Poppins-SemiBold.otf */,
+				EA1D87FC2AA8A55000A3368E /* Poppins-SemiBoldItalic.otf */,
+				EA1D88062AA8A55000A3368E /* Poppins-Thin.otf */,
+				EA1D88042AA8A55000A3368E /* Poppins-ThinItalic.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		EA1D88212AA97DB000A3368E /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				EA1D88222AA97DBF00A3368E /* PatriculateMatterNetworkManager.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		EA1D88282AA9D27B00A3368E /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				EA1D88262AA9D27800A3368E /* HourlyForecastCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		EA1D88292AA9D2AF00A3368E /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				EA1D882A2AA9D2CC00A3368E /* GradientContainerView.swift */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
+		EE4FE625B82005F22B1F5E8C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				63F6235A04B2CF57F0DC4731 /* Pods_Sandeuli.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +273,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EA1D87C72AA875E900A3368E /* Build configuration list for PBXNativeTarget "Sandeuli" */;
 			buildPhases = (
+				9E7C7B41F5BDA69725845071 /* [CP] Check Pods Manifest.lock */,
 				EA1D87AF2AA875E800A3368E /* Sources */,
 				EA1D87B02AA875E800A3368E /* Frameworks */,
 				EA1D87B12AA875E800A3368E /* Resources */,
+				B6F6141660882E63D5F848CC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -109,6 +310,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ko,
 			);
 			mainGroup = EA1D87AA2AA875E700A3368E;
 			productRefGroup = EA1D87B42AA875E800A3368E /* Products */;
@@ -125,21 +327,96 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA1D88132AA8A59000A3368E /* Poppins-LightItalic.otf in Resources */,
+				EA1D880B2AA8A58000A3368E /* Poppins-Bold.otf in Resources */,
+				EA1D88172AA8A59A00A3368E /* Poppins-SemiBold.otf in Resources */,
 				EA1D87C32AA875E900A3368E /* LaunchScreen.storyboard in Resources */,
+				EA1D88192AA8A59F00A3368E /* Poppins-Thin.otf in Resources */,
 				EA1D87C02AA875E900A3368E /* Assets.xcassets in Resources */,
+				EA1D880E2AA8A58600A3368E /* Poppins-ExtraBoldItalic.otf in Resources */,
+				EA1D880A2AA8A57E00A3368E /* Poppins-BlackItalic.otf in Resources */,
+				EA1D881A2AA8A5A100A3368E /* Poppins-ThinItalic.otf in Resources */,
+				EA1D88112AA8A58C00A3368E /* Poppins-Italic.otf in Resources */,
+				EA1D88102AA8A58A00A3368E /* Poppins-ExtraLightItalic.otf in Resources */,
+				EA1D880F2AA8A58800A3368E /* Poppins-ExtraLight.otf in Resources */,
 				EA1D87BE2AA875E800A3368E /* Main.storyboard in Resources */,
+				EA1D880C2AA8A58200A3368E /* Poppins-BoldItalic.otf in Resources */,
+				EA1D88092AA8A57C00A3368E /* Poppins-Black.otf in Resources */,
+				EA1D88162AA8A59800A3368E /* Poppins-Regular.otf in Resources */,
+				EA1D88152AA8A59600A3368E /* Poppins-MediumItalic.otf in Resources */,
+				EA1D88122AA8A58E00A3368E /* Poppins-Light.otf in Resources */,
+				EA1D880D2AA8A58400A3368E /* Poppins-ExtraBold.otf in Resources */,
+				EA1D88182AA8A59C00A3368E /* Poppins-SemiBoldItalic.otf in Resources */,
+				EA1D88142AA8A59200A3368E /* Poppins-Medium.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		9E7C7B41F5BDA69725845071 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Sandeuli-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B6F6141660882E63D5F848CC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Sandeuli/Pods-Sandeuli-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Sandeuli/Pods-Sandeuli-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sandeuli/Pods-Sandeuli-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		EA1D87AF2AA875E800A3368E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA1D87BB2AA875E800A3368E /* ViewController.swift in Sources */,
+				EA1D87BB2AA875E800A3368E /* WeatherController.swift in Sources */,
+				EA1D87DD2AA8955A00A3368E /* Colors.swift in Sources */,
+				EA1D87DB2AA8954C00A3368E /* TenDaysForecastView.swift in Sources */,
+				EA1D88232AA97DBF00A3368E /* PatriculateMatterNetworkManager.swift in Sources */,
+				EA1D87D72AA8952A00A3368E /* MainInformationView.swift in Sources */,
+				EA1D87D42AA8903800A3368E /* MainInformationViewModel.swift in Sources */,
+				EA1D87E12AA898A700A3368E /* SearchBar.swift in Sources */,
 				EA1D87B72AA875E800A3368E /* AppDelegate.swift in Sources */,
+				EA1D87E32AA8999800A3368E /* MainTabController.swift in Sources */,
+				EA1D87D22AA88C0400A3368E /* Location.swift in Sources */,
+				EA1D88272AA9D27800A3368E /* HourlyForecastCell.swift in Sources */,
+				EA1D882D2AA9D40100A3368E /* HourlyForecastViewModel.swift in Sources */,
+				EA1D87D92AA8954200A3368E /* HourlyForecastView.swift in Sources */,
+				EA1D87DF2AA8984600A3368E /* SearchResultViewController.swift in Sources */,
+				EA1D88202AA97DA100A3368E /* ParticulateMatter.swift in Sources */,
+				EA1D882B2AA9D2CC00A3368E /* GradientContainerView.swift in Sources */,
+				EA1D87D02AA87A6800A3368E /* ViewDrawable.swift in Sources */,
 				EA1D87B92AA875E800A3368E /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -151,6 +428,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				EA1D87BD2AA875E800A3368E /* Base */,
+				EA1D881B2AA8B8E600A3368E /* ko */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -159,6 +437,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				EA1D87C22AA875E900A3368E /* Base */,
+				EA1D881C2AA8B8E600A3368E /* ko */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -170,6 +449,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -230,6 +510,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -282,9 +563,11 @@
 		};
 		EA1D87C82AA875E900A3368E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 50D6950D84863E635F5774E3 /* Pods-Sandeuli.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Sandeuli/Sandeuli.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = T9LJ52AQY5;
@@ -310,9 +593,11 @@
 		};
 		EA1D87C92AA875E900A3368E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 01B5754B7D806A41F48E9C84 /* Pods-Sandeuli.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Sandeuli/Sandeuli.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = T9LJ52AQY5;
