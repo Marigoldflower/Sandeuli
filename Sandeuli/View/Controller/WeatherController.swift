@@ -114,7 +114,10 @@ extension WeatherController: ViewDrawable {
     }
     
     private func setMainInformationViewData() {
-        Publishers.Zip4(mainInformationViewModel.$todayCurrentWeather, mainInformationViewModel.$particulateMatter, mainInformationViewModel.$ultraParticulateMatter, mainInformationViewModel.$dailyForecast)
+        Publishers.Zip4(mainInformationViewModel.$todayCurrentWeather,
+                        mainInformationViewModel.$particulateMatter,
+                        mainInformationViewModel.$ultraParticulateMatter,
+                        mainInformationViewModel.$dailyForecast)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] currentWeather, particulateMatter, ultraParticulate, dailyForecast in
                 guard let currentWeather = currentWeather else { return }
@@ -209,51 +212,43 @@ extension WeatherController: ViewDrawable {
     }
     
     private func setHourlyForecastViewData() {
-        hourlyForecastViewModel.$hourlyForecast
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] hourlyForecast in
+        Publishers.Zip(hourlyForecastViewModel.$hourlyForecast,
+                       hourlyForecastViewModel.$dailyForecast)
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] hourlyForecast, dailyForecast in
+            for hourlyWeather in hourlyForecast {
                 
-                for hourlyWeather in hourlyForecast {
+                // MARK: - 현재 시간을 기점으로 후에 있는 데이터만 배열로 보내기 위해 만들어진 기준점
+                let currentFormatter = DateFormatter()
+                currentFormatter.dateFormat = "HH시"
+                let currentHourData = currentFormatter.string(from: Date())
+                
+                // MARK: - 배열로 보낼 데이터 값
+                let hourly = hourlyWeather.date
+                let formatter = DateFormatter()
+                formatter.dateFormat = "HH시"
+                let hourlyData = formatter.string(from: hourly)
+                print("여기엔 무슨 데이터가 들어와? \(hourlyData)")
+                
+                // MARK: - 현재 날짜와 같거나 뒤에 있는 날짜만 통과시키기 위한 기준 시간
+                let compareFormatter = DateFormatter()
+                compareFormatter.dateFormat = "yyyy-MM-dd"
+                let compareDate = compareFormatter.string(from: hourly)
+                
+                // MARK: - 내 현재 날짜
+                let userFormatter = DateFormatter()
+                userFormatter.dateFormat = "yyyy-MM-dd"
+                let userToday = userFormatter.string(from: Date())
+                
+                // MARK: - 현재 날짜보다 뒤에 있으면서 현재 시간보다 뒤에 있는 시간대만 통과시키겠다는 로직
+                if userToday <= compareDate {
+                    // 오늘에 해당할 경우에만 현재 시간보다 뒤에 있는 시간대만 통과시키고
+                    // 오늘이 아닐 경우에는 모든 시간대를 통과시켜야 한다.
                     
-                    print("시간의 종합을 보여줘 \(hourlyWeather.date)")
-                    // 임시로 실험하기 위한 데이터
-//                    let check = hourlyWeather.date.addingTimeInterval(46800)
-//                    let checkFormatter = DateFormatter()
-//                    checkFormatter.dateFormat = "yyyy-MM-dd HH"
-//                    let checkData = checkFormatter.string(from: check)
-//                    print("우리나라 시간의 총합은 \(checkData)")
-                    
-                    let check = hourlyWeather.date
-                    let checkFormatter = DateFormatter()
-                    checkFormatter.dateFormat = "yyyy-MM-dd HH"
-                    let checkData = checkFormatter.string(from: check)
-//                    print("우리나라 시간의 총합은 \(checkData)")
-                    
-                    // MARK: - 현재 시간을 기점으로 후에 있는 데이터만 배열로 보내기 위해 만들어진 기준점
-                    let currentFormatter = DateFormatter()
-                    currentFormatter.dateFormat = "HH시"
-                    let currentHourData = currentFormatter.string(from: Date())
-                    
-                    // MARK: - 배열로 보낼 데이터 값
-                    let hourly = hourlyWeather.date
-                    let formatter = DateFormatter()
-                    formatter.dateFormat = "HH시"
-                    let hourlyData = formatter.string(from: hourly)
-                    print("여기엔 무슨 데이터가 들어와? \(hourlyData)")
-                    
-                    // MARK: - 현재 날짜와 같거나 뒤에 있는 날짜만 통과시키기 위한 기준 시간
-                    let compareFormatter = DateFormatter()
-                    compareFormatter.dateFormat = "yyyy-MM-dd"
-                    let compareDate = compareFormatter.string(from: hourly)
-                    
-                    // MARK: - 내 현재 날짜
-                    let userFormatter = DateFormatter()
-                    userFormatter.dateFormat = "yyyy-MM-dd"
-                    let userToday = userFormatter.string(from: Date())
-                    
-                    // MARK: - 현재 날짜보다 뒤에 있으면서 현재 시간보다 뒤에 있는 시간대만 통과시키겠다는 로직
-                    if userToday <= compareDate {
+                    // ⭐️ 오늘이라면
+                    if compareDate.contains(userToday) {
                         if currentHourData <= hourlyData {
+                            
                             // MARK: - 시간 데이터
                             self?.hourlyForecastView.timeArray.append(hourlyData)
                             
@@ -285,10 +280,74 @@ extension WeatherController: ViewDrawable {
                             let temperatureData = String(round(hourlyWeather.temperature.value * 10) / 10)
                             self?.hourlyForecastView.temperatureArray.append(temperatureData)
                         }
+                    } else {
+                        // ⭐️ 오늘이 아니라면
+                        // MARK: - 시간 데이터
+                        self?.hourlyForecastView.timeArray.append(hourlyData)
+                        
+                        // MARK: - 날씨 이미지 데이터
+                        switch hourlyWeather.symbolName {
+                        case "sun.max":
+                            guard let sunImage = UIImage(systemName: "\(hourlyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.dayImage])) else { return }
+                            self?.hourlyForecastView.weatherImageArray.append(sunImage)
+                        case "moon.stars":
+                            guard let moonImage = UIImage(systemName: "\(hourlyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.nightImage, .white])) else { return }
+                            self?.hourlyForecastView.weatherImageArray.append(moonImage)
+                        case "cloud":
+                            guard let cloudImage = UIImage(systemName: "\(hourlyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.cloudyImage, .white])) else { return }
+                            self?.hourlyForecastView.weatherImageArray.append(cloudImage)
+                        case "cloud.drizzle":
+                            guard let drizzle = UIImage(systemName: "\(hourlyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.rainyImage, .systemCyan])) else { return }
+                            self?.hourlyForecastView.weatherImageArray.append(drizzle)
+                        case "cloud.rain":
+                            guard let rain = UIImage(systemName: "\(hourlyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.rainyImage, .systemCyan])) else { return }
+                            self?.hourlyForecastView.weatherImageArray.append(rain)
+                        case "cloud.bolt.rain":
+                            guard let thunderBolt = UIImage(systemName: "\(hourlyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.rainyImage, .systemCyan])) else { return }
+                            self?.hourlyForecastView.weatherImageArray.append(thunderBolt)
+                        default:
+                            break
+                        }
+                        
+                        // MARK: - 온도 데이터
+                        let temperatureData = String(round(hourlyWeather.temperature.value * 10) / 10)
+                        self?.hourlyForecastView.temperatureArray.append(temperatureData)
                     }
                 }
             }
-            .store(in: &cancellables)
+            
+            for dailyWeather in dailyForecast {
+                // MARK: - 현재 날짜와 같거나 뒤에 있는 날짜만 통과시키기 위한 기준 시간
+                let daily = dailyWeather.date
+                let compareFormatter = DateFormatter()
+                compareFormatter.dateFormat = "yyyy-MM-dd"
+                let compareDate = compareFormatter.string(from: daily)
+                
+                // MARK: - 내 현재 날짜
+                let userFormatter = DateFormatter()
+                userFormatter.dateFormat = "yyyy-MM-dd"
+                let userToday = userFormatter.string(from: Date())
+                
+                // MARK: - 일출 & 일몰 String으로 변형해주기
+                guard let sunriseData = dailyWeather.sun.sunrise else { return }
+                guard let sunsetData = dailyWeather.sun.sunset else { return }
+                
+                let sunFormatter = DateFormatter()
+                sunFormatter.dateFormat = "HH:mm"
+                
+                let sunrise = sunFormatter.string(from: sunriseData)
+                let sunset = sunFormatter.string(from: sunsetData)
+                
+                if userToday <= compareDate {
+                    if compareDate.contains(userToday) {
+                        self?.hourlyForecastView.sunrise = sunrise
+                        self?.hourlyForecastView.sunset = sunset
+                    } 
+                }
+                
+            }
+        }
+        .store(in: &cancellables)
     }
     
     func setAutolayout() {
@@ -299,11 +358,11 @@ extension WeatherController: ViewDrawable {
         mainInformationView.snp.makeConstraints { make in
             make.height.equalTo(500)
         }
-
+        
         hourlyForecastView.snp.makeConstraints { make in
             make.height.equalTo(200)
         }
-
+        
         // MARK: - 스크롤 뷰 및 스택 뷰 레이아웃
         scrollView.snp.makeConstraints { make in
             make.leading.equalTo(view.snp.leading).offset(20)
@@ -311,7 +370,7 @@ extension WeatherController: ViewDrawable {
             make.trailing.equalTo(view.snp.trailing).offset(-20)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-20)
         }
-    
+        
         stackView.snp.makeConstraints { make in
             make.leading.equalTo(scrollView.snp.leading)
             make.top.equalTo(scrollView.snp.top)

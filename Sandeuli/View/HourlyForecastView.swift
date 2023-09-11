@@ -27,6 +27,38 @@ final class HourlyForecastView: UIView {
     
     var timeArray: [String] = [] {
         didSet {
+            timeArray[0] = "지금"
+            if let indexTomorrow = timeArray.firstIndex(of: "00시") {
+                timeArray[indexTomorrow] = "내일"
+            }
+            
+//            if let sunriseIndex = timeArray.firstIndex(of: "06시") {
+//                sunriseDidSetCallCount += 1
+//                if sunriseDidSetCallCount == 1 {
+//                    if currentTime > sunriseTime {
+//
+//                    } else {
+//                        self.timeArray.insert(self.sunriseTime, at: sunriseIndex)
+//                        self.temperatureArray.insert("일출", at: sunriseIndex)
+//                        self.weatherImageArray.insert(UIImage(systemName: "sunrise.fill")?.withRenderingMode(.alwaysOriginal) ?? UIImage(), at: sunriseIndex)
+//                    }
+//                }
+//            }
+//
+//            if let sunsetIndex = timeArray.firstIndex(of: "20시") {
+//                sunsetDidSetCallCount += 1
+//                if sunsetDidSetCallCount == 1 {
+//                    if currentTime > sunsetTime {
+//
+//                    } else {
+//                        print("일몰 타임은 \(sunsetTime)")
+//                        self.timeArray.insert(self.sunsetTime, at: sunsetIndex)
+//                        self.temperatureArray.insert("일몰", at: sunsetIndex)
+//                        self.weatherImageArray.insert(UIImage(systemName: "sunset.fill")?.withRenderingMode(.alwaysOriginal) ?? UIImage(), at: sunsetIndex)
+//                    }
+//                }
+//            }
+            
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
             }
@@ -44,6 +76,16 @@ final class HourlyForecastView: UIView {
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
             }
+        }
+    }
+    var sunrise: String = String() {
+        didSet {
+            print("Sunrise에 값이 들어왔습니다 \(sunrise)")
+        }
+    }
+    var sunset: String = String() {
+        didSet {
+            print("Sunset에 값이 들어왔습니다 \(sunset)")
         }
     }
 

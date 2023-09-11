@@ -17,6 +17,7 @@ final class HourlyForecastViewModel {
     
     // MARK: - 날씨 데이터
     @Published var hourlyForecast:[HourWeather] = []
+    @Published var dailyForecast: [DayWeather] = []
     
     // MARK: - Weather Service
     private let weatherService = WeatherService()
@@ -27,6 +28,7 @@ final class HourlyForecastViewModel {
             do {
                 let weather = try await weatherService.weather(for: location)
                 self.hourlyForecast = weather.hourlyForecast.forecast
+                self.dailyForecast = weather.dailyForecast.forecast
                 
             } catch {
                 print(String(describing: error))

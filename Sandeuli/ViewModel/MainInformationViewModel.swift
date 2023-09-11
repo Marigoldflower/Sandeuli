@@ -33,7 +33,8 @@ final class MainInformationViewModel {
                 let weather = try await weatherService.weather(for: location)
                 self.todayCurrentWeather = weather.currentWeather
                 self.dailyForecast = weather.dailyForecast.forecast
-                
+                // dailyForecast를 통해서 일출, 일몰에 접근할 수 있다.
+                weather.dailyForecast[0].sun.sunset
                 
             } catch {
                 print(String(describing: error))
