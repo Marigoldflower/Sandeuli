@@ -76,21 +76,21 @@ final class WeatherController: UIViewController {
     private var userLocation = String()
     private var myState = String() {
         didSet {
-            self.particulateMatterLocation = searchLocation(location: myState)
-            self.ultraParticulateMatterLocation = searchLocation(location: myState)
+//            self.particulateMatterLocation = searchLocation(location: myState)
+//            self.ultraParticulateMatterLocation = searchLocation(location: myState)
         }
     }
     
     // MARK: - 미세먼지 & 초미세먼지 정보를 담는 변수
     private var particulateMatterLocation = String() {
         didSet {
-            mainInformationViewModel.fetchParticulateMatterNetwork(density: "PM10")
+//            mainInformationViewModel.fetchParticulateMatterNetwork(density: "PM10")
         }
     }
 
     private var ultraParticulateMatterLocation = String() {
         didSet {
-            mainInformationViewModel.fetchUltraParticulateMatterNetwork(density: "PM25")
+//            mainInformationViewModel.fetchUltraParticulateMatterNetwork(density: "PM25")
         }
     }
     
@@ -114,12 +114,10 @@ extension WeatherController: ViewDrawable {
     }
     
     private func setMainInformationViewData() {
-        Publishers.Zip4(mainInformationViewModel.$todayCurrentWeather,
-                        mainInformationViewModel.$particulateMatter,
-                        mainInformationViewModel.$ultraParticulateMatter,
+        Publishers.Zip(mainInformationViewModel.$todayCurrentWeather,
                         mainInformationViewModel.$dailyForecast)
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] currentWeather, particulateMatter, ultraParticulate, dailyForecast in
+            .sink { [weak self] currentWeather, dailyForecast in
                 guard let currentWeather = currentWeather else { return }
                 
                 // MARK: - WeatherImage에 따라 색깔을 바꾸는 영역
@@ -135,15 +133,15 @@ extension WeatherController: ViewDrawable {
                 self?.mainInformationView.currentSky.text = currentWeather.condition.description
                 
                 // MARK: - 미세 & 초미세
-                guard let particulateMatter = particulateMatter?.particulateMatterResponse?.body?.items else { return }
-                guard let particulateMatterLocation = self?.particulateMatterLocation else { return }
-                
-                self?.particulateMatterCalculatorAccordingToLocation(location: particulateMatterLocation, particulateData: particulateMatter)
-                
-                guard let ultraParticulate = ultraParticulate?.particulateMatterResponse?.body?.items else { return }
-                guard let ultraParticulateMatterLocation = self?.ultraParticulateMatterLocation else { return }
-                
-                self?.particulateMatterCalculatorAccordingToLocation(location: ultraParticulateMatterLocation, particulateData: ultraParticulate)
+//                guard let particulateMatter = particulateMatter?.particulateMatterResponse?.body?.items else { return }
+//                guard let particulateMatterLocation = self?.particulateMatterLocation else { return }
+//
+//                self?.particulateMatterCalculatorAccordingToLocation(location: particulateMatterLocation, particulateData: particulateMatter)
+//
+//                guard let ultraParticulate = ultraParticulate?.particulateMatterResponse?.body?.items else { return }
+//                guard let ultraParticulateMatterLocation = self?.ultraParticulateMatterLocation else { return }
+//
+//                self?.particulateMatterCalculatorAccordingToLocation(location: ultraParticulateMatterLocation, particulateData: ultraParticulate)
                 
                 // MARK: - 최고 & 최저 온도
                 let formatter = DateFormatter()
@@ -338,11 +336,20 @@ extension WeatherController: ViewDrawable {
                 let sunrise = sunFormatter.string(from: sunriseData)
                 let sunset = sunFormatter.string(from: sunsetData)
                 
+                // MARK: - CollectionView와 일출, 일몰 시간을 비교할 임시 데이터
+                let sunnyFormatter = DateFormatter()
+                sunnyFormatter.dateFormat = "HH시"
+                
+                let sunriseCompareWithCollectionView = sunnyFormatter.string(from: sunriseData)
+                let sunsetCompareWithCollectionView = sunnyFormatter.string(from: sunsetData)
+                
                 if userToday <= compareDate {
                     if compareDate.contains(userToday) {
+                        self?.hourlyForecastView.sunriseCompareWithCollectionView = sunriseCompareWithCollectionView
+                        self?.hourlyForecastView.sunsetCompareWithCollectionView = sunsetCompareWithCollectionView
                         self?.hourlyForecastView.sunrise = sunrise
                         self?.hourlyForecastView.sunset = sunset
-                    } 
+                    }
                 }
                 
             }

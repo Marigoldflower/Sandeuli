@@ -25,40 +25,14 @@ final class HourlyForecastView: UIView {
         return collectionView
     }()
     
+    // MARK: - Data Components
     var timeArray: [String] = [] {
         didSet {
             timeArray[0] = "지금"
             if let indexTomorrow = timeArray.firstIndex(of: "00시") {
                 timeArray[indexTomorrow] = "내일"
             }
-            
-//            if let sunriseIndex = timeArray.firstIndex(of: "06시") {
-//                sunriseDidSetCallCount += 1
-//                if sunriseDidSetCallCount == 1 {
-//                    if currentTime > sunriseTime {
-//
-//                    } else {
-//                        self.timeArray.insert(self.sunriseTime, at: sunriseIndex)
-//                        self.temperatureArray.insert("일출", at: sunriseIndex)
-//                        self.weatherImageArray.insert(UIImage(systemName: "sunrise.fill")?.withRenderingMode(.alwaysOriginal) ?? UIImage(), at: sunriseIndex)
-//                    }
-//                }
-//            }
-//
-//            if let sunsetIndex = timeArray.firstIndex(of: "20시") {
-//                sunsetDidSetCallCount += 1
-//                if sunsetDidSetCallCount == 1 {
-//                    if currentTime > sunsetTime {
-//
-//                    } else {
-//                        print("일몰 타임은 \(sunsetTime)")
-//                        self.timeArray.insert(self.sunsetTime, at: sunsetIndex)
-//                        self.temperatureArray.insert("일몰", at: sunsetIndex)
-//                        self.weatherImageArray.insert(UIImage(systemName: "sunset.fill")?.withRenderingMode(.alwaysOriginal) ?? UIImage(), at: sunsetIndex)
-//                    }
-//                }
-//            }
-            
+
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
             }
@@ -81,13 +55,28 @@ final class HourlyForecastView: UIView {
     var sunrise: String = String() {
         didSet {
             print("Sunrise에 값이 들어왔습니다 \(sunrise)")
+            if let sunriseIndex = timeArray.firstIndex(of: sunriseCompareWithCollectionView) {
+                
+                self.timeArray.insert(sunrise, at: sunriseIndex + 1)
+                self.temperatureArray.insert("일출", at: sunriseIndex + 1)
+                self.weatherImageArray.insert(UIImage(systemName: "sunrise.fill")?.withRenderingMode(.alwaysOriginal) ?? UIImage(), at: sunriseIndex + 1)
+            }
+            
         }
     }
     var sunset: String = String() {
         didSet {
             print("Sunset에 값이 들어왔습니다 \(sunset)")
+            if let sunsetIndex = timeArray.firstIndex(of: sunsetCompareWithCollectionView) {
+                
+                self.timeArray.insert(sunset, at: sunsetIndex + 1)
+                self.temperatureArray.insert("일몰", at: sunsetIndex + 1)
+                self.weatherImageArray.insert(UIImage(systemName: "sunset.fill")?.withRenderingMode(.alwaysOriginal) ?? UIImage(), at: sunsetIndex + 1)
+            }
         }
     }
+    var sunriseCompareWithCollectionView: String = String()
+    var sunsetCompareWithCollectionView: String = String()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -131,8 +120,8 @@ extension HourlyForecastView: ViewDrawable {
 extension HourlyForecastView: UICollectionViewDataSource {
     // 셀의 개수
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if timeArray.count > 24 {
-            return 24
+        if timeArray.count > 26 {
+            return 26
         }
         
         return timeArray.count

@@ -120,15 +120,6 @@ class MainInformationView: UIView {
         return stack
     }()
    
-    // 미세 & 초미세먼지를 알려주는 스택 뷰
-    lazy var particulateMatterStackView: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [particulateMatter, ultraParticulateMatter])
-        stack.axis = .horizontal
-        stack.spacing = 20
-        stack.distribution = .fillEqually
-        return stack
-    }()
-   
     // 최고 & 최저 기온 스택 뷰
     lazy var highLowCelciusStackView: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [highestCelsius, lowestCelsius])
@@ -163,7 +154,7 @@ extension MainInformationView: ViewDrawable {
     }
     
     func setAutolayout() {
-        [pageControl, todayWeatherImage, todayWeatherTemperature, celsiusLabel, currentStatus, particulateMatterStackView, highLowCelciusStackView, sunriseAndSunsetStackView].forEach { addSubview($0) }
+        [pageControl, todayWeatherImage, todayWeatherTemperature, celsiusLabel, currentStatus, highLowCelciusStackView, sunriseAndSunsetStackView].forEach { addSubview($0) }
         
         pageControl.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
@@ -191,14 +182,9 @@ extension MainInformationView: ViewDrawable {
             make.top.equalTo(todayWeatherTemperature.snp.bottom).offset(5)
             make.centerX.equalTo(self.snp.centerX)
         }
-
-        particulateMatterStackView.snp.makeConstraints { make in
-            make.top.equalTo(currentStatus.snp.bottom).offset(40)
-            make.centerX.equalTo(self.snp.centerX)
-        }
    
         highLowCelciusStackView.snp.makeConstraints { make in
-            make.top.equalTo(particulateMatterStackView.snp.bottom).offset(5)
+            make.top.equalTo(currentStatus.snp.bottom).offset(40)
             make.centerX.equalTo(self.snp.centerX)
         }
   
