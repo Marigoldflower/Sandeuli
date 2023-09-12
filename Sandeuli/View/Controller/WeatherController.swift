@@ -107,6 +107,7 @@ final class WeatherController: UIViewController {
 
 extension WeatherController: ViewDrawable {
     func configureUI() {
+        navigationItem.searchController = searchController
         view.backgroundColor = .dayBackground
         setAutolayout()
         fillStackView()
@@ -386,8 +387,11 @@ extension WeatherController: ViewDrawable {
                     let weekDayFormatter = DateFormatter()
                     weekDayFormatter.dateFormat = "EEEE"
                     let weekDay = weekDayFormatter.string(from: daily)
-                    print("현재 요일은 \(weekDay)")
-
+                    print("비가 오는 요일은 \(weekDay)")
+                    
+                    print("비가 오는 날짜는 \(dailyWeather.date)")
+                    print("비가 올 확률은 \(dailyWeather.precipitationChance.description)")
+                    
                     if userToday <= compareDate {
                         
                         // MARK: - 요일 데이터
@@ -422,11 +426,13 @@ extension WeatherController: ViewDrawable {
                         
                         // MARK: - 최고 온도
                         let highestTemperature = String(round(dailyWeather.highTemperature.value * 10) / 10)
+                        print("최고 온도는 \(highestTemperature)")
                         self?.dailyForecastView.highestCelsiusArray.append(highestTemperature)
                         
                         // MARK: - 최저 온도
                         let lowestTemperature = String(round(dailyWeather.lowTemperature.value * 10) / 10)
-                        self?.dailyForecastView.highestCelsiusArray.append(lowestTemperature)
+                        print("최저 온도는 \(lowestTemperature)")
+                        self?.dailyForecastView.lowestCelsiusArray.append(lowestTemperature)
                         
                     }
                 }
@@ -445,6 +451,10 @@ extension WeatherController: ViewDrawable {
         
         hourlyForecastView.snp.makeConstraints { make in
             make.height.equalTo(200)
+        }
+        
+        dailyForecastView.snp.makeConstraints { make in
+            make.height.equalTo(700)
         }
         
         // MARK: - 스크롤 뷰 및 스택 뷰 레이아웃

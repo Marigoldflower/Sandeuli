@@ -20,12 +20,18 @@ final class DailyForecastView: UIView {
         return table
     }()
     
+    // MARK: - DidSet CallCount
+    var weekDayArrayDidSetCallCount = Int()
+    
     // MARK: - Data Components
     var weekDayArray: [String] = [] {
         didSet {
-            print("weekDayArray에 들어오는 값은 \(weekDayArray)")
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
+            weekDayArrayDidSetCallCount += 1
+            
+            if weekDayArrayDidSetCallCount == 10 {
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
             }
         }
     }
@@ -46,6 +52,7 @@ final class DailyForecastView: UIView {
     }
     var lowestCelsiusArray: [String] = [] {
         didSet {
+            print("lowestArray 값이 들어왔습니다 \(lowestCelsiusArray)")
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
@@ -92,24 +99,29 @@ extension DailyForecastView: ViewDrawable {
 
 extension DailyForecastView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        if weekDayArray.count > 10 {
+            return 10
+        }
+        
         return weekDayArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: DailyForecastCell.identifier, for: indexPath) as! DailyForecastCell
-        // 셀을 클릭할 때 아무런 색깔의 변화도 없게 만드는 코드
-        cell.selectionStyle = .none
+        
         cell.weekend.text = weekDayArray[indexPath.row]
-//        cell.weatherImage.image = weatherImageArray[indexPath.row]
-//        cell.highestTemperature.text = highestCelsiusArray[indexPath.row]
-//        cell.lowestTemperature.text = lowestCelsiusArray[indexPath.row]
+        cell.weatherImage.image = weatherImageArray[indexPath.row]
+        cell.highestTemperature.text = highestCelsiusArray[indexPath.row]
+        cell.lowestTemperature.text = lowestCelsiusArray[indexPath.row]
         cell.backgroundColor = .clear
+        cell.selectionStyle = .none
 
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
+        return 70
     }
     
 }

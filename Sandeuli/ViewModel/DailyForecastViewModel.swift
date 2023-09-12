@@ -27,7 +27,7 @@ final class DailyForecastViewModel {
             do {
                 let weather = try await weatherService.weather(for: location)
                 self.dailyForecast = weather.dailyForecast.forecast
-                print("데일리 forecast 시류행된거 맞아? \(dailyForecast)")
+                
                 
             } catch {
                 print(String(describing: error))

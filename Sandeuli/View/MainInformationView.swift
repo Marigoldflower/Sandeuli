@@ -158,7 +158,7 @@ extension MainInformationView: ViewDrawable {
         
         pageControl.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(self.snp.top).offset(0)
+            make.top.equalTo(self.snp.top).offset(20)
         }
         
         todayWeatherImage.snp.makeConstraints { make in

@@ -16,34 +16,37 @@ class DailyForecastCell: UITableViewCell {
     let weekend: UILabel = {
         let label = UILabel()
         label.text = "--"
-        label.font = UIFont(name: "AppleSDGothicNeo-Medium", size: 18)
+        label.font = UIFont(name: "Poppins-Medium", size: 19)
+        label.textColor = .white
         return label
     }()
 
     let weatherImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .systemGray
         return imageView
     }()
 
     let highestTemperature: UILabel = {
         let label = UILabel()
         label.text = "--"
-        label.font = UIFont(name: "AppleSDGothicNeo-Medium", size: 18)
+        label.font = UIFont(name: "Poppins-Medium", size: 19)
+        label.textColor = .white
         return label
     }()
 
     let divider: UILabel = {
         let label = UILabel()
         label.text = "|"
-        label.font = UIFont(name: "AppleSDGothicNeo-Medium", size: 18)
+        label.font = UIFont(name: "Poppins-Medium", size: 19)
+        label.textColor = .white
         return label
     }()
    
     let lowestTemperature: UILabel = {
         let label = UILabel()
         label.text = "--"
-        label.font = UIFont(name: "AppleSDGothicNeo-Medium", size: 18)
+        label.font = UIFont(name: "Poppins-Medium", size: 19)
+        label.textColor = .white
         return label
     }()
  
