@@ -122,8 +122,15 @@ extension WeatherController: ViewDrawable {
             .sink { [weak self] currentWeather, dailyForecast in
                 guard let currentWeather = currentWeather else { return }
                 
-                // MARK: - WeatherImage에 따라 색깔을 바꾸는 영역
-                self?.coloringMethod(symbolName: currentWeather.symbolName)
+                // MARK: - 낮과 밤을 나누어서 처리하는 영역
+                if currentWeather.isDaylight {
+                    // 낮이라면
+                    // MARK: - WeatherImage에 따라 색깔을 바꾸는 영역
+                    self?.coloringMethod(symbolName: currentWeather.symbolName)
+                } else {
+                    // 밤이라면
+                    self?.coloringMethod(symbolName: "moon.stars")
+                }
                 
                 // MARK: - Temperature 영역
                 self?.mainInformationView.todayWeatherTemperature.text = String(round(currentWeather.temperature.value * 10) / 10)
