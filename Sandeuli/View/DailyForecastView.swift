@@ -29,6 +29,7 @@ final class DailyForecastView: UIView {
             weekDayArrayDidSetCallCount += 1
             
             if weekDayArrayDidSetCallCount == 10 {
+                weekDayArray[0] = "오   늘"
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
@@ -112,7 +113,7 @@ extension DailyForecastView: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: DailyForecastCell.identifier, for: indexPath) as! DailyForecastCell
         
         cell.weekend.text = weekDayArray[indexPath.row]
-//        cell.weatherImage.image = weatherImageArray[indexPath.row] // 이 부분이 갑자기 index Out Of Range 라는 오류를 뱉었음. 가끔가다 이런 에러를 뱉는데 이게 어디서 온 에러인지 알아내기
+        cell.weatherImage.image = weatherImageArray[indexPath.row] // 이 부분이 갑자기 index Out Of Range 라는 오류를 뱉었음. 가끔가다 이런 에러를 뱉는데 이게 어디서 온 에러인지 알아내기
         cell.highestTemperature.text = highestCelsiusArray[indexPath.row]
         cell.lowestTemperature.text = lowestCelsiusArray[indexPath.row]
         cell.backgroundColor = .clear

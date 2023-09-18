@@ -129,7 +129,13 @@ extension WeatherController: ViewDrawable {
                     self?.coloringMethod(symbolName: currentWeather.symbolName)
                 } else {
                     // 밤이라면
-                    self?.coloringMethod(symbolName: "moon.stars")
+                    if currentWeather.condition.description == "눈옴" {
+                        self?.coloringMethod(symbolName: "snowflake")
+                    } else if currentWeather.condition.description == "비옴" {
+                        self?.coloringMethod(symbolName: "cloud.moon.rain")
+                    } else {
+                        self?.coloringMethod(symbolName: "moon.stars")
+                    }
                 }
                 
                 // MARK: - Temperature 영역
@@ -262,6 +268,12 @@ extension WeatherController: ViewDrawable {
                             
                             // MARK: - 날씨 이미지 데이터
                             switch hourlyWeather.symbolName {
+                            case "sun.min":
+                                guard let sunMin = UIImage(systemName: "\(hourlyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.dayImage])) else { return }
+                                self?.hourlyForecastView.weatherImageArray.append(sunMin)
+                            case "sparkles":
+                                guard let spark = UIImage(systemName: "\(hourlyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.nightImage])) else { return }
+                                self?.hourlyForecastView.weatherImageArray.append(spark)
                             case "sun.max":
                                 guard let sunImage = UIImage(systemName: "\(hourlyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.dayImage])) else { return }
                                 self?.hourlyForecastView.weatherImageArray.append(sunImage)
@@ -283,6 +295,21 @@ extension WeatherController: ViewDrawable {
                             case "cloud.bolt.rain":
                                 guard let thunderBolt = UIImage(systemName: "\(hourlyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.rainyImage, .systemCyan])) else { return }
                                 self?.hourlyForecastView.weatherImageArray.append(thunderBolt)
+                            case "cloud.heavyrain":
+                                guard let heavyRain = UIImage(systemName: "\(hourlyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.rainyImage, .systemCyan])) else { return }
+                                self?.hourlyForecastView.weatherImageArray.append(heavyRain)
+                            case "cloud.fog":
+                                guard let fog = UIImage(systemName: "\(hourlyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.rainyImage, .systemCyan])) else { return }
+                                self?.hourlyForecastView.weatherImageArray.append(fog)
+                            case "cloud.moon":
+                                guard let cloudMoon = UIImage(systemName: "\(hourlyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.rainyImage, .nightImage])) else { return }
+                                self?.hourlyForecastView.weatherImageArray.append(cloudMoon)
+                            case "cloud.moon.rain":
+                                guard let cloudMoonRain = UIImage(systemName: "\(hourlyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.rainyImage, .nightImage, .systemCyan])) else { return }
+                                self?.hourlyForecastView.weatherImageArray.append(cloudMoonRain)
+                            case "snowflake":
+                                guard let snowflake = UIImage(systemName: "\(hourlyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.white])) else { return }
+                                self?.hourlyForecastView.weatherImageArray.append(snowflake)
                             default:
                                 break
                             }
@@ -298,6 +325,12 @@ extension WeatherController: ViewDrawable {
                         
                         // MARK: - 날씨 이미지 데이터
                         switch hourlyWeather.symbolName {
+                        case "sun.min":
+                            guard let sunMin = UIImage(systemName: "\(hourlyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.dayImage])) else { return }
+                            self?.hourlyForecastView.weatherImageArray.append(sunMin)
+                        case "sparkles":
+                            guard let spark = UIImage(systemName: "\(hourlyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.nightImage])) else { return }
+                            self?.hourlyForecastView.weatherImageArray.append(spark)
                         case "sun.max":
                             guard let sunImage = UIImage(systemName: "\(hourlyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.dayImage])) else { return }
                             self?.hourlyForecastView.weatherImageArray.append(sunImage)
@@ -319,6 +352,21 @@ extension WeatherController: ViewDrawable {
                         case "cloud.bolt.rain":
                             guard let thunderBolt = UIImage(systemName: "\(hourlyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.rainyImage, .systemCyan])) else { return }
                             self?.hourlyForecastView.weatherImageArray.append(thunderBolt)
+                        case "cloud.heavyrain":
+                            guard let heavyRain = UIImage(systemName: "\(hourlyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.rainyImage, .systemCyan])) else { return }
+                            self?.hourlyForecastView.weatherImageArray.append(heavyRain)
+                        case "cloud.fog":
+                            guard let fog = UIImage(systemName: "\(hourlyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.rainyImage, .systemCyan])) else { return }
+                            self?.hourlyForecastView.weatherImageArray.append(fog)
+                        case "cloud.moon":
+                            guard let cloudMoon = UIImage(systemName: "\(hourlyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.rainyImage, .nightImage])) else { return }
+                            self?.hourlyForecastView.weatherImageArray.append(cloudMoon)
+                        case "cloud.moon.rain":
+                            guard let cloudMoonRain = UIImage(systemName: "\(hourlyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.rainyImage, .nightImage, .systemCyan])) else { return }
+                            self?.hourlyForecastView.weatherImageArray.append(cloudMoonRain)
+                        case "snowflake":
+                            guard let snowflake = UIImage(systemName: "\(hourlyWeather.symbolName)")?.applyingSymbolConfiguration(.init(paletteColors: [.white])) else { return }
+                            self?.hourlyForecastView.weatherImageArray.append(snowflake)
                         default:
                             break
                         }
@@ -365,6 +413,11 @@ extension WeatherController: ViewDrawable {
                         self?.hourlyForecastView.sunsetCompareWithCollectionView = sunsetCompareWithCollectionView
                         self?.hourlyForecastView.sunrise = sunrise
                         self?.hourlyForecastView.sunset = sunset
+                    } else {
+                        self?.hourlyForecastView.sunriseCompareWithCollectionView = sunriseCompareWithCollectionView
+                        self?.hourlyForecastView.sunsetCompareWithCollectionView = sunsetCompareWithCollectionView
+                        self?.hourlyForecastView.sunrise = sunrise
+                        self?.hourlyForecastView.sunset = sunset
                     }
                 }
                 
@@ -385,6 +438,7 @@ extension WeatherController: ViewDrawable {
                     compareFormatter.dateFormat = "yyyy-MM-dd"
                     let compareDate = compareFormatter.string(from: daily)
                     
+                    
                     // MARK: - 내 현재 날짜
                     let userFormatter = DateFormatter()
                     userFormatter.dateFormat = "yyyy-MM-dd"
@@ -400,20 +454,28 @@ extension WeatherController: ViewDrawable {
                     print("비가 올 확률은 \(dailyWeather.precipitationChance.description)")
                     
                     if userToday <= compareDate {
-                        
                         // MARK: - 요일 데이터
                         self?.dailyForecastView.weekDayArray.append(weekDay)
                         
                         // MARK: - 날씨 이미지 데이터
                         switch dailyWeather.symbolName {
+                        case "sun.min":
+                            guard let sunMin = UIImage(systemName: "\(dailyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.dayImage])) else { return }
+                            self?.dailyForecastView.weatherImageArray.append(sunMin)
                         case "sun.max":
                             guard let sunImage = UIImage(systemName: "\(dailyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.dayImage])) else { return }
                             self?.dailyForecastView.weatherImageArray.append(sunImage)
+                        case "moon":
+                            guard let moon = UIImage(systemName: "\(dailyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.nightImage, .white])) else { return }
+                            self?.dailyForecastView.weatherImageArray.append(moon)
+                        case "sparkles":
+                            guard let spark = UIImage(systemName: "\(dailyWeather.symbolName)")?.applyingSymbolConfiguration(.init(paletteColors: [.nightImage])) else { return }
+                            self?.dailyForecastView.weatherImageArray.append(spark)
                         case "moon.stars":
                             guard let moonImage = UIImage(systemName: "\(dailyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.nightImage, .white])) else { return }
                             self?.dailyForecastView.weatherImageArray.append(moonImage)
                         case "cloud":
-                            guard let cloudImage = UIImage(systemName: "\(dailyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.cloudyImage, .white])) else { return }
+                            guard let cloudImage = UIImage(systemName: "\(dailyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.cloudyImage])) else { return }
                             self?.dailyForecastView.weatherImageArray.append(cloudImage)
                         case "cloud.sun":
                             guard let cloudSunImage = UIImage(systemName: "\(dailyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.cloudyImage, .dayImage])) else { return }
@@ -427,6 +489,21 @@ extension WeatherController: ViewDrawable {
                         case "cloud.bolt.rain":
                             guard let thunderBolt = UIImage(systemName: "\(dailyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.rainyImage, .systemCyan])) else { return }
                             self?.dailyForecastView.weatherImageArray.append(thunderBolt)
+                        case "cloud.heavyrain":
+                            guard let heavyRain = UIImage(systemName: "\(dailyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.rainyImage, .systemCyan])) else { return }
+                            self?.dailyForecastView.weatherImageArray.append(heavyRain)
+                        case "cloud.fog":
+                            guard let fog = UIImage(systemName: "\(dailyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.rainyImage, .white])) else { return }
+                            self?.dailyForecastView.weatherImageArray.append(fog)
+                        case "cloud.moon":
+                            guard let cloudMoon = UIImage(systemName: "\(dailyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.white, .nightImage])) else { return }
+                            self?.dailyForecastView.weatherImageArray.append(cloudMoon)
+                        case "cloud.moon.rain":
+                            guard let cloudMoonRain = UIImage(systemName: "\(dailyWeather.symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [.rainyImage, .nightImage, .systemCyan])) else { return }
+                            self?.dailyForecastView.weatherImageArray.append(cloudMoonRain)
+                        case "snowflake":
+                            guard let snowflake = UIImage(systemName: "\(dailyWeather.symbolName)")?.applyingSymbolConfiguration(.init(paletteColors: [.white])) else { return }
+                            self?.dailyForecastView.weatherImageArray.append(snowflake)
                         default:
                             break
                         }
