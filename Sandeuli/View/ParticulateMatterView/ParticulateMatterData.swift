@@ -32,6 +32,23 @@ final class ParticulateMatterData: UIView {
             }
         }
     }
+    
+    var dayOrNightDistributor: Bool = Bool() {
+        didSet {
+            print("지금 낮인지 밤인지는 \(dayOrNightDistributor)")
+            if dayOrNightDistributor {
+                goodLabel.textColor = .particulateGoodColorDay
+                normalLabel.textColor = .particulateNormalColorDay
+                badLabel.textColor = .particulateBadColorDay
+                veryBadLabel.textColor = .particulateVeryBadColorDay
+            } else {
+                goodLabel.textColor = .particulateGoodColorNight
+                normalLabel.textColor = .particulateNormalColorNight
+                badLabel.textColor = .particulateBadColorNight
+                veryBadLabel.textColor = .particulateVeryBadColorNight
+            }
+        }
+    }
 
     // MARK: - UI Components
     private let goodStatus: UIView = {
@@ -62,7 +79,7 @@ final class ParticulateMatterData: UIView {
         let label = UILabel()
         label.font = UIFont(name: "Poppins-Medium", size: 15)
         label.text = "좋음"
-        label.textColor = .particulateGoodColorNight
+        label.textColor = .particulateGoodColorDay
         return label
     }()
     
@@ -70,7 +87,7 @@ final class ParticulateMatterData: UIView {
         let label = UILabel()
         label.font = UIFont(name: "Poppins-Medium", size: 15)
         label.text = "보통"
-        label.textColor = .particulateNormalColorNight
+        label.textColor = .particulateNormalColorDay
         return label
     }()
     
@@ -78,7 +95,7 @@ final class ParticulateMatterData: UIView {
         let label = UILabel()
         label.font = UIFont(name: "Poppins-Medium", size: 15)
         label.text = "나쁨"
-        label.textColor = .particulateBadColorNight
+        label.textColor = .particulateBadColorDay
         return label
     }()
     
@@ -86,7 +103,7 @@ final class ParticulateMatterData: UIView {
         let label = UILabel()
         label.font = UIFont(name: "Poppins-Medium", size: 15)
         label.text = "매우나쁨"
-        label.textColor = .particulateVeryBadColorNight
+        label.textColor = .particulateVeryBadColorDay
         return label
     }()
     

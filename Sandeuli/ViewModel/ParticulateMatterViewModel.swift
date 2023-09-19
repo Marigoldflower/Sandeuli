@@ -7,6 +7,8 @@
 
 import Combine
 import UIKit
+import CoreLocation
+import WeatherKit
 
 final class ParticulateMatterViewModel {
     
@@ -16,6 +18,23 @@ final class ParticulateMatterViewModel {
     // MARK: - 미세 & 초미세 데이터 영역
     @Published var particulateMatter: ParticulateMatter?
     @Published var ultraParticulateMatter: ParticulateMatter?
+    @Published var todayCurrentWeather: CurrentWeather!
+    
+    // MARK: - Weather Service
+    private let weatherService = WeatherService()
+    
+    // MARK: - Fetch Weather
+    func fetchWeather(location: CLLocation) {
+        Task {
+            do {
+                let weather = try await weatherService.weather(for: location)
+                self.todayCurrentWeather = weather.currentWeather
+                
+            } catch {
+                print(String(describing: error))
+            }
+        }
+    }
     
     // MARK: - 미세 & 초미세 네트워크 패칭
     func fetchParticulateMatterNetwork(density: String) {

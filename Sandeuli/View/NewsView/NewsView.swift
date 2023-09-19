@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 final class NewsView: UIView {
 
@@ -23,19 +24,57 @@ final class NewsView: UIView {
         collectionView.backgroundColor = UIColor.gradientBlue.withAlphaComponent(0.75)
         return collectionView
     }()
-
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        configureUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError()
+    }
 }
 
+extension NewsView: ViewDrawable {
+    func configureUI() {
+        setAutolayout()
+        addGradientToCollectionView(self.collectionView)
+    }
+    
+    func setAutolayout() {
+        addSubview(collectionView)
+        
+        collectionView.snp.makeConstraints { make in
+            make.leading.equalTo(snp.leading)
+            make.trailing.equalTo(snp.trailing)
+            make.top.equalTo(snp.top)
+            make.bottom.equalTo(snp.bottom)
+        }
+    }
+    
+    // MARK: - Gradient 적용 메소드
+    private func addGradientToCollectionView(_ collectionView: UICollectionView) {
+
+        let gradientContainerView = GradientContainerView(frame: collectionView.bounds)
+        gradientContainerView.setGradientLayer(colors: [UIColor.gradientBlue.cgColor, UIColor.gradientWhite.cgColor],
+                                               startPoint: CGPoint(x: 0, y: 0),
+                                               endPoint: CGPoint(x: 1, y: 1))
+
+        collectionView.backgroundView = gradientContainerView
+    }
+}
+
+// MARK: - DataSource & Delegate
 extension NewsView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 10
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell()
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewsCell.identifier, for: indexPath) as! NewsCell
+
+        return cell
     }
-    
-    
 }
 
 extension NewsView: UICollectionViewDelegate {

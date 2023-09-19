@@ -20,39 +20,32 @@ final class UltraParticulateMatterData: UIView {
                 ultraParticulateCalculator(color: .particulateGoodColorNight, symbolName: "good", status: "좋음 ", offSet: -128)
                 
             case 16...35:
-                ultraParticularCurrentStatusCircle.layer.borderColor = UIColor.particulateNormalColorNight.cgColor
-                ultraParticulateLine.backgroundColor = .particulateNormalColorNight
-                ultraParticularCurrentLabelContainer.backgroundColor = .particulateNormalColorNight
-                ultraParticularCurrentLabelContainer.statusImageView.image = UIImage(named: "normal")?.withTintColor(.white).resizeImage(targetSize: CGSize(width: 20, height: 20))
-                ultraParticularCurrentLabelContainer.statusLabel.text = "보통 " + ultraParticulateDataReceiver
-                ultraParticularCurrentLabelContainer.statusLabel.textColor = .white
-                
-                ultraParticularCurrentStatusCircle.snp.makeConstraints { make in
-                    make.top.equalTo(snp.top).offset(16.5)
-                    make.leading.equalTo(snp.leading).offset(-48)
-                    make.width.equalTo(10)
-                    make.height.equalTo(10)
-                }
-                
-                ultraParticulateLine.snp.makeConstraints { make in
-                    make.bottom.equalTo(ultraParticularCurrentStatusCircle.snp.top)
-                    make.width.equalTo(2)
-                    make.height.equalTo(10)
-                }
-                
-                ultraParticularCurrentLabelContainer.snp.makeConstraints { make in
-                    make.bottom.equalTo(ultraParticulateLine.snp.top)
-                    make.width.equalTo(100)
-                    make.height.equalTo(40)
-                }
+                ultraParticulateCalculator(color: .particulateNormalColorNight, symbolName: "normal", status: "보통 ", offSet: -45)
                 
             case 36...75:
-                print(30)
+                ultraParticulateCalculator(color: .particulateBadColorNight, symbolName: "bad", status: "나쁨 ", offSet: 38)
                 
             case 76...:
-                print(30)
+                ultraParticulateCalculator(color: .particulateBadColorNight, symbolName: "veryBad", status: "매우나쁨 ", offSet: 121)
                 
             default: return
+            }
+        }
+    }
+    
+    var dayOrNightDistributor: Bool = Bool() {
+        didSet {
+            print("지금 낮인지 밤인지는 \(dayOrNightDistributor)")
+            if dayOrNightDistributor {
+                goodLabel.textColor = .particulateGoodColorDay
+                normalLabel.textColor = .particulateNormalColorDay
+                badLabel.textColor = .particulateBadColorDay
+                veryBadLabel.textColor = .particulateVeryBadColorDay
+            } else {
+                goodLabel.textColor = .particulateGoodColorNight
+                normalLabel.textColor = .particulateNormalColorNight
+                badLabel.textColor = .particulateBadColorNight
+                veryBadLabel.textColor = .particulateVeryBadColorNight
             }
         }
     }
