@@ -20,6 +20,7 @@ final class WeatherController: UIViewController {
     private let mainInformationViewModel = MainInformationViewModel()
     private let hourlyForecastViewModel = HourlyForecastViewModel()
     private let dailyForecastViewModel = DailyForecastViewModel()
+    private let particulateMatterViewModel = ParticulateMatterViewModel()
     
     // MARK: - CLLocationManager
     private let locationManager = CLLocationManager()
@@ -40,6 +41,20 @@ final class WeatherController: UIViewController {
 
     private let dailyForecastView: DailyForecastView = {
         let view = DailyForecastView()
+        view.layer.cornerRadius = 15
+        view.layer.masksToBounds = true
+        return view
+    }()
+    
+    private let particulateMatterView: ParticulateMatterView = {
+        let view = ParticulateMatterView()
+        view.layer.cornerRadius = 15
+        view.layer.masksToBounds = true
+        return view
+    }()
+    
+    private let newsView: NewsView = {
+        let view = NewsView()
         view.layer.cornerRadius = 15
         view.layer.masksToBounds = true
         return view
@@ -77,21 +92,21 @@ final class WeatherController: UIViewController {
     private var userLocation = String()
     private var myState = String() {
         didSet {
-//            self.particulateMatterLocation = searchLocation(location: myState)
-//            self.ultraParticulateMatterLocation = searchLocation(location: myState)
+            self.particulateMatterLocation = searchLocation(location: myState)
+            self.ultraParticulateMatterLocation = searchLocation(location: myState)
         }
     }
     
     // MARK: - 미세먼지 & 초미세먼지 정보를 담는 변수
     private var particulateMatterLocation = String() {
         didSet {
-//            mainInformationViewModel.fetchParticulateMatterNetwork(density: "PM10")
+            particulateMatterViewModel.fetchParticulateMatterNetwork(density: "PM10")
         }
     }
 
     private var ultraParticulateMatterLocation = String() {
         didSet {
-//            mainInformationViewModel.fetchUltraParticulateMatterNetwork(density: "PM25")
+            particulateMatterViewModel.fetchUltraParticulateMatterNetwork(density: "PM25")
         }
     }
     
@@ -147,17 +162,6 @@ extension WeatherController: ViewDrawable {
                 
                 // MARK: - 하늘상태
                 self?.mainInformationView.currentSky.text = currentWeather.condition.description
-                
-                // MARK: - 미세 & 초미세
-//                guard let particulateMatter = particulateMatter?.particulateMatterResponse?.body?.items else { return }
-//                guard let particulateMatterLocation = self?.particulateMatterLocation else { return }
-//
-//                self?.particulateMatterCalculatorAccordingToLocation(location: particulateMatterLocation, particulateData: particulateMatter)
-//
-//                guard let ultraParticulate = ultraParticulate?.particulateMatterResponse?.body?.items else { return }
-//                guard let ultraParticulateMatterLocation = self?.ultraParticulateMatterLocation else { return }
-//
-//                self?.particulateMatterCalculatorAccordingToLocation(location: ultraParticulateMatterLocation, particulateData: ultraParticulate)
                 
                 // MARK: - 최고 & 최저 온도
                 let formatter = DateFormatter()
@@ -438,7 +442,6 @@ extension WeatherController: ViewDrawable {
                     compareFormatter.dateFormat = "yyyy-MM-dd"
                     let compareDate = compareFormatter.string(from: daily)
                     
-                    
                     // MARK: - 내 현재 날짜
                     let userFormatter = DateFormatter()
                     userFormatter.dateFormat = "yyyy-MM-dd"
@@ -522,6 +525,26 @@ extension WeatherController: ViewDrawable {
                 }
             }
             .store(in: &cancellables)
+        setParticulateMatterViewData()
+    }
+    
+    private func setParticulateMatterViewData() {
+        Publishers.Zip(particulateMatterViewModel.$particulateMatter,
+                       particulateMatterViewModel.$ultraParticulateMatter)
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] particulate, ultraParticulate in
+            // MARK: - 미세 & 초미세
+            guard let particulateMatter = particulate?.particulateMatterResponse?.body?.items else { return }
+            guard let particulateMatterLocation = self?.particulateMatterLocation else { return }
+            
+            self?.particulateMatterCalculatorAccordingToLocation(location: particulateMatterLocation, particulateData: particulateMatter)
+            
+            guard let ultraParticulate = ultraParticulate?.particulateMatterResponse?.body?.items else { return }
+            guard let ultraParticulateMatterLocation = self?.ultraParticulateMatterLocation else { return }
+            
+            self?.particulateMatterCalculatorAccordingToLocation(location: ultraParticulateMatterLocation, particulateData: ultraParticulate)
+        }
+        .store(in: &cancellables)
     }
     
     func setAutolayout() {
@@ -538,7 +561,11 @@ extension WeatherController: ViewDrawable {
         }
         
         dailyForecastView.snp.makeConstraints { make in
-            make.height.equalTo(700)
+            make.height.equalTo(740)
+        }
+        
+        particulateMatterView.snp.makeConstraints { make in
+            make.height.equalTo(400)
         }
         
         // MARK: - 스크롤 뷰 및 스택 뷰 레이아웃
@@ -559,7 +586,7 @@ extension WeatherController: ViewDrawable {
     }
     
     private func fillStackView() {
-        let companyArray = [mainInformationView, hourlyForecastView, dailyForecastView]
+        let companyArray = [mainInformationView, hourlyForecastView, dailyForecastView, particulateMatterView, newsView]
         for company in companyArray {
             var elementView = UIView()
             elementView = company
@@ -567,7 +594,7 @@ extension WeatherController: ViewDrawable {
             // ⭐️ 스크롤 방향이 세로 방향이면 widthAnchor에 값을 할당하는 부분은 지워도 된다.
             // elementView.widthAnchor.constraint(equalToConstant: 200).isActive = true
             // ⭐️ 스크롤 방향이 가로 방향이면 heightAnchor에 값을 할당하는 부분은 지워도 된다.
-            elementView.heightAnchor.constraint(equalToConstant: 1000).isActive = true
+            elementView.heightAnchor.constraint(equalToConstant: 2000).isActive = true
             stackView.addArrangedSubview(elementView)
         }
     }
@@ -778,49 +805,7 @@ extension WeatherController {
             guard let myCurrentLocation = Int(density) else { return }
             print("미세먼지의 값은 \(myCurrentLocation)")
             
-            switch myCurrentLocation {
-            case ...30:
-                mainInformationView.particulateMatter.text = "미세: 좋음"
-                if mainInformationView.backgroundColor == .snowyBackground || mainInformationView.backgroundColor == .rainyBackground ||
-                mainInformationView.backgroundColor == .nightBackground ||
-                mainInformationView.backgroundColor == .foggyBackground {
-                mainInformationView.particulateMatter.attributedText = coloringTextMethod(text: "미세", colorText: "좋음", color: .particulateGoodColorNight)
-                } else {
-                    mainInformationView.particulateMatter.attributedText = coloringTextMethod(text: "미세", colorText: "좋음", color: .particulateGoodColorDay)
-                }
-                
-            case 31...80:
-                mainInformationView.particulateMatter.text = "미세: 보통"
-                if mainInformationView.backgroundColor == .snowyBackground || mainInformationView.backgroundColor == .rainyBackground ||
-                mainInformationView.backgroundColor == .nightBackground ||
-                mainInformationView.backgroundColor == .foggyBackground {
-                mainInformationView.particulateMatter.attributedText = coloringTextMethod(text: "미세", colorText: "보통", color: .particulateNormalColorNight)
-                } else {
-                   mainInformationView.particulateMatter.attributedText = coloringTextMethod(text: "미세", colorText: "보통", color: .particulateNormalColorDay)
-                }
-                
-            case 81...150:
-                mainInformationView.particulateMatter.text = "미세: 나쁨"
-                if mainInformationView.backgroundColor == .snowyBackground || mainInformationView.backgroundColor == .rainyBackground ||
-                mainInformationView.backgroundColor == .nightBackground ||
-                mainInformationView.backgroundColor == .foggyBackground {
-                mainInformationView.particulateMatter.attributedText = coloringTextMethod(text: "미세", colorText: "나쁨", color: .particulateBadColorNight)
-                } else {
-                    mainInformationView.particulateMatter.attributedText = coloringTextMethod(text: "미세", colorText: "나쁨", color: .particulateBadColorDay)
-                }
-                
-            case 151...:
-               mainInformationView.particulateMatter.text = "미세: 매우나쁨"
-                if mainInformationView.backgroundColor == .snowyBackground || mainInformationView.backgroundColor == .rainyBackground ||
-                   mainInformationView.backgroundColor == .nightBackground ||
-                   mainInformationView.backgroundColor == .foggyBackground {
-                   mainInformationView.particulateMatter.attributedText = coloringTextMethod(text: "미세", colorText: "매우나쁨", color: .particulateVeryBadColorNight)
-                } else {
-                    mainInformationView.particulateMatter.attributedText = coloringTextMethod(text: "미세", colorText: "매우나쁨", color: .particulateVeryBadColorDay)
-                }
-                
-            default: return
-            }
+            particulateMatterView.particulateMatterData.particulateDataReceiver = density
         }
     }
 
@@ -829,49 +814,8 @@ extension WeatherController {
         if ultraParticulateMatterFetchCount == 1 {
             guard let myCurrentLocation = Int(density) else { return }
             print("초미세먼지의 값은 \(myCurrentLocation)")
-            switch myCurrentLocation {
-            case ...15:
-                mainInformationView.ultraParticulateMatter.text = "초미세: 좋음"
-                if mainInformationView.backgroundColor == .snowyBackground || mainInformationView.backgroundColor == .rainyBackground ||
-                    mainInformationView.backgroundColor == .nightBackground ||
-                mainInformationView.backgroundColor == .foggyBackground {
-                mainInformationView.ultraParticulateMatter.attributedText = coloringTextMethod(text: "초미세", colorText: "좋음", color: .particulateGoodColorNight)
-                } else {
-                  mainInformationView.ultraParticulateMatter.attributedText = coloringTextMethod(text: "초미세", colorText: "좋음", color: .particulateGoodColorDay)
-                }
-                
-            case 16...35:
-                mainInformationView.ultraParticulateMatter.text = "초미세: 보통"
-                if mainInformationView.backgroundColor == .snowyBackground || mainInformationView.backgroundColor == .rainyBackground ||
-                mainInformationView.backgroundColor == .nightBackground ||
-                mainInformationView.backgroundColor == .foggyBackground {
-                mainInformationView.ultraParticulateMatter.attributedText = coloringTextMethod(text: "초미세", colorText: "보통", color: .particulateNormalColorNight)
-                } else {
-                    mainInformationView.ultraParticulateMatter.attributedText = coloringTextMethod(text: "초미세", colorText: "보통", color: .particulateNormalColorDay)
-                }
-                
-            case 36...75:
-                mainInformationView.ultraParticulateMatter.text = "초미세: 나쁨"
-                if mainInformationView.backgroundColor == .snowyBackground || mainInformationView.backgroundColor == .rainyBackground ||
-                    mainInformationView.backgroundColor == .nightBackground ||
-                    mainInformationView.backgroundColor == .foggyBackground {
-                    mainInformationView.ultraParticulateMatter.attributedText = coloringTextMethod(text: "초미세", colorText: "나쁨", color: .particulateBadColorNight)
-                } else {
-                  mainInformationView.ultraParticulateMatter.attributedText = coloringTextMethod(text: "초미세", colorText: "나쁨", color: .particulateBadColorDay)
-                }
-                
-            case 76...:
-                mainInformationView.ultraParticulateMatter.text = "초미세: 매우나쁨"
-                if mainInformationView.backgroundColor == .snowyBackground || mainInformationView.backgroundColor == .rainyBackground ||
-                    mainInformationView.backgroundColor == .nightBackground ||
-                    mainInformationView.backgroundColor == .foggyBackground {
-                    mainInformationView.ultraParticulateMatter.attributedText = coloringTextMethod(text: "초미세", colorText: "매우나음", color: .particulateVeryBadColorNight)
-                } else {
-                   mainInformationView.ultraParticulateMatter.attributedText = coloringTextMethod(text: "초미세", colorText: "좋음", color: .particulateVeryBadColorDay)
-                }
-                
-            default: return
-            }
+            
+            particulateMatterView.ultraParticulateMatterData.ultraParticulateDataReceiver = density
         }
     }
 

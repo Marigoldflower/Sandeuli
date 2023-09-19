@@ -49,6 +49,16 @@
 		EA1D882D2AA9D40100A3368E /* HourlyForecastViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D882C2AA9D40100A3368E /* HourlyForecastViewModel.swift */; };
 		EA1D88312AAEEE8100A3368E /* DailyForecastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D88302AAEEE8100A3368E /* DailyForecastCell.swift */; };
 		EA1D88332AAEF04D00A3368E /* DailyForecastViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D88322AAEF04D00A3368E /* DailyForecastViewModel.swift */; };
+		EA1D88372AB80A6700A3368E /* ParticulateMatterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D88362AB80A6700A3368E /* ParticulateMatterView.swift */; };
+		EA1D88392AB80C8100A3368E /* DailyForecastHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D88382AB80C8100A3368E /* DailyForecastHeaderView.swift */; };
+		EA1D883D2AB8167B00A3368E /* ParticulateMatterData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D883C2AB8167B00A3368E /* ParticulateMatterData.swift */; };
+		EA1D88412AB8356300A3368E /* ParticulateMatterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D88402AB8356300A3368E /* ParticulateMatterViewModel.swift */; };
+		EA1D88432AB84B6200A3368E /* UltraParticulateMatterData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D88422AB84B6200A3368E /* UltraParticulateMatterData.swift */; };
+		EA1D88452AB8647800A3368E /* ParticularCurrentLabelContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D88442AB8647800A3368E /* ParticularCurrentLabelContainer.swift */; };
+		EA1D88472AB8675F00A3368E /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D88462AB8675F00A3368E /* UIImage.swift */; };
+		EA1D88492AB8712000A3368E /* NewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D88482AB8712000A3368E /* NewsView.swift */; };
+		EA1D884C2AB8715E00A3368E /* NewsViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D884B2AB8715E00A3368E /* NewsViewHeader.swift */; };
+		EA1D884E2AB8722500A3368E /* NewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D884D2AB8722500A3368E /* NewsCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -101,6 +111,16 @@
 		EA1D882C2AA9D40100A3368E /* HourlyForecastViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyForecastViewModel.swift; sourceTree = "<group>"; };
 		EA1D88302AAEEE8100A3368E /* DailyForecastCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyForecastCell.swift; sourceTree = "<group>"; };
 		EA1D88322AAEF04D00A3368E /* DailyForecastViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyForecastViewModel.swift; sourceTree = "<group>"; };
+		EA1D88362AB80A6700A3368E /* ParticulateMatterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticulateMatterView.swift; sourceTree = "<group>"; };
+		EA1D88382AB80C8100A3368E /* DailyForecastHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyForecastHeaderView.swift; sourceTree = "<group>"; };
+		EA1D883C2AB8167B00A3368E /* ParticulateMatterData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticulateMatterData.swift; sourceTree = "<group>"; };
+		EA1D88402AB8356300A3368E /* ParticulateMatterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticulateMatterViewModel.swift; sourceTree = "<group>"; };
+		EA1D88422AB84B6200A3368E /* UltraParticulateMatterData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UltraParticulateMatterData.swift; sourceTree = "<group>"; };
+		EA1D88442AB8647800A3368E /* ParticularCurrentLabelContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticularCurrentLabelContainer.swift; sourceTree = "<group>"; };
+		EA1D88462AB8675F00A3368E /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
+		EA1D88482AB8712000A3368E /* NewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsView.swift; sourceTree = "<group>"; };
+		EA1D884B2AB8715E00A3368E /* NewsViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewHeader.swift; sourceTree = "<group>"; };
+		EA1D884D2AB8722500A3368E /* NewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,7 +187,9 @@
 			children = (
 				EA1D87D62AA8952A00A3368E /* MainInformationView.swift */,
 				EA1D87D82AA8954200A3368E /* HourlyForecastView.swift */,
-				EA1D87DA2AA8954C00A3368E /* DailyForecastView.swift */,
+				EA1D883A2AB8107B00A3368E /* DailyForecastView */,
+				EA1D883B2AB8109200A3368E /* ParticulateMatterView */,
+				EA1D884A2AB8712600A3368E /* NewsView */,
 				EA1D88292AA9D2AF00A3368E /* CustomView */,
 				EA1D88282AA9D27B00A3368E /* Cell */,
 				EA1D87D52AA8951400A3368E /* Controller */,
@@ -181,6 +203,7 @@
 				EA1D87D32AA8903800A3368E /* MainInformationViewModel.swift */,
 				EA1D882C2AA9D40100A3368E /* HourlyForecastViewModel.swift */,
 				EA1D88322AAEF04D00A3368E /* DailyForecastViewModel.swift */,
+				EA1D88402AB8356300A3368E /* ParticulateMatterViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -200,6 +223,7 @@
 				EA1D87D12AA88C0400A3368E /* Location.swift */,
 				EA1D87DC2AA8955A00A3368E /* Colors.swift */,
 				EA1D87E02AA898A700A3368E /* SearchBar.swift */,
+				EA1D88462AB8675F00A3368E /* UIImage.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -252,6 +276,7 @@
 			children = (
 				EA1D88262AA9D27800A3368E /* HourlyForecastCell.swift */,
 				EA1D88302AAEEE8100A3368E /* DailyForecastCell.swift */,
+				EA1D884D2AB8722500A3368E /* NewsCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -262,6 +287,35 @@
 				EA1D882A2AA9D2CC00A3368E /* GradientContainerView.swift */,
 			);
 			path = CustomView;
+			sourceTree = "<group>";
+		};
+		EA1D883A2AB8107B00A3368E /* DailyForecastView */ = {
+			isa = PBXGroup;
+			children = (
+				EA1D88382AB80C8100A3368E /* DailyForecastHeaderView.swift */,
+				EA1D87DA2AA8954C00A3368E /* DailyForecastView.swift */,
+			);
+			path = DailyForecastView;
+			sourceTree = "<group>";
+		};
+		EA1D883B2AB8109200A3368E /* ParticulateMatterView */ = {
+			isa = PBXGroup;
+			children = (
+				EA1D88362AB80A6700A3368E /* ParticulateMatterView.swift */,
+				EA1D883C2AB8167B00A3368E /* ParticulateMatterData.swift */,
+				EA1D88442AB8647800A3368E /* ParticularCurrentLabelContainer.swift */,
+				EA1D88422AB84B6200A3368E /* UltraParticulateMatterData.swift */,
+			);
+			path = ParticulateMatterView;
+			sourceTree = "<group>";
+		};
+		EA1D884A2AB8712600A3368E /* NewsView */ = {
+			isa = PBXGroup;
+			children = (
+				EA1D884B2AB8715E00A3368E /* NewsViewHeader.swift */,
+				EA1D88482AB8712000A3368E /* NewsView.swift */,
+			);
+			path = NewsView;
 			sourceTree = "<group>";
 		};
 		EE4FE625B82005F22B1F5E8C /* Frameworks */ = {
@@ -410,22 +464,32 @@
 				EA1D87DD2AA8955A00A3368E /* Colors.swift in Sources */,
 				EA1D87DB2AA8954C00A3368E /* DailyForecastView.swift in Sources */,
 				EA1D88232AA97DBF00A3368E /* PatriculateMatterNetworkManager.swift in Sources */,
+				EA1D884E2AB8722500A3368E /* NewsCell.swift in Sources */,
+				EA1D88412AB8356300A3368E /* ParticulateMatterViewModel.swift in Sources */,
 				EA1D87D72AA8952A00A3368E /* MainInformationView.swift in Sources */,
+				EA1D88472AB8675F00A3368E /* UIImage.swift in Sources */,
 				EA1D87D42AA8903800A3368E /* MainInformationViewModel.swift in Sources */,
 				EA1D87E12AA898A700A3368E /* SearchBar.swift in Sources */,
 				EA1D87B72AA875E800A3368E /* AppDelegate.swift in Sources */,
+				EA1D88432AB84B6200A3368E /* UltraParticulateMatterData.swift in Sources */,
 				EA1D88312AAEEE8100A3368E /* DailyForecastCell.swift in Sources */,
 				EA1D87E32AA8999800A3368E /* MainTabController.swift in Sources */,
 				EA1D87D22AA88C0400A3368E /* Location.swift in Sources */,
 				EA1D88272AA9D27800A3368E /* HourlyForecastCell.swift in Sources */,
 				EA1D882D2AA9D40100A3368E /* HourlyForecastViewModel.swift in Sources */,
 				EA1D88332AAEF04D00A3368E /* DailyForecastViewModel.swift in Sources */,
+				EA1D88492AB8712000A3368E /* NewsView.swift in Sources */,
+				EA1D88392AB80C8100A3368E /* DailyForecastHeaderView.swift in Sources */,
+				EA1D88372AB80A6700A3368E /* ParticulateMatterView.swift in Sources */,
 				EA1D87D92AA8954200A3368E /* HourlyForecastView.swift in Sources */,
 				EA1D87DF2AA8984600A3368E /* SearchResultViewController.swift in Sources */,
+				EA1D884C2AB8715E00A3368E /* NewsViewHeader.swift in Sources */,
 				EA1D88202AA97DA100A3368E /* ParticulateMatter.swift in Sources */,
+				EA1D883D2AB8167B00A3368E /* ParticulateMatterData.swift in Sources */,
 				EA1D882B2AA9D2CC00A3368E /* GradientContainerView.swift in Sources */,
 				EA1D87D02AA87A6800A3368E /* ViewDrawable.swift in Sources */,
 				EA1D87B92AA875E800A3368E /* SceneDelegate.swift in Sources */,
+				EA1D88452AB8647800A3368E /* ParticularCurrentLabelContainer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

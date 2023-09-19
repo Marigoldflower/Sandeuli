@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class MainInformationView: UIView {
+final class MainInformationView: UIView {
     // MARK: - Page Control
     let pageControl: UIPageControl = {
         let page = UIPageControl()

@@ -99,7 +99,7 @@ extension DailyForecastView: ViewDrawable {
     }
 }
 
-extension DailyForecastView: UITableViewDataSource {
+extension DailyForecastView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if weekDayArray.count > 10 {
@@ -126,8 +126,13 @@ extension DailyForecastView: UITableViewDataSource {
         return 70
     }
     
-}
-
-extension DailyForecastView: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 20
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = DailyForecastHeaderView()
+        return headerView
+    }
     
 }
