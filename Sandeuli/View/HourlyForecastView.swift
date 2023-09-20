@@ -128,7 +128,7 @@ extension HourlyForecastView: ViewDrawable {
     }
 }
 
-extension HourlyForecastView: UICollectionViewDataSource {
+extension HourlyForecastView: UICollectionViewDataSource, UICollectionViewDelegate {
     // 셀의 개수
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if timeArray.count > 26 {
@@ -147,13 +147,6 @@ extension HourlyForecastView: UICollectionViewDataSource {
         cell.temperature.text = temperatureArray[indexPath.item]
 
         return cell
-    }
-}
-
-extension HourlyForecastView: UICollectionViewDelegate {
-    // 컬렉션 뷰를 클릭할 경우 실행할 메소드
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
     }
 }
 

@@ -9,6 +9,7 @@ import UIKit
 
 extension UIColor {
     
+    static let seaColor = UIColor(red: 0.18, green: 0.53, blue: 0.78, alpha: 1.00)
     
     // 데이터의 색깔 (밝은 날씨일 때에는 어두운 주황, 어두운 날씨일 때에는 밝은 주황)
     static let dayDataText = UIColor(red: 0.94, green: 0.67, blue: 0.51, alpha: 1.00)

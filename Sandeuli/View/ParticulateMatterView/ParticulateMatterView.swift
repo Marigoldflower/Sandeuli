@@ -69,17 +69,6 @@ final class ParticulateMatterView: UIView {
     required init?(coder: NSCoder) {
         fatalError()
     }
-    
-    // MARK: - Gradient 적용 메소드
-    private func addGradientToView(_ view: UIView) {
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = view.bounds
-        gradientLayer.colors = [UIColor.gradientBlue.cgColor, UIColor.gradientWhite.cgColor]
-        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
-        gradientLayer.endPoint = CGPoint(x: 1, y: 1)
-
-        view.layer.insertSublayer(gradientLayer, at: 0)
-    }
 }
 
 extension ParticulateMatterView: ViewDrawable {
@@ -120,5 +109,16 @@ extension ParticulateMatterView: ViewDrawable {
             make.top.equalTo(ultraParticulateMatterLabel.snp.bottom).offset(50)
             make.height.equalTo(70)
         }
+    }
+    
+    // MARK: - Gradient 적용 메소드
+    private func addGradientToView(_ view: UIView) {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = view.bounds
+        gradientLayer.colors = [UIColor.gradientBlue.cgColor, UIColor.gradientWhite.cgColor]
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 1, y: 1)
+
+        view.layer.insertSublayer(gradientLayer, at: 0)
     }
 }

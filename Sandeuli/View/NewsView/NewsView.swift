@@ -7,9 +7,32 @@
 
 import UIKit
 import SnapKit
+import SwiftSoup
 
 final class NewsView: UIView {
-
+    // MARK: - Header 영역
+    private let headerViewImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "newspaper")?.applyingSymbolConfiguration(.init(paletteColors: [.white]))
+        return imageView
+    }()
+    
+    private let headerViewLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "Poppins-Medium", size: 15)
+        label.text = "날씨 뉴스"
+        label.textColor = .white
+        return label
+    }()
+    
+    // MARK: - StackView
+    private lazy var headerStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [headerViewImage, headerViewLabel])
+        stack.axis = .horizontal
+        stack.spacing = 4
+        return stack
+    }()
+    
     // MARK: - UI Components
     lazy var collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -21,9 +44,14 @@ final class NewsView: UIView {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(NewsCell.self, forCellWithReuseIdentifier: NewsCell.identifier)
-        collectionView.backgroundColor = UIColor.gradientBlue.withAlphaComponent(0.75)
+        collectionView.backgroundColor = .clear
         return collectionView
     }()
+    
+    // MARK: - Cell에 보낼 데이터
+    var weatherNewsImage = UIImage()
+    var weatherNewsTitle = String()
+    var weatherNewsText = String()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -38,47 +66,49 @@ final class NewsView: UIView {
 extension NewsView: ViewDrawable {
     func configureUI() {
         setAutolayout()
-        addGradientToCollectionView(self.collectionView)
+        addGradientToView(self)
+        backgroundColor = UIColor.gradientBlue.withAlphaComponent(0.65)
     }
     
     func setAutolayout() {
-        addSubview(collectionView)
+        [headerStackView, collectionView].forEach { addSubview($0) }
+        
+        headerStackView.snp.makeConstraints { make in
+            make.leading.equalTo(snp.leading).offset(15)
+            make.top.equalTo(snp.top).offset(12)
+        }
         
         collectionView.snp.makeConstraints { make in
             make.leading.equalTo(snp.leading)
             make.trailing.equalTo(snp.trailing)
-            make.top.equalTo(snp.top)
+            make.top.equalTo(snp.top).offset(25)
             make.bottom.equalTo(snp.bottom)
         }
     }
     
     // MARK: - Gradient 적용 메소드
-    private func addGradientToCollectionView(_ collectionView: UICollectionView) {
-
-        let gradientContainerView = GradientContainerView(frame: collectionView.bounds)
-        gradientContainerView.setGradientLayer(colors: [UIColor.gradientBlue.cgColor, UIColor.gradientWhite.cgColor],
-                                               startPoint: CGPoint(x: 0, y: 0),
-                                               endPoint: CGPoint(x: 1, y: 1))
-
-        collectionView.backgroundView = gradientContainerView
+    private func addGradientToView(_ view: UIView) {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = view.bounds
+        gradientLayer.colors = [UIColor.gradientBlue.cgColor, UIColor.gradientWhite.cgColor]
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 1, y: 1)
+        
+        view.layer.insertSublayer(gradientLayer, at: 0)
     }
 }
 
 // MARK: - DataSource & Delegate
-extension NewsView: UICollectionViewDataSource {
+extension NewsView: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 10
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewsCell.identifier, for: indexPath) as! NewsCell
-
+        
         return cell
     }
-}
-
-extension NewsView: UICollectionViewDelegate {
-    
 }
 
 extension NewsView: UICollectionViewDelegateFlowLayout {

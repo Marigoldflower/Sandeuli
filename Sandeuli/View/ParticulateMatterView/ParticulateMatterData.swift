@@ -33,6 +33,22 @@ final class ParticulateMatterData: UIView {
         }
     }
     
+    var symbolName = String() {
+        didSet {
+            if symbolName == "cloud.drizzle" || symbolName == "cloud.rain" || symbolName == "cloud.heavyrain" || symbolName == "cloud.fog" || symbolName == "cloud.bolt.rain" || symbolName == "cloud.moon.rain" || symbolName == "snowflake" {
+                goodLabel.textColor = .particulateGoodColorNight
+                normalLabel.textColor = .particulateNormalColorNight
+                badLabel.textColor = .particulateBadColorNight
+                veryBadLabel.textColor = .particulateVeryBadColorNight
+            } else {
+                goodLabel.textColor = .particulateGoodColorDay
+                normalLabel.textColor = .particulateNormalColorDay
+                badLabel.textColor = .particulateBadColorDay
+                veryBadLabel.textColor = .particulateVeryBadColorDay
+            }
+        }
+    }
+    
     var dayOrNightDistributor: Bool = Bool() {
         didSet {
             print("지금 낮인지 밤인지는 \(dayOrNightDistributor)")

@@ -21,6 +21,7 @@ final class WeatherController: UIViewController {
     private let hourlyForecastViewModel = HourlyForecastViewModel()
     private let dailyForecastViewModel = DailyForecastViewModel()
     private let particulateMatterViewModel = ParticulateMatterViewModel()
+//    private let newsViewModel = NewsViewModel()
     
     // MARK: - CLLocationManager
     private let locationManager = CLLocationManager()
@@ -48,6 +49,13 @@ final class WeatherController: UIViewController {
     
     private let particulateMatterView: ParticulateMatterView = {
         let view = ParticulateMatterView()
+        view.layer.cornerRadius = 15
+        view.layer.masksToBounds = true
+        return view
+    }()
+    
+    private let koreaWeatherView: KoreaWeatherView = {
+        let view = KoreaWeatherView()
         view.layer.cornerRadius = 15
         view.layer.masksToBounds = true
         return view
@@ -116,6 +124,7 @@ final class WeatherController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        newsViewModel.fetchNewsNetwork()
         configureUI()
     }
 }
@@ -541,14 +550,24 @@ extension WeatherController: ViewDrawable {
             guard let particulateMatter = particulate?.particulateMatterResponse?.body?.items else { return }
             guard let particulateMatterLocation = self?.particulateMatterLocation else { return }
             
-            self?.particulateMatterCalculatorAccordingToLocation(location: particulateMatterLocation, particulateData: particulateMatter, isDayLight: currentWeather.isDaylight)
+            self?.particulateMatterCalculatorAccordingToLocation(location: particulateMatterLocation, particulateData: particulateMatter, isDayLight: currentWeather.isDaylight, symbolName: currentWeather.symbolName)
             
             guard let ultraParticulate = ultraParticulate?.particulateMatterResponse?.body?.items else { return }
             guard let ultraParticulateMatterLocation = self?.ultraParticulateMatterLocation else { return }
             
-            self?.particulateMatterCalculatorAccordingToLocation(location: ultraParticulateMatterLocation, particulateData: ultraParticulate, isDayLight: currentWeather.isDaylight)
+            self?.particulateMatterCalculatorAccordingToLocation(location: ultraParticulateMatterLocation, particulateData: ultraParticulate, isDayLight: currentWeather.isDaylight, symbolName: currentWeather.symbolName)
         }
         .store(in: &cancellables)
+        setNewsData()
+    }
+    
+    private func setNewsData() {
+//        newsViewModel.$weatherNews
+//            .receive(on: DispatchQueue.main)
+//            .sink { [weak self] news in
+//                print("자 오늘의 날씨 뉴스는 \(news)")
+//            }
+//            .store(in: &cancellables)
     }
     
     func setAutolayout() {
@@ -572,6 +591,14 @@ extension WeatherController: ViewDrawable {
             make.height.equalTo(400)
         }
         
+        koreaWeatherView.snp.makeConstraints { make in
+            make.height.equalTo(500)
+        }
+        
+        newsView.snp.makeConstraints { make in
+            make.height.equalTo(400)
+        }
+        
         // MARK: - 스크롤 뷰 및 스택 뷰 레이아웃
         scrollView.snp.makeConstraints { make in
             make.leading.equalTo(view.snp.leading).offset(20)
@@ -590,7 +617,7 @@ extension WeatherController: ViewDrawable {
     }
     
     private func fillStackView() {
-        let companyArray = [mainInformationView, hourlyForecastView, dailyForecastView, particulateMatterView, newsView]
+        let companyArray = [mainInformationView, hourlyForecastView, dailyForecastView, particulateMatterView, koreaWeatherView, newsView]
         for company in companyArray {
             var elementView = UIView()
             elementView = company
@@ -598,7 +625,7 @@ extension WeatherController: ViewDrawable {
             // ⭐️ 스크롤 방향이 세로 방향이면 widthAnchor에 값을 할당하는 부분은 지워도 된다.
             // elementView.widthAnchor.constraint(equalToConstant: 200).isActive = true
             // ⭐️ 스크롤 방향이 가로 방향이면 heightAnchor에 값을 할당하는 부분은 지워도 된다.
-            elementView.heightAnchor.constraint(equalToConstant: 2000).isActive = true
+            elementView.heightAnchor.constraint(equalToConstant: 3000).isActive = true
             stackView.addArrangedSubview(elementView)
         }
     }
@@ -659,142 +686,142 @@ extension WeatherController {
     }
     
     // MARK: - 지역에 따라 미세 & 초미세를 구하는 메소드
-    private func particulateMatterCalculatorAccordingToLocation(location: String, particulateData: [ParticulateMatterItem], isDayLight: Bool) {
+    private func particulateMatterCalculatorAccordingToLocation(location: String, particulateData: [ParticulateMatterItem], isDayLight: Bool, symbolName: String) {
         switch location {
         case "daegu":
             for data in particulateData {
                 if data.itemCode == "PM10" {
-                    distributeParticulateMatter(density: particulateData[0].daegu!, isDayLight: isDayLight)
+                    distributeParticulateMatter(density: particulateData[0].daegu!, isDayLight: isDayLight, symbolName: symbolName)
                 } else {
-                    distributeUltraParticulateMatter(density: particulateData[0].daegu!, isDayLight: isDayLight)
+                    distributeUltraParticulateMatter(density: particulateData[0].daegu!, isDayLight: isDayLight, symbolName: symbolName)
                 }
             }
         case "chungnam":
             for data in particulateData {
                 if data.itemCode == "PM10" {
-                    distributeParticulateMatter(density: particulateData[0].chungnam!, isDayLight: isDayLight)
+                    distributeParticulateMatter(density: particulateData[0].chungnam!, isDayLight: isDayLight, symbolName: symbolName)
                 } else {
-                    distributeUltraParticulateMatter(density: particulateData[0].chungnam!, isDayLight: isDayLight)
+                    distributeUltraParticulateMatter(density: particulateData[0].chungnam!, isDayLight: isDayLight, symbolName: symbolName)
                 }
             }
         case "incheon":
             for data in particulateData {
                 if data.itemCode == "PM10" {
-                    distributeParticulateMatter(density: particulateData[0].incheon!, isDayLight: isDayLight)
+                    distributeParticulateMatter(density: particulateData[0].incheon!, isDayLight: isDayLight, symbolName: symbolName)
                 } else {
-                    distributeUltraParticulateMatter(density: particulateData[0].incheon!, isDayLight: isDayLight)
+                    distributeUltraParticulateMatter(density: particulateData[0].incheon!, isDayLight: isDayLight, symbolName: symbolName)
                 }
             }
         case "daejeon":
             for data in particulateData {
                 if data.itemCode == "PM10" {
-                    distributeParticulateMatter(density: particulateData[0].daejeon!, isDayLight: isDayLight)
+                    distributeParticulateMatter(density: particulateData[0].daejeon!, isDayLight: isDayLight, symbolName: symbolName)
                 } else {
-                    distributeUltraParticulateMatter(density: particulateData[0].daejeon!, isDayLight: isDayLight)
+                    distributeUltraParticulateMatter(density: particulateData[0].daejeon!, isDayLight: isDayLight, symbolName: symbolName)
                 }
             }
         case "gyeongbuk":
             for data in particulateData {
                 if data.itemCode == "PM10" {
-                    distributeParticulateMatter(density: particulateData[0].gyeongbuk!, isDayLight: isDayLight)
+                    distributeParticulateMatter(density: particulateData[0].gyeongbuk!, isDayLight: isDayLight, symbolName: symbolName)
                 } else {
-                    distributeUltraParticulateMatter(density: particulateData[0].gyeongbuk!, isDayLight: isDayLight)
+                    distributeUltraParticulateMatter(density: particulateData[0].gyeongbuk!, isDayLight: isDayLight, symbolName: symbolName)
                 }
             }
         case "sejong":
             for data in particulateData {
                 if data.itemCode == "PM10" {
-                    distributeParticulateMatter(density: particulateData[0].sejong!, isDayLight: isDayLight)
+                    distributeParticulateMatter(density: particulateData[0].sejong!, isDayLight: isDayLight, symbolName: symbolName)
                 } else {
-                    distributeUltraParticulateMatter(density: particulateData[0].sejong!, isDayLight: isDayLight)
+                    distributeUltraParticulateMatter(density: particulateData[0].sejong!, isDayLight: isDayLight, symbolName: symbolName)
                 }
             }
         case "gwangju":
             for data in particulateData {
                 if data.itemCode == "PM10" {
-                    distributeParticulateMatter(density: particulateData[0].gwangju!, isDayLight: isDayLight)
+                    distributeParticulateMatter(density: particulateData[0].gwangju!, isDayLight: isDayLight, symbolName: symbolName)
                 } else {
-                    distributeUltraParticulateMatter(density: particulateData[0].gwangju!, isDayLight: isDayLight)
+                    distributeUltraParticulateMatter(density: particulateData[0].gwangju!, isDayLight: isDayLight, symbolName: symbolName)
                 }
             }
         case "jeonbuk":
             for data in particulateData {
                 if data.itemCode == "PM10" {
-                    distributeParticulateMatter(density: particulateData[0].jeonbuk!, isDayLight: isDayLight)
+                    distributeParticulateMatter(density: particulateData[0].jeonbuk!, isDayLight: isDayLight, symbolName: symbolName)
                 } else {
-                    distributeUltraParticulateMatter(density: particulateData[0].jeonbuk!, isDayLight: isDayLight)
+                    distributeUltraParticulateMatter(density: particulateData[0].jeonbuk!, isDayLight: isDayLight, symbolName: symbolName)
                 }
             }
         case "gangwon":
             for data in particulateData {
                 if data.itemCode == "PM10" {
-                    distributeParticulateMatter(density: particulateData[0].gangwon!, isDayLight: isDayLight)
+                    distributeParticulateMatter(density: particulateData[0].gangwon!, isDayLight: isDayLight, symbolName: symbolName)
                 } else {
-                    distributeUltraParticulateMatter(density: particulateData[0].gangwon!, isDayLight: isDayLight)
+                    distributeUltraParticulateMatter(density: particulateData[0].gangwon!, isDayLight: isDayLight, symbolName: symbolName)
                 }
             }
         case "ulsan":
             for data in particulateData {
                 if data.itemCode == "PM10" {
-                    distributeParticulateMatter(density: particulateData[0].ulsan!, isDayLight: isDayLight)
+                    distributeParticulateMatter(density: particulateData[0].ulsan!, isDayLight: isDayLight, symbolName: symbolName)
                 } else {
-                    distributeUltraParticulateMatter(density: particulateData[0].ulsan!, isDayLight: isDayLight)
+                    distributeUltraParticulateMatter(density: particulateData[0].ulsan!, isDayLight: isDayLight, symbolName: symbolName)
                 }
             }
         case "jeonnam":
             for data in particulateData {
                 if data.itemCode == "PM10" {
-                    distributeParticulateMatter(density: particulateData[0].jeonnam!, isDayLight: isDayLight)
+                    distributeParticulateMatter(density: particulateData[0].jeonnam!, isDayLight: isDayLight, symbolName: symbolName)
                 } else {
-                    distributeUltraParticulateMatter(density: particulateData[0].jeonnam!, isDayLight: isDayLight)
+                    distributeUltraParticulateMatter(density: particulateData[0].jeonnam!, isDayLight: isDayLight, symbolName: symbolName)
                 }
             }
         case "seoul":
             for data in particulateData {
                 if data.itemCode == "PM10" {
-                    distributeParticulateMatter(density: particulateData[0].seoul!, isDayLight: isDayLight)
+                    distributeParticulateMatter(density: particulateData[0].seoul!, isDayLight: isDayLight, symbolName: symbolName)
                 } else {
-                    distributeUltraParticulateMatter(density: particulateData[0].seoul!, isDayLight: isDayLight)
+                    distributeUltraParticulateMatter(density: particulateData[0].seoul!, isDayLight: isDayLight, symbolName: symbolName)
                 }
             }
         case "busan":
             for data in particulateData {
                 if data.itemCode == "PM10" {
-                    distributeParticulateMatter(density: particulateData[0].busan!, isDayLight: isDayLight)
+                    distributeParticulateMatter(density: particulateData[0].busan!, isDayLight: isDayLight, symbolName: symbolName)
                 } else {
-                    distributeUltraParticulateMatter(density: particulateData[0].busan!, isDayLight: isDayLight)
+                    distributeUltraParticulateMatter(density: particulateData[0].busan!, isDayLight: isDayLight, symbolName: symbolName)
                 }
             }
         case "jeju":
             for data in particulateData {
                 if data.itemCode == "PM10" {
-                    distributeParticulateMatter(density: particulateData[0].jeju!, isDayLight: isDayLight)
+                    distributeParticulateMatter(density: particulateData[0].jeju!, isDayLight: isDayLight, symbolName: symbolName)
                 } else {
-                    distributeUltraParticulateMatter(density: particulateData[0].jeju!, isDayLight: isDayLight)
+                    distributeUltraParticulateMatter(density: particulateData[0].jeju!, isDayLight: isDayLight, symbolName: symbolName)
                 }
             }
         case "chungbuk":
             for data in particulateData {
                 if data.itemCode == "PM10" {
-                    distributeParticulateMatter(density: particulateData[0].chungbuk!, isDayLight: isDayLight)
+                    distributeParticulateMatter(density: particulateData[0].chungbuk!, isDayLight: isDayLight, symbolName: symbolName)
                 } else {
-                    distributeUltraParticulateMatter(density: particulateData[0].chungbuk!, isDayLight: isDayLight)
+                    distributeUltraParticulateMatter(density: particulateData[0].chungbuk!, isDayLight: isDayLight, symbolName: symbolName)
                 }
             }
         case "gyeongnam":
             for data in particulateData {
                 if data.itemCode == "PM10" {
-                    distributeParticulateMatter(density: particulateData[0].gyeongnam!, isDayLight: isDayLight)
+                    distributeParticulateMatter(density: particulateData[0].gyeongnam!, isDayLight: isDayLight, symbolName: symbolName)
                 } else {
-                    distributeUltraParticulateMatter(density: particulateData[0].gyeongnam!, isDayLight: isDayLight)
+                    distributeUltraParticulateMatter(density: particulateData[0].gyeongnam!, isDayLight: isDayLight, symbolName: symbolName)
                 }
             }
         case "gyeonggi":
             for data in particulateData {
                 if data.itemCode == "PM10" {
-                    distributeParticulateMatter(density: particulateData[0].gyeonggi!, isDayLight: isDayLight)
+                    distributeParticulateMatter(density: particulateData[0].gyeonggi!, isDayLight: isDayLight, symbolName: symbolName)
                 } else {
-                    distributeUltraParticulateMatter(density: particulateData[0].gyeonggi!, isDayLight: isDayLight)
+                    distributeUltraParticulateMatter(density: particulateData[0].gyeonggi!, isDayLight: isDayLight, symbolName: symbolName)
                 }
             }
         default: return
@@ -803,7 +830,7 @@ extension WeatherController {
     }
 
     // MARK: - 미세먼지 농도에 따라 좋음, 보통, 나쁨, 매우나쁨으로 나누는 메소드
-    private func distributeParticulateMatter(density: String, isDayLight: Bool) {
+    private func distributeParticulateMatter(density: String, isDayLight: Bool, symbolName: String) {
         particulateMatterFetchCount += 1
         if particulateMatterFetchCount == 1 {
             guard let myCurrentLocation = Int(density) else { return }
@@ -811,10 +838,11 @@ extension WeatherController {
             
             particulateMatterView.particulateMatterData.particulateDataReceiver = density
             particulateMatterView.particulateMatterData.dayOrNightDistributor = isDayLight
+            particulateMatterView.particulateMatterData.symbolName = symbolName
         }
     }
 
-    private func distributeUltraParticulateMatter(density: String, isDayLight: Bool) {
+    private func distributeUltraParticulateMatter(density: String, isDayLight: Bool, symbolName: String) {
         ultraParticulateMatterFetchCount += 1
         if ultraParticulateMatterFetchCount == 1 {
             guard let myCurrentLocation = Int(density) else { return }
@@ -822,6 +850,7 @@ extension WeatherController {
             
             particulateMatterView.ultraParticulateMatterData.ultraParticulateDataReceiver = density
             particulateMatterView.ultraParticulateMatterData.dayOrNightDistributor = isDayLight
+            particulateMatterView.ultraParticulateMatterData.symbolName = symbolName
         }
     }
 

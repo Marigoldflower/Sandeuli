@@ -7,5 +7,6 @@ target 'Sandeuli' do
 
   # Pods for Sandeuli
 	pod 'SnapKit'
+	pod 'SwiftSoup'
 
 end
