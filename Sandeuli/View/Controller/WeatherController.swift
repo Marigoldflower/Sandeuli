@@ -12,6 +12,33 @@ import SnapKit
 import Combine
 
 final class WeatherController: UIViewController {
+    // MARK: - 지역 이름
+    var seoul = "nx=60&ny=127"
+    var incheon = "nx=55&ny=124"
+    var gyeonggi = "nx=60&ny=121"
+    var gangwon = "nx=92&ny=131"
+    var chungbuk = "nx=69&ny=106"
+    var chungnam = "nx=68&ny=100"
+    var jeonbuk = "nx=63&ny=89"
+    var jeonnam = "nx=50&ny=67"
+    var gyeongnam = "nx=90&ny=77"
+    var gyeongbuk = "nx=91&ny=106"
+    var jeju = "nx=52&ny=38"
+    
+    lazy var korea = [seoul, incheon, gyeonggi, gangwon, chungbuk, chungnam, jeonbuk, jeonnam, gyeongnam, gyeongbuk, jeju]
+    
+    // MARK: - 각 지역이 한 번만 불리도록 하는 기준 변수
+    var seoulCallCount = Int()
+    var incheonCallCount = Int()
+    var gyeonggiCallCount = Int()
+    var gangwonCallCount = Int()
+    var chungbukCallCount = Int()
+    var chungnamCallCount = Int()
+    var jeonbukCallCount = Int()
+    var jeonnamCallCount = Int()
+    var gyeongnamCallCount = Int()
+    var gyeongbukCallCount = Int()
+    var jejuCallCount = Int()
     
     // MARK: - Cancellables
     private var cancellables: Set<AnyCancellable> = []
@@ -21,7 +48,8 @@ final class WeatherController: UIViewController {
     private let hourlyForecastViewModel = HourlyForecastViewModel()
     private let dailyForecastViewModel = DailyForecastViewModel()
     private let particulateMatterViewModel = ParticulateMatterViewModel()
-//    private let newsViewModel = NewsViewModel()
+    private let koreaWeatherViewModel = KoreaWeatherViewModel()
+    private let otherViewModel = OtherViewModel()
     
     // MARK: - CLLocationManager
     private let locationManager = CLLocationManager()
@@ -56,13 +84,6 @@ final class WeatherController: UIViewController {
     
     private let koreaWeatherView: KoreaWeatherView = {
         let view = KoreaWeatherView()
-        view.layer.cornerRadius = 15
-        view.layer.masksToBounds = true
-        return view
-    }()
-    
-    private let newsView: NewsView = {
-        let view = NewsView()
         view.layer.cornerRadius = 15
         view.layer.masksToBounds = true
         return view
@@ -124,7 +145,6 @@ final class WeatherController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        newsViewModel.fetchNewsNetwork()
         configureUI()
     }
 }
@@ -133,12 +153,19 @@ extension WeatherController: ViewDrawable {
     func configureUI() {
         navigationItem.searchController = searchController
         view.backgroundColor = .dayBackground
+        fetchKoreaNetwork(with: korea)
         setAutolayout()
         fillStackView()
         getUsersLocation()
         setMainInformationViewData()
     }
     
+    private func fetchKoreaNetwork(with koreaRegion: [String]) {
+        for regionURL in koreaRegion {
+            koreaWeatherViewModel.fetchKoreaWeatherNetwork(regionURL: regionURL)
+        }
+    }
+
     private func setMainInformationViewData() {
         Publishers.Zip(mainInformationViewModel.$todayCurrentWeather,
                         mainInformationViewModel.$dailyForecast)
@@ -155,7 +182,7 @@ extension WeatherController: ViewDrawable {
                     // 밤이라면
                     if currentWeather.condition.description == "눈옴" {
                         self?.coloringMethod(symbolName: "snowflake")
-                    } else if currentWeather.condition.description == "비옴" {
+                    } else if currentWeather.condition.description == "비" {
                         self?.coloringMethod(symbolName: "cloud.moon.rain")
                     } else {
                         self?.coloringMethod(symbolName: "moon.stars")
@@ -558,16 +585,436 @@ extension WeatherController: ViewDrawable {
             self?.particulateMatterCalculatorAccordingToLocation(location: ultraParticulateMatterLocation, particulateData: ultraParticulate, isDayLight: currentWeather.isDaylight, symbolName: currentWeather.symbolName)
         }
         .store(in: &cancellables)
-        setNewsData()
+        setKoreaWeatherViewData()
     }
     
-    private func setNewsData() {
-//        newsViewModel.$weatherNews
-//            .receive(on: DispatchQueue.main)
-//            .sink { [weak self] news in
-//                print("자 오늘의 날씨 뉴스는 \(news)")
-//            }
-//            .store(in: &cancellables)
+    private func setKoreaWeatherViewData() {
+        Publishers.Zip4(koreaWeatherViewModel.$jeju,
+                        koreaWeatherViewModel.$seoul,
+                        koreaWeatherViewModel.$jejuCurrentWeather,
+                        koreaWeatherViewModel.$seoulCurrentWeather)
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] jeju, seoul, jejuWeather, seoulWeather in
+            
+            guard let jejuCollect = jeju?.response?.body?.items?.item else { return }
+            guard let seoulCollect = seoul?.response?.body?.items?.item else { return }
+            
+            // MARK: - 현재 날짜에 해당
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyyMMdd"
+            let today = dateFormatter.string(from: Date())
+            
+            // MARK: - 현재 시간에 해당
+            let timeFormatter = DateFormatter()
+            timeFormatter.dateFormat = "HH"
+            let currentTime = timeFormatter.string(from: Date())
+            print("현재 시간은 \(currentTime)")
+            
+            // MARK: - 제주
+            for jeju in jejuCollect {
+                if jeju.fcstDate == today {
+                    // 현재 시간과 비교하기 위한 시간
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "HHmm"
+                    let date = dateFormatter.date(from: jeju.fcstTime)!
+
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "HH"
+                    let jejuTime = formatter.string(from: date)
+                    
+                    // 현재 시간과 JSON 시간대가 같다면
+                    if currentTime == jejuTime {
+                        if jeju.category.rawValue == "TMP" {
+                            print("제주에 오게 될 날짜값은 \(jeju.fcstDate)")
+                            print("제주에 오게 될 시간값은 \(jejuTime)")
+                            print("제주에 오게 될 단 하나의 값은 \(jeju.fcstValue)")
+                            self?.koreaWeatherView.koreaMap.jeju.locationLabel.text = "제주"
+                            self?.koreaWeatherView.koreaMap.jeju.temperatureLabel.text = jeju.fcstValue + "°"
+                        }
+                    }
+                }
+            }
+            self?.koreaWeatherView.koreaMap.jeju.weatherImageView.image = UIImage(systemName: jejuWeather)?.withRenderingMode(.alwaysTemplate)
+            
+            // MARK: - 서울
+            for seoul in seoulCollect {
+                if seoul.fcstDate == today {
+                    // 현재 시간과 비교하기 위한 시간
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "HHmm"
+                    let date = dateFormatter.date(from: seoul.fcstTime)!
+
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "HH"
+                    let seoulTime = formatter.string(from: date)
+                    
+                    // 현재 시간과 JSON 시간대가 같다면
+                    if currentTime == seoulTime {
+                        if seoul.category.rawValue == "TMP" {
+                            print("서울에 오게 될 날짜값은 \(seoul.fcstDate)")
+                            print("서울에 오게 될 시간값은 \(seoulTime)")
+                            print("서울에 오게 될 단 하나의 값은 \(seoul.fcstValue)")
+                            self?.koreaWeatherView.koreaMap.seoul.locationLabel.text = "서울"
+                            self?.koreaWeatherView.koreaMap.seoul.temperatureLabel.text = seoul.fcstValue + "°"
+                        }
+                    }
+                }
+            }
+            self?.koreaWeatherView.koreaMap.seoul.weatherImageView.image = UIImage(systemName: seoulWeather)?.withRenderingMode(.alwaysTemplate)
+        }
+        .store(in: &cancellables)
+        
+        Publishers.Zip4(koreaWeatherViewModel.$gangwon,
+                        koreaWeatherViewModel.$incheon,
+                        koreaWeatherViewModel.$gangwonCurrentWeather,
+                        koreaWeatherViewModel.$incheonCurrentWeather)
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] gangwon, incheon, gangwonWeather, incheonWeather in
+            guard let gangwonCollect = gangwon?.response?.body?.items?.item else { return }
+            guard let incheonCollect = incheon?.response?.body?.items?.item else { return }
+            
+            // MARK: - 현재 날짜에 해당
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyyMMdd"
+            let today = dateFormatter.string(from: Date())
+            
+            // MARK: - 현재 시간에 해당
+            let timeFormatter = DateFormatter()
+            timeFormatter.dateFormat = "HH"
+            let currentTime = timeFormatter.string(from: Date())
+            print("현재 시간은 \(currentTime)")
+            
+            // MARK: - 강원
+            for gangwon in gangwonCollect {
+                if gangwon.fcstDate == today {
+                    // 현재 시간과 비교하기 위한 시간
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "HHmm"
+                    let date = dateFormatter.date(from: gangwon.fcstTime)!
+
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "HH"
+                    let gangwonTime = formatter.string(from: date)
+                    
+                    // 현재 시간과 JSON 시간대가 같다면
+                    if currentTime == gangwonTime {
+                        if gangwon.category.rawValue == "TMP" {
+                            print("강원에 오게 될 날짜값은 \(gangwon.fcstDate)")
+                            print("강원에 오게 될 시간값은 \(gangwonTime)")
+                            print("강원에 오게 될 단 하나의 값은 \(gangwon.fcstValue)")
+                            self?.koreaWeatherView.koreaMap.gangwon.locationLabel.text = "강원"
+                            self?.koreaWeatherView.koreaMap.gangwon.temperatureLabel.text = gangwon.fcstValue + "°"
+                        }
+                    }
+                }
+            }
+            self?.koreaWeatherView.koreaMap.gangwon.weatherImageView.image = UIImage(systemName: gangwonWeather)?.withRenderingMode(.alwaysTemplate)
+            
+            // MARK: - 인천
+            for incheon in incheonCollect {
+                if incheon.fcstDate == today {
+                    // 현재 시간과 비교하기 위한 시간
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "HHmm"
+                    let date = dateFormatter.date(from: incheon.fcstTime)!
+
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "HH"
+                    let incheonTime = formatter.string(from: date)
+                    
+                    // 현재 시간과 JSON 시간대가 같다면
+                    if currentTime == incheonTime {
+                        if incheon.category.rawValue == "TMP" {
+                            print("인천에 오게 될 날짜값은 \(incheon.fcstDate)")
+                            print("인천에 오게 될 시간값은 \(incheonTime)")
+                            print("인천에 오게 될 단 하나의 값은 \(incheon.fcstValue)")
+                            self?.koreaWeatherView.koreaMap.incheon.locationLabel.text = "인천"
+                            self?.koreaWeatherView.koreaMap.incheon.temperatureLabel.text = incheon.fcstValue + "°"
+                        }
+                    }
+                }
+            }
+            self?.koreaWeatherView.koreaMap.incheon.weatherImageView.image = UIImage(systemName: incheonWeather)?.withRenderingMode(.alwaysTemplate)
+        }
+        .store(in: &cancellables)
+        
+        Publishers.Zip4(koreaWeatherViewModel.$jeonbuk,
+                        koreaWeatherViewModel.$jeonnam,
+                        koreaWeatherViewModel.$jeonbukCurrentWeather,
+                        koreaWeatherViewModel.$jeonnamCurrentWeather)
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] jeonbuk, jeonnam, jeonbukWeather, jeonnamWeather in
+            guard let jeonbukCollect = jeonbuk?.response?.body?.items?.item else { return }
+            guard let jeonnamCollect = jeonnam?.response?.body?.items?.item else { return }
+            
+            // MARK: - 현재 날짜에 해당
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyyMMdd"
+            let today = dateFormatter.string(from: Date())
+            
+            // MARK: - 현재 시간에 해당
+            let timeFormatter = DateFormatter()
+            timeFormatter.dateFormat = "HH"
+            let currentTime = timeFormatter.string(from: Date())
+            print("현재 시간은 \(currentTime)")
+            
+            // MARK: - 전라북도
+            for jeonbuk in jeonbukCollect {
+                if jeonbuk.fcstDate == today {
+                    // 현재 시간과 비교하기 위한 시간
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "HHmm"
+                    let date = dateFormatter.date(from: jeonbuk.fcstTime)!
+
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "HH"
+                    let jeonbukTime = formatter.string(from: date)
+                    
+                    // 현재 시간과 JSON 시간대가 같다면
+                    if currentTime == jeonbukTime {
+                        if jeonbuk.category.rawValue == "TMP" {
+                            print("전북에 오게 될 날짜값은 \(jeonbuk.fcstDate)")
+                            print("전북에 오게 될 시간값은 \(jeonbukTime)")
+                            print("전북에 오게 될 단 하나의 값은 \(jeonbuk.fcstValue)")
+                            self?.koreaWeatherView.koreaMap.jeonbuk.locationLabel.text = "전북"
+                            self?.koreaWeatherView.koreaMap.jeonbuk.temperatureLabel.text = jeonbuk.fcstValue + "°"
+                        }
+                    }
+                }
+            }
+            self?.koreaWeatherView.koreaMap.jeonbuk.weatherImageView.image = UIImage(systemName: jeonbukWeather)?.withRenderingMode(.alwaysTemplate)
+            
+            // MARK: - 전라남도
+            for jeonnam in jeonnamCollect {
+                if jeonnam.fcstDate == today {
+                    // 현재 시간과 비교하기 위한 시간
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "HHmm"
+                    let date = dateFormatter.date(from: jeonnam.fcstTime)!
+
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "HH"
+                    let jeonnamTime = formatter.string(from: date)
+                    
+                    // 현재 시간과 JSON 시간대가 같다면
+                    if currentTime == jeonnamTime {
+                        if jeonnam.category.rawValue == "TMP" {
+                            print("전남에 오게 될 날짜값은 \(jeonnam.fcstDate)")
+                            print("전남에 오게 될 시간값은 \(jeonnamTime)")
+                            print("전남에 오게 될 단 하나의 값은 \(jeonnam.fcstValue)")
+                            self?.koreaWeatherView.koreaMap.jeonnam.locationLabel.text = "전남"
+                            self?.koreaWeatherView.koreaMap.jeonnam.temperatureLabel.text = jeonnam.fcstValue + "°"
+                        }
+                    }
+                }
+            }
+            self?.koreaWeatherView.koreaMap.jeonnam.weatherImageView.image = UIImage(systemName: jeonnamWeather)?.withRenderingMode(.alwaysTemplate)
+        }
+        .store(in: &cancellables)
+        
+        Publishers.Zip4(koreaWeatherViewModel.$chungbuk,
+                        koreaWeatherViewModel.$chungnam,
+                        koreaWeatherViewModel.$chungbukCurrentWeather,
+                        koreaWeatherViewModel.$chungnamCurrentWeather)
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] chungbuk, chungnam, chungbukWeather, chungnamWeather in
+            guard let chungbukCollect = chungbuk?.response?.body?.items?.item else { return }
+            guard let chungnamCollect = chungnam?.response?.body?.items?.item else { return }
+            
+            // MARK: - 현재 날짜에 해당
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyyMMdd"
+            let today = dateFormatter.string(from: Date())
+            
+            // MARK: - 현재 시간에 해당
+            let timeFormatter = DateFormatter()
+            timeFormatter.dateFormat = "HH"
+            let currentTime = timeFormatter.string(from: Date())
+            print("현재 시간은 \(currentTime)")
+            
+            // MARK: - 충청북도
+            for chungbuk in chungbukCollect {
+                if chungbuk.fcstDate == today {
+                    // 현재 시간과 비교하기 위한 시간
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "HHmm"
+                    let date = dateFormatter.date(from: chungbuk.fcstTime)!
+
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "HH"
+                    let chungbukTime = formatter.string(from: date)
+                    
+                    // 현재 시간과 JSON 시간대가 같다면
+                    if currentTime == chungbukTime {
+                        if chungbuk.category.rawValue == "TMP" {
+                            print("충북에 오게 될 날짜값은 \(chungbuk.fcstDate)")
+                            print("충북에 오게 될 시간값은 \(chungbukTime)")
+                            print("충북에 오게 될 단 하나의 값은 \(chungbuk.fcstValue)")
+                            self?.koreaWeatherView.koreaMap.chungbuk.locationLabel.text = "충북"
+                            self?.koreaWeatherView.koreaMap.chungbuk.temperatureLabel.text = chungbuk.fcstValue + "°"
+                        }
+                    }
+                }
+            }
+            self?.koreaWeatherView.koreaMap.chungbuk.weatherImageView.image = UIImage(systemName: chungbukWeather)?.withRenderingMode(.alwaysTemplate)
+            
+            // MARK: - 충청남도
+            for chungnam in chungnamCollect {
+                if chungnam.fcstDate == today {
+                    // 현재 시간과 비교하기 위한 시간
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "HHmm"
+                    let date = dateFormatter.date(from: chungnam.fcstTime)!
+
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "HH"
+                    let chungnamTime = formatter.string(from: date)
+                    
+                    // 현재 시간과 JSON 시간대가 같다면
+                    if currentTime == chungnamTime {
+                        if chungnam.category.rawValue == "TMP" {
+                            print("충남에 오게 될 날짜값은 \(chungnam.fcstDate)")
+                            print("충남에 오게 될 시간값은 \(chungnamTime)")
+                            print("충남에 오게 될 단 하나의 값은 \(chungnam.fcstValue)")
+                            self?.koreaWeatherView.koreaMap.chungnam.locationLabel.text = "충남"
+                            self?.koreaWeatherView.koreaMap.chungnam.temperatureLabel.text = chungnam.fcstValue + "°"
+                        }
+                    }
+                }
+            }
+            self?.koreaWeatherView.koreaMap.chungnam.weatherImageView.image = UIImage(systemName: chungnamWeather)?.withRenderingMode(.alwaysTemplate)
+        }
+        .store(in: &cancellables)
+        
+        Publishers.Zip4(koreaWeatherViewModel.$gyeonggi,
+                        koreaWeatherViewModel.$gyeongbuk,
+                        koreaWeatherViewModel.$gyeonggiCurrentWeather,
+                        koreaWeatherViewModel.$gyeongbukCurrentWeather)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] gyeonggi, gyeongbuk, gyeonggiWeather, gyeongbukWeather in
+                guard let gyeonggiCollect = gyeonggi?.response?.body?.items?.item else { return }
+                guard let gyeongbukCollect = gyeongbuk?.response?.body?.items?.item else { return }
+                
+                // MARK: - 현재 날짜에 해당
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyyMMdd"
+                let today = dateFormatter.string(from: Date())
+                
+                // MARK: - 현재 시간에 해당
+                let timeFormatter = DateFormatter()
+                timeFormatter.dateFormat = "HH"
+                let currentTime = timeFormatter.string(from: Date())
+                print("현재 시간은 \(currentTime)")
+                
+                // MARK: - 경기도
+                for gyeonggi in gyeonggiCollect {
+                    if gyeonggi.fcstDate == today {
+                        // 현재 시간과 비교하기 위한 시간
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.dateFormat = "HHmm"
+                        let date = dateFormatter.date(from: gyeonggi.fcstTime)!
+
+                        let formatter = DateFormatter()
+                        formatter.dateFormat = "HH"
+                        let gyeonggiTime = formatter.string(from: date)
+                        
+                        // 현재 시간과 JSON 시간대가 같다면
+                        if currentTime == gyeonggiTime {
+                            if gyeonggi.category.rawValue == "TMP" {
+                                print("경기에 오게 될 날짜값은 \(gyeonggi.fcstDate)")
+                                print("경기에 오게 될 시간값은 \(gyeonggiTime)")
+                                print("경기에 오게 될 단 하나의 값은 \(gyeonggi.fcstValue)")
+                                self?.koreaWeatherView.koreaMap.gyeonggi.locationLabel.text = "경기"
+                                self?.koreaWeatherView.koreaMap.gyeonggi.temperatureLabel.text = gyeonggi.fcstValue + "°"
+                            }
+                        }
+                    }
+                }
+                self?.koreaWeatherView.koreaMap.gyeonggi.weatherImageView.image = UIImage(systemName: gyeonggiWeather)?.withRenderingMode(.alwaysTemplate)
+                
+                // MARK: - 경상북도
+                for gyeongbuk in gyeongbukCollect {
+                    if gyeongbuk.fcstDate == today {
+                        // 현재 시간과 비교하기 위한 시간
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.dateFormat = "HHmm"
+                        let date = dateFormatter.date(from: gyeongbuk.fcstTime)!
+
+                        let formatter = DateFormatter()
+                        formatter.dateFormat = "HH"
+                        let gyeongbukTime = formatter.string(from: date)
+                        
+                        // 현재 시간과 JSON 시간대가 같다면
+                        if currentTime == gyeongbukTime {
+                            if gyeongbuk.category.rawValue == "TMP" {
+                                print("경북에 오게 될 날짜값은 \(gyeongbuk.fcstDate)")
+                                print("경북에 오게 될 시간값은 \(gyeongbukTime)")
+                                print("경북에 오게 될 단 하나의 값은 \(gyeongbuk.fcstValue)")
+                                self?.koreaWeatherView.koreaMap.gyeongbuk.locationLabel.text = "경북"
+                                self?.koreaWeatherView.koreaMap.gyeongbuk.temperatureLabel.text = gyeongbuk.fcstValue + "°"
+                            }
+                        }
+                    }
+                }
+                self?.koreaWeatherView.koreaMap.gyeongbuk.weatherImageView.image = UIImage(systemName: gyeongbukWeather)?.withRenderingMode(.alwaysTemplate)
+            }
+            .store(in: &cancellables)
+        
+        Publishers.Zip(koreaWeatherViewModel.$gyeongnam,
+                       koreaWeatherViewModel.$gyeongnamCurrentWeather)
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] gyeongnam, gyeongnamWeather in
+            guard let gyeongnamCollect = gyeongnam?.response?.body?.items?.item else { return }
+            
+            // MARK: - 현재 날짜에 해당
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyyMMdd"
+            let today = dateFormatter.string(from: Date())
+            
+            // MARK: - 현재 시간에 해당
+            let timeFormatter = DateFormatter()
+            timeFormatter.dateFormat = "HH"
+            let currentTime = timeFormatter.string(from: Date())
+            print("현재 시간은 \(currentTime)")
+            
+            // MARK: - 경상남도
+            for gyeongnam in gyeongnamCollect {
+                if gyeongnam.fcstDate == today {
+                    // 현재 시간과 비교하기 위한 시간
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "HHmm"
+                    let date = dateFormatter.date(from: gyeongnam.fcstTime)!
+
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "HH"
+                    let gyeongnamTime = formatter.string(from: date)
+                    
+                    // 현재 시간과 JSON 시간대가 같다면
+                    if currentTime == gyeongnamTime {
+                        if gyeongnam.category.rawValue == "TMP" {
+                            print("경남에 오게 될 날짜값은 \(gyeongnam.fcstDate)")
+                            print("경남에 오게 될 시간값은 \(gyeongnamTime)")
+                            print("경남에 오게 될 단 하나의 값은 \(gyeongnam.fcstValue)")
+                            self?.koreaWeatherView.koreaMap.gyeongnam.locationLabel.text = "경남"
+                            self?.koreaWeatherView.koreaMap.gyeongnam.temperatureLabel.text = gyeongnam.fcstValue + "°"
+                        }
+                    }
+                }
+            }
+            self?.koreaWeatherView.koreaMap.gyeongnam.weatherImageView.image = UIImage(systemName: gyeongnamWeather)?.withRenderingMode(.alwaysTemplate)
+        }
+        .store(in: &cancellables)
+        
+        setOtherViewData()
+    }
+    
+    private func setOtherViewData() {
+        otherViewModel.$currentWeather
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] currentWeather in
+                
+            }
+            .store(in: &cancellables)
     }
     
     func setAutolayout() {
@@ -595,9 +1042,6 @@ extension WeatherController: ViewDrawable {
             make.height.equalTo(500)
         }
         
-        newsView.snp.makeConstraints { make in
-            make.height.equalTo(400)
-        }
         
         // MARK: - 스크롤 뷰 및 스택 뷰 레이아웃
         scrollView.snp.makeConstraints { make in
@@ -617,14 +1061,11 @@ extension WeatherController: ViewDrawable {
     }
     
     private func fillStackView() {
-        let companyArray = [mainInformationView, hourlyForecastView, dailyForecastView, particulateMatterView, koreaWeatherView, newsView]
+        let companyArray = [mainInformationView, hourlyForecastView, dailyForecastView, particulateMatterView, koreaWeatherView]
         for company in companyArray {
             var elementView = UIView()
             elementView = company
             elementView.translatesAutoresizingMaskIntoConstraints = false
-            // ⭐️ 스크롤 방향이 세로 방향이면 widthAnchor에 값을 할당하는 부분은 지워도 된다.
-            // elementView.widthAnchor.constraint(equalToConstant: 200).isActive = true
-            // ⭐️ 스크롤 방향이 가로 방향이면 heightAnchor에 값을 할당하는 부분은 지워도 된다.
             elementView.heightAnchor.constraint(equalToConstant: 3000).isActive = true
             stackView.addArrangedSubview(elementView)
         }
@@ -645,6 +1086,8 @@ extension WeatherController {
         switch symbolName {
         case "sun.max":
             detailColoring(mainInformationView: mainInformationView, backgroundColor: .dayBackground, mainLabelColor: .dayMainLabel, sideLabelColor: .daySideLabel, symbolName: symbolName, paletteColors1: .dayImage, paletteColors2: .clear, paletteColors3: .clear)
+        case "sun.min":
+            detailColoring(mainInformationView: mainInformationView, backgroundColor: .dayBackground, mainLabelColor: .dayMainLabel, sideLabelColor: .daySideLabel, symbolName: symbolName, paletteColors1: .dayImage, paletteColors2: .clear, paletteColors3: .clear)
             
         case "moon.stars":
             detailColoring(mainInformationView: mainInformationView, backgroundColor: .nightBackground, mainLabelColor: .nightMainLabel, sideLabelColor: .nightSideLabel, symbolName: symbolName, paletteColors1: .nightImage, paletteColors2: .white, paletteColors3: .clear)
@@ -663,6 +1106,18 @@ extension WeatherController {
             
         case "cloud.bolt.rain":
             detailColoring(mainInformationView: mainInformationView, backgroundColor: .rainyBackground, mainLabelColor: .rainyMainLabel, sideLabelColor: .rainySideLabel, symbolName: symbolName, paletteColors1: .rainyImage, paletteColors2: .systemCyan, paletteColors3: .clear)
+
+        case "cloud.heavyrain":
+            detailColoring(mainInformationView: mainInformationView, backgroundColor: .rainyBackground, mainLabelColor: .rainyMainLabel, sideLabelColor: .rainySideLabel, symbolName: symbolName, paletteColors1: .rainyImage, paletteColors2: .systemCyan, paletteColors3: .clear)
+            
+        case "cloud.fog":
+            detailColoring(mainInformationView: mainInformationView, backgroundColor: .rainyBackground, mainLabelColor: .rainyMainLabel, sideLabelColor: .rainySideLabel, symbolName: symbolName, paletteColors1: .rainyImage, paletteColors2: .systemCyan, paletteColors3: .clear)
+            
+        case "cloud.moon":
+            detailColoring(mainInformationView: mainInformationView, backgroundColor: .nightBackground, mainLabelColor: .nightMainLabel, sideLabelColor: .nightSideLabel, symbolName: symbolName, paletteColors1: .rainyImage, paletteColors2: .nightImage, paletteColors3: .clear)
+            
+        case "cloud.moon.rain":
+            detailColoring(mainInformationView: mainInformationView, backgroundColor: .nightBackground, mainLabelColor: .nightMainLabel, sideLabelColor: .nightSideLabel, symbolName: symbolName, paletteColors1: .rainyImage, paletteColors2: .nightImage, paletteColors3: .systemCyan)
             
         default:
             break
@@ -892,6 +1347,8 @@ extension WeatherController: CLLocationManagerDelegate {
         hourlyForecastViewModel.fetchWeather(location: location)
         dailyForecastViewModel.fetchWeather(location: location)
         particulateMatterViewModel.fetchWeather(location: location)
+        koreaWeatherViewModel.fetchWeather()
+        otherViewModel.fetchWeather(location: location)
     }
 }
 

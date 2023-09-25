@@ -36,9 +36,9 @@ final class ParticulateMatterData: UIView {
     var symbolName = String() {
         didSet {
             if symbolName == "cloud.drizzle" || symbolName == "cloud.rain" || symbolName == "cloud.heavyrain" || symbolName == "cloud.fog" || symbolName == "cloud.bolt.rain" || symbolName == "cloud.moon.rain" || symbolName == "snowflake" {
-                goodLabel.textColor = .particulateGoodColorNight
-                normalLabel.textColor = .particulateNormalColorNight
-                badLabel.textColor = .particulateBadColorNight
+                goodLabel.textColor = .particulateGoodColorTextNight
+                normalLabel.textColor = .particulateNormalColorTextNight
+                badLabel.textColor = .particulateBadColorTextNight
                 veryBadLabel.textColor = .particulateVeryBadColorNight
             } else {
                 goodLabel.textColor = .particulateGoodColorDay
@@ -58,9 +58,9 @@ final class ParticulateMatterData: UIView {
                 badLabel.textColor = .particulateBadColorDay
                 veryBadLabel.textColor = .particulateVeryBadColorDay
             } else {
-                goodLabel.textColor = .particulateGoodColorNight
-                normalLabel.textColor = .particulateNormalColorNight
-                badLabel.textColor = .particulateBadColorNight
+                goodLabel.textColor = .particulateGoodColorTextNight
+                normalLabel.textColor = .particulateNormalColorTextNight
+                badLabel.textColor = .particulateBadColorTextNight
                 veryBadLabel.textColor = .particulateVeryBadColorNight
             }
         }

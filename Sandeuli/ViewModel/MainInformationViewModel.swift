@@ -34,6 +34,7 @@ final class MainInformationViewModel {
                 self.todayCurrentWeather = weather.currentWeather
                 print("지금은 낮입니까? \(weather.currentWeather.isDaylight)")
                 print("현재 날씨 상태는 \(weather.currentWeather.condition)")
+                print("현재 날씨 symbol은 \(weather.currentWeather.symbolName)")
                 self.dailyForecast = weather.dailyForecast.forecast
                 
             } catch {

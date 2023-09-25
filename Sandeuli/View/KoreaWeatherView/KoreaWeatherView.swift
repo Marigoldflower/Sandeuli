@@ -26,7 +26,7 @@ final class KoreaWeatherView: UIView {
     }()
     
     // MARK: - UI Components
-    private let koreaMap: KoreaMap = {
+    let koreaMap: KoreaMap = {
         let map = KoreaMap()
         return map
     }()
@@ -47,6 +47,7 @@ final class KoreaWeatherView: UIView {
         fatalError()
     }
     
+    // View 자체에 그라디언트 효과를 적용하기 위해 필요한 변수 
     override public class var layerClass: AnyClass {
         return CAGradientLayer.classForCoder()
     }

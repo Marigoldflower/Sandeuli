@@ -9,7 +9,9 @@ import UIKit
 
 extension UIColor {
     
+    // 맵 색깔
     static let seaColor = UIColor(red: 0.18, green: 0.53, blue: 0.78, alpha: 1.00)
+    static let earthColor = UIColor(red: 0.73, green: 0.79, blue: 0.88, alpha: 1.00)
     
     // 데이터의 색깔 (밝은 날씨일 때에는 어두운 주황, 어두운 날씨일 때에는 밝은 주황)
     static let dayDataText = UIColor(red: 0.94, green: 0.67, blue: 0.51, alpha: 1.00)
@@ -72,6 +74,12 @@ extension UIColor {
     static let particulateNormalColorNight = UIColor(red: 0.08, green: 0.84, blue: 0.19, alpha: 1.00)
     static let particulateBadColorNight = UIColor(red: 0.93, green: 0.76, blue: 0.33, alpha: 1.00)
     static let particulateVeryBadColorNight = UIColor(red: 0.92, green: 0.20, blue: 0.10, alpha: 1.00)
+    
+    // 어두운 배경화면일 때 사용할 "텍스트" 색깔
+    static let particulateGoodColorTextNight = UIColor(red: 0.48, green: 0.91, blue: 1.00, alpha: 1.00)
+    static let particulateNormalColorTextNight = UIColor(red: 0.70, green: 1.00, blue: 0.75, alpha: 1.00)
+    static let particulateBadColorTextNight = UIColor(red: 1.00, green: 0.90, blue: 0.63, alpha: 1.00)
+    static let particulateVeryBadColorTextNight = UIColor(red: 1.00, green: 0.71, blue: 0.66, alpha: 1.00)
 
     // MARK: - Gradient Color
     static let gradientWhite = UIColor(red: 1.00, green: 1.00, blue: 1.00, alpha: 1.00)

@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import SwiftSoup
 
-final class NewsView: UIView {
+final class OtherView: UIView {
     // MARK: - Header 영역
     private let headerViewImage: UIImageView = {
         let imageView = UIImageView()
@@ -63,7 +63,7 @@ final class NewsView: UIView {
     }
 }
 
-extension NewsView: ViewDrawable {
+extension OtherView: ViewDrawable {
     func configureUI() {
         setAutolayout()
         addGradientToView(self)
@@ -99,7 +99,7 @@ extension NewsView: ViewDrawable {
 }
 
 // MARK: - DataSource & Delegate
-extension NewsView: UICollectionViewDataSource, UICollectionViewDelegate {
+extension OtherView: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 10
     }
@@ -111,7 +111,7 @@ extension NewsView: UICollectionViewDataSource, UICollectionViewDelegate {
     }
 }
 
-extension NewsView: UICollectionViewDelegateFlowLayout {
+extension OtherView: UICollectionViewDelegateFlowLayout {
     // ⭐️ 컬렉션 뷰 각각의 아이템 사이즈 크기를 정하는 곳 ⭐️
     // 컬렉션 뷰는 각각의 아이템 사이즈를 반드시 정해줘야 한다.
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
