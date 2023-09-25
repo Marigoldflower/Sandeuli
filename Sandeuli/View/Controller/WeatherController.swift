@@ -55,6 +55,12 @@ final class WeatherController: UIViewController {
     private let locationManager = CLLocationManager()
     
     // MARK: - UI Components
+    private let searchMagnifyingButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
+        return button
+    }()
+    
     private let mainInformationView: MainInformationView = {
         let view = MainInformationView()
         view.backgroundColor = .dayBackground
@@ -113,7 +119,6 @@ final class WeatherController: UIViewController {
         searchResult.searchBar.searchTextField.layer.cornerRadius = 10
         searchResult.searchBar.searchTextField.backgroundColor = .searchControllerWhite
         searchResult.searchBar.placeholder = "지역을 입력해주세요"
-        searchResult.searchBar.updateHeight(height: 46)
         return searchResult
     }()
     
@@ -176,10 +181,13 @@ extension WeatherController: ViewDrawable {
                 // MARK: - 낮과 밤을 나누어서 처리하는 영역
                 if currentWeather.isDaylight {
                     // 낮이라면
+                    self?.searchMagnifyingButton.tintColor = .dayDataText
                     // MARK: - WeatherImage에 따라 색깔을 바꾸는 영역
                     self?.coloringMethod(symbolName: currentWeather.symbolName)
                 } else {
                     // 밤이라면
+                    self?.searchMagnifyingButton.tintColor = .nightDataText
+                    
                     if currentWeather.condition.description == "눈옴" {
                         self?.coloringMethod(symbolName: "snowflake")
                     } else if currentWeather.condition.description == "비" {
