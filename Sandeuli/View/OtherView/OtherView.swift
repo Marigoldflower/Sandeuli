@@ -7,7 +7,6 @@
 
 import UIKit
 import SnapKit
-import SwiftSoup
 
 final class OtherView: UIView {
     // MARK: - Header 영역

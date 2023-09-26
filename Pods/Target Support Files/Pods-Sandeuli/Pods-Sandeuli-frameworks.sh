@@ -176,12 +176,16 @@ code_sign_if_enabled() {
 }
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "${BUILT_PRODUCTS_DIR}/CombineCocoa/CombineCocoa.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/CombineReactor/CombineReactor.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/SwiftSoup/SwiftSoup.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/WeakMapTable/WeakMapTable.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "${BUILT_PRODUCTS_DIR}/CombineCocoa/CombineCocoa.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/CombineReactor/CombineReactor.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/SwiftSoup/SwiftSoup.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/WeakMapTable/WeakMapTable.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait

@@ -16,7 +16,7 @@ final class DailyForecastView: UIView {
         table.register(DailyForecastCell.self, forCellReuseIdentifier: DailyForecastCell.identifier)
         table.dataSource = self
         table.delegate = self
-        table.backgroundColor = UIColor.gradientBlue.withAlphaComponent(0.75)
+        table.backgroundColor = .gradientBlue.withAlphaComponent(0.75)
         return table
     }()
     
@@ -93,7 +93,7 @@ extension DailyForecastView: ViewDrawable {
         let gradientContainerView = GradientContainerView(frame: tableView.bounds)
         gradientContainerView.setGradientLayer(colors: [UIColor.gradientBlue.cgColor, UIColor.gradientWhite.cgColor],
                                                startPoint: CGPoint(x: 0, y: 0),
-                                               endPoint: CGPoint(x: 1, y: 1))
+                                               endPoint: CGPoint(x: 11, y: 11))
 
         tableView.backgroundView = gradientContainerView
     }

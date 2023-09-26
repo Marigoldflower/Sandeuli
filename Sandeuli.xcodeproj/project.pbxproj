@@ -23,7 +23,6 @@
 		EA1D87DD2AA8955A00A3368E /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D87DC2AA8955A00A3368E /* Colors.swift */; };
 		EA1D87DF2AA8984600A3368E /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D87DE2AA8984600A3368E /* SearchResultViewController.swift */; };
 		EA1D87E12AA898A700A3368E /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D87E02AA898A700A3368E /* SearchBar.swift */; };
-		EA1D87E32AA8999800A3368E /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D87E22AA8999700A3368E /* MainTabController.swift */; };
 		EA1D88092AA8A57C00A3368E /* Poppins-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = EA1D87FA2AA8A54F00A3368E /* Poppins-Black.otf */; };
 		EA1D880A2AA8A57E00A3368E /* Poppins-BlackItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = EA1D88072AA8A55000A3368E /* Poppins-BlackItalic.otf */; };
 		EA1D880B2AA8A58000A3368E /* Poppins-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = EA1D87F92AA8A54F00A3368E /* Poppins-Bold.otf */; };
@@ -69,6 +68,8 @@
 		EA1D888B2AC17E1500A3368E /* CountryInformationNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D888A2AC17E1500A3368E /* CountryInformationNetworkManager.swift */; };
 		EA1D888D2AC17EA500A3368E /* CountryInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D888C2AC17EA500A3368E /* CountryInformationViewModel.swift */; };
 		EA1D888F2AC180D700A3368E /* CountryInformationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D888E2AC180D700A3368E /* CountryInformationCell.swift */; };
+		EA1D88B12AC28B1700A3368E /* WeatherControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D88B02AC28B1700A3368E /* WeatherControllerViewModel.swift */; };
+		EA1D88B32AC28D4E00A3368E /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D88B22AC28D4E00A3368E /* Bindable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -93,7 +94,6 @@
 		EA1D87DC2AA8955A00A3368E /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		EA1D87DE2AA8984600A3368E /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		EA1D87E02AA898A700A3368E /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
-		EA1D87E22AA8999700A3368E /* MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
 		EA1D87F72AA8A54F00A3368E /* Poppins-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-ExtraBold.otf"; path = "../../../SandeulSandeul/SandeulSandeul/Font/Poppins-ExtraBold.otf"; sourceTree = "<group>"; };
 		EA1D87F82AA8A54F00A3368E /* Poppins-MediumItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-MediumItalic.otf"; path = "../../../SandeulSandeul/SandeulSandeul/Font/Poppins-MediumItalic.otf"; sourceTree = "<group>"; };
 		EA1D87F92AA8A54F00A3368E /* Poppins-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-Bold.otf"; path = "../../../SandeulSandeul/SandeulSandeul/Font/Poppins-Bold.otf"; sourceTree = "<group>"; };
@@ -141,6 +141,8 @@
 		EA1D888A2AC17E1500A3368E /* CountryInformationNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryInformationNetworkManager.swift; sourceTree = "<group>"; };
 		EA1D888C2AC17EA500A3368E /* CountryInformationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryInformationViewModel.swift; sourceTree = "<group>"; };
 		EA1D888E2AC180D700A3368E /* CountryInformationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryInformationCell.swift; sourceTree = "<group>"; };
+		EA1D88B02AC28B1700A3368E /* WeatherControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherControllerViewModel.swift; sourceTree = "<group>"; };
+		EA1D88B22AC28D4E00A3368E /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,6 +224,7 @@
 			isa = PBXGroup;
 			children = (
 				EA1D888C2AC17EA500A3368E /* CountryInformationViewModel.swift */,
+				EA1D88B02AC28B1700A3368E /* WeatherControllerViewModel.swift */,
 				EA1D87D32AA8903800A3368E /* MainInformationViewModel.swift */,
 				EA1D882C2AA9D40100A3368E /* HourlyForecastViewModel.swift */,
 				EA1D88322AAEF04D00A3368E /* DailyForecastViewModel.swift */,
@@ -246,6 +249,7 @@
 			isa = PBXGroup;
 			children = (
 				EA1D87CF2AA87A6800A3368E /* ViewDrawable.swift */,
+				EA1D88B22AC28D4E00A3368E /* Bindable.swift */,
 				EA1D87D12AA88C0400A3368E /* Location.swift */,
 				EA1D87DC2AA8955A00A3368E /* Colors.swift */,
 				EA1D87E02AA898A700A3368E /* SearchBar.swift */,
@@ -257,7 +261,6 @@
 		EA1D87D52AA8951400A3368E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				EA1D87E22AA8999700A3368E /* MainTabController.swift */,
 				EA1D87BA2AA875E800A3368E /* WeatherController.swift */,
 				EA1D87DE2AA8984600A3368E /* SearchResultViewController.swift */,
 			);
@@ -503,6 +506,7 @@
 				EA1D87DB2AA8954C00A3368E /* DailyForecastView.swift in Sources */,
 				EA1D88872AC11EE100A3368E /* KoreaDetailWeatherReportContainer.swift in Sources */,
 				EA1D88232AA97DBF00A3368E /* PatriculateMatterNetworkManager.swift in Sources */,
+				EA1D88B32AC28D4E00A3368E /* Bindable.swift in Sources */,
 				EA1D884E2AB8722500A3368E /* NewsCell.swift in Sources */,
 				EA1D88782ABAB48000A3368E /* KoreaMap.swift in Sources */,
 				EA1D887F2ABAD7B300A3368E /* KoreaWeather.swift in Sources */,
@@ -512,6 +516,7 @@
 				EA1D88472AB8675F00A3368E /* UIImage.swift in Sources */,
 				EA1D87D42AA8903800A3368E /* MainInformationViewModel.swift in Sources */,
 				EA1D88542AB9B77000A3368E /* OtherViewModel.swift in Sources */,
+				EA1D88B12AC28B1700A3368E /* WeatherControllerViewModel.swift in Sources */,
 				EA1D87E12AA898A700A3368E /* SearchBar.swift in Sources */,
 				EA1D888B2AC17E1500A3368E /* CountryInformationNetworkManager.swift in Sources */,
 				EA1D87B72AA875E800A3368E /* AppDelegate.swift in Sources */,
@@ -520,7 +525,6 @@
 				EA1D88832ABADC8300A3368E /* KoreaWeatherViewModel.swift in Sources */,
 				EA1D88762ABAAEB500A3368E /* KoreaWeatherView.swift in Sources */,
 				EA1D88312AAEEE8100A3368E /* DailyForecastCell.swift in Sources */,
-				EA1D87E32AA8999800A3368E /* MainTabController.swift in Sources */,
 				EA1D87D22AA88C0400A3368E /* Location.swift in Sources */,
 				EA1D88272AA9D27800A3368E /* HourlyForecastCell.swift in Sources */,
 				EA1D882D2AA9D40100A3368E /* HourlyForecastViewModel.swift in Sources */,

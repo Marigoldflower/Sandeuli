@@ -8,18 +8,7 @@
 import UIKit
 import SnapKit
 
-final class MainInformationView: UIView {
-    // MARK: - Page Control
-    let pageControl: UIPageControl = {
-        let page = UIPageControl()
-        page.numberOfPages = 3
-        page.backgroundColor = .searchControllerWhite
-        page.pageIndicatorTintColor = .pageIndicatorGray
-        page.currentPageIndicatorTintColor = .currentPageIndicatorDarkBlue
-        page.layer.cornerRadius = 5
-        return page
-    }()
- 
+final class MainInformationView: UIView { 
     // MARK: - 현재 날씨 이미지
     let todayWeatherImage: UIImageView = {
         let imageView = UIImageView()
@@ -154,15 +143,10 @@ extension MainInformationView: ViewDrawable {
     }
     
     func setAutolayout() {
-        [pageControl, todayWeatherImage, todayWeatherTemperature, celsiusLabel, currentStatus, highLowCelciusStackView, sunriseAndSunsetStackView].forEach { addSubview($0) }
-        
-        pageControl.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(self.snp.top).offset(20)
-        }
+        [todayWeatherImage, todayWeatherTemperature, celsiusLabel, currentStatus, highLowCelciusStackView, sunriseAndSunsetStackView].forEach { addSubview($0) }
         
         todayWeatherImage.snp.makeConstraints { make in
-            make.top.equalTo(pageControl.snp.bottom).offset(50)
+            make.top.equalTo(snp.top).offset(50)
             make.centerX.equalTo(self.snp.centerX)
             make.height.equalTo(118)
             make.width.equalTo(125)

@@ -10,8 +10,10 @@ import WeatherKit
 import CoreLocation
 import SnapKit
 import Combine
+import CombineReactor
+import CombineCocoa
 
-final class WeatherController: UIViewController {
+final class WeatherController: UIViewController, View {
     // MARK: - 지역 이름
     var seoul = "nx=60&ny=127"
     var incheon = "nx=55&ny=124"
@@ -41,7 +43,7 @@ final class WeatherController: UIViewController {
     var jejuCallCount = Int()
     
     // MARK: - Cancellables
-    private var cancellables: Set<AnyCancellable> = []
+    var cancellables: Set<AnyCancellable> = []
 
     // MARK: - ViewModel
     private let mainInformationViewModel = MainInformationViewModel()
@@ -56,9 +58,23 @@ final class WeatherController: UIViewController {
     
     // MARK: - UI Components
     private let searchMagnifyingButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
+        let button = UIButton(type: .system)
+        if let originalImage = UIImage(systemName: "magnifyingglass") {
+            let resizedImage = originalImage.resizeImage(targetSize: CGSize(width: 30, height: 30))
+            button.setImage(resizedImage, for: .normal)
+        }
         return button
+    }()
+    
+    // MARK: - Page Control
+    let pageControl: UIPageControl = {
+        let page = UIPageControl()
+        page.numberOfPages = 3
+        page.backgroundColor = .searchControllerWhite
+        page.pageIndicatorTintColor = .pageIndicatorGray
+        page.currentPageIndicatorTintColor = .currentPageIndicatorDarkBlue
+        page.layer.cornerRadius = 5
+        return page
     }()
     
     private let mainInformationView: MainInformationView = {
@@ -78,6 +94,7 @@ final class WeatherController: UIViewController {
         let view = DailyForecastView()
         view.layer.cornerRadius = 15
         view.layer.masksToBounds = true
+        view.backgroundColor = .gradientBlue.withAlphaComponent(0.75)
         return view
     }()
     
@@ -111,16 +128,16 @@ final class WeatherController: UIViewController {
     }()
     
     // MARK: - SearchController
-    private lazy var searchController: UISearchController = {
-        let searchResult = UISearchController(searchResultsController: SearchResultViewController())
-        searchResult.searchResultsUpdater = self
-        searchResult.searchBar.autocapitalizationType = .none
-        searchResult.searchBar.searchTextField.borderStyle = .none
-        searchResult.searchBar.searchTextField.layer.cornerRadius = 10
-        searchResult.searchBar.searchTextField.backgroundColor = .searchControllerWhite
-        searchResult.searchBar.placeholder = "지역을 입력해주세요"
-        return searchResult
-    }()
+//    private lazy var searchController: UISearchController = {
+//        let searchResult = UISearchController(searchResultsController: SearchResultViewController())
+//        searchResult.searchResultsUpdater = self
+//        searchResult.searchBar.autocapitalizationType = .none
+//        searchResult.searchBar.searchTextField.borderStyle = .none
+//        searchResult.searchBar.searchTextField.layer.cornerRadius = 10
+//        searchResult.searchBar.searchTextField.backgroundColor = .searchControllerWhite
+//        searchResult.searchBar.placeholder = "지역을 입력해주세요"
+//        return searchResult
+//    }()
     
     // MARK: - 내 현재 위치
     private var userLocation = String()
@@ -154,9 +171,36 @@ final class WeatherController: UIViewController {
     }
 }
 
+extension WeatherController: Bindable {
+    func bind(reactor: WeatherControllerViewModel) {
+        bindAction(reactor)
+        bindState(reactor)
+    }
+    
+    func bindAction(_ reactor: Reactor) {
+        searchMagnifyingButton.tapPublisher
+            .eraseToAnyPublisher()
+            .map { WeatherControllerViewModel.PresentType.searchResultViewController }
+            .map { WeatherControllerViewModel.Action.magnifyingButtonTapped($0) }
+            .subscribe(reactor.action)
+            .store(in: &cancellables)
+    }
+    
+    func bindState(_ reactor: Reactor) {
+        reactor.state
+            .map { $0.youAreInSearchResultController }
+            .filter { $0 != nil }
+            .map { reactor.getSearchResultViewController($0!) }
+            .sink(receiveValue: { [weak self] searchResultController in
+                searchResultController.modalTransitionStyle = .crossDissolve
+                self?.present(searchResultController, animated: true)
+            })
+            .store(in: &cancellables)
+    }
+}
+
 extension WeatherController: ViewDrawable {
     func configureUI() {
-        navigationItem.searchController = searchController
         view.backgroundColor = .dayBackground
         fetchKoreaNetwork(with: korea)
         setAutolayout()
@@ -181,20 +225,47 @@ extension WeatherController: ViewDrawable {
                 // MARK: - 낮과 밤을 나누어서 처리하는 영역
                 if currentWeather.isDaylight {
                     // 낮이라면
-                    self?.searchMagnifyingButton.tintColor = .dayDataText
+                    if currentWeather.symbolName == "snowflake" {
+                        self?.searchMagnifyingButton.tintColor = .nightSideLabel
+                    } else if currentWeather.symbolName == "cloud.rain" {
+                        self?.searchMagnifyingButton.tintColor = .nightSideLabel
+                    } else if currentWeather.symbolName == "cloud.heavyrain" {
+                        self?.searchMagnifyingButton.tintColor = .nightSideLabel
+                    } else if currentWeather.symbolName == "cloud.drizzle" {
+                        self?.searchMagnifyingButton.tintColor = .nightSideLabel
+                    } else if currentWeather.symbolName == "cloud.bolt.rain" {
+                        self?.searchMagnifyingButton.tintColor = .nightSideLabel
+                    } else {
+                        self?.searchMagnifyingButton.tintColor = .daySideLabel
+                    }
+                    
                     // MARK: - WeatherImage에 따라 색깔을 바꾸는 영역
                     self?.coloringMethod(symbolName: currentWeather.symbolName)
                 } else {
                     // 밤이라면
-                    self?.searchMagnifyingButton.tintColor = .nightDataText
+                    self?.searchMagnifyingButton.tintColor = .nightSideLabel
                     
-                    if currentWeather.condition.description == "눈옴" {
+                    if currentWeather.symbolName == "snowflake" {
                         self?.coloringMethod(symbolName: "snowflake")
-                    } else if currentWeather.condition.description == "비" {
+                    } else if currentWeather.symbolName == "cloud.rain" {
                         self?.coloringMethod(symbolName: "cloud.moon.rain")
+                    } else if currentWeather.symbolName == "cloud.heavyrain" {
+                        self?.coloringMethod(symbolName: "cloud.heavyrain")
+                    } else if currentWeather.symbolName == "cloud.drizzle" {
+                        self?.coloringMethod(symbolName: "cloud.drizzle")
+                    } else if currentWeather.symbolName == "cloud.bolt.rain" {
+                        self?.coloringMethod(symbolName: "cloud.bolt.rain")
                     } else {
                         self?.coloringMethod(symbolName: "moon.stars")
                     }
+                    
+//                    if currentWeather.condition.description == "눈옴" {
+//                        self?.coloringMethod(symbolName: "snowflake")
+//                    } else if currentWeather.condition.description == "비" {
+//                        self?.coloringMethod(symbolName: "cloud.moon.rain")
+//                    } else {
+//                        self?.coloringMethod(symbolName: "moon.stars")
+//                    }
                 }
                 
                 // MARK: - Temperature 영역
@@ -1026,10 +1097,20 @@ extension WeatherController: ViewDrawable {
     }
     
     func setAutolayout() {
-        view.addSubview(scrollView)
+        [scrollView, searchMagnifyingButton, pageControl].forEach { view.addSubview($0) }
         scrollView.addSubview(stackView)
         
         // MARK: - 뷰 레이아웃
+        searchMagnifyingButton.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(30)
+            make.trailing.equalTo(view.snp.trailing).offset(-30)
+        }
+        
+        pageControl.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(70)
+        }
+        
         mainInformationView.snp.makeConstraints { make in
             make.height.equalTo(500)
         }
@@ -1054,7 +1135,7 @@ extension WeatherController: ViewDrawable {
         // MARK: - 스크롤 뷰 및 스택 뷰 레이아웃
         scrollView.snp.makeConstraints { make in
             make.leading.equalTo(view.snp.leading).offset(20)
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
+            make.top.equalTo(pageControl.snp.bottom).offset(30)
             make.trailing.equalTo(view.snp.trailing).offset(-20)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-20)
         }
