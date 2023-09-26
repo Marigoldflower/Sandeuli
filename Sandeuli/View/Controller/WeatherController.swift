@@ -56,6 +56,33 @@ final class WeatherController: UIViewController, View {
     // MARK: - CLLocationManager
     private let locationManager = CLLocationManager()
     
+    // MARK: - SearchResultController에게 전달할 데이터
+    private var userLocation = String() {
+        didSet {
+            print("userLocation에 값이 들어왔어요! \(userLocation)")
+        }
+    }
+    private var currentTemperature = String() {
+        didSet {
+            print("currentTemperature에 값이 들어왔어요! \(currentTemperature)")
+        }
+    }
+    private var highestTemperature = String() {
+        didSet {
+            print("highestTemperature에 값이 들어왔어요! \(highestTemperature)")
+        }
+    }
+    private var lowestTemperature = String() {
+        didSet {
+            print("lowestTemperature에 값이 들어왔어요! \(lowestTemperature)")
+        }
+    }
+    private var currentSky = String() {
+        didSet {
+            print("currentSky에 값이 들어왔어요! \(currentSky)")
+        }
+    }
+    
     // MARK: - UI Components
     private let searchMagnifyingButton: UIButton = {
         let button = UIButton(type: .system)
@@ -127,20 +154,7 @@ final class WeatherController: UIViewController, View {
         return scroll
     }()
     
-    // MARK: - SearchController
-//    private lazy var searchController: UISearchController = {
-//        let searchResult = UISearchController(searchResultsController: SearchResultViewController())
-//        searchResult.searchResultsUpdater = self
-//        searchResult.searchBar.autocapitalizationType = .none
-//        searchResult.searchBar.searchTextField.borderStyle = .none
-//        searchResult.searchBar.searchTextField.layer.cornerRadius = 10
-//        searchResult.searchBar.searchTextField.backgroundColor = .searchControllerWhite
-//        searchResult.searchBar.placeholder = "지역을 입력해주세요"
-//        return searchResult
-//    }()
-    
     // MARK: - 내 현재 위치
-    private var userLocation = String()
     private var myState = String() {
         didSet {
             self.particulateMatterLocation = searchLocation(location: myState)
@@ -167,6 +181,7 @@ final class WeatherController: UIViewController, View {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        reactor = WeatherControllerViewModel()
         configureUI()
     }
 }
@@ -191,9 +206,22 @@ extension WeatherController: Bindable {
             .map { $0.youAreInSearchResultController }
             .filter { $0 != nil }
             .map { reactor.getSearchResultViewController($0!) }
-            .sink(receiveValue: { [weak self] searchResultController in
-                searchResultController.modalTransitionStyle = .crossDissolve
-                self?.present(searchResultController, animated: true)
+            .sink(receiveValue: { [weak self] viewController in
+                // viewController에 보내야 하는 것들
+                // 1. 유저의 위치 👏
+                viewController.userLocation = self?.userLocation ?? String()
+                // 2. 현재 온도
+                viewController.currentTemperature = self?.currentTemperature ?? String()
+                // 3. 최고, 최저 온도
+                viewController.highestTemperature = self?.highestTemperature ?? String()
+                viewController.lowestTemperature = self?.lowestTemperature ?? String()
+                // 4. 현재 날씨 상태
+                viewController.currentSky = self?.currentSky ?? String()
+                
+                let navigationController = UINavigationController(rootViewController: viewController)
+                navigationController.modalPresentationStyle = .fullScreen
+                navigationController.modalTransitionStyle = .crossDissolve
+                self?.present(navigationController, animated: true)
             })
             .store(in: &cancellables)
     }
@@ -244,6 +272,7 @@ extension WeatherController: ViewDrawable {
                 } else {
                     // 밤이라면
                     self?.searchMagnifyingButton.tintColor = .nightSideLabel
+                    print("지금 현재 currentWeather.symbolName은 \(currentWeather.symbolName)")
                     
                     if currentWeather.symbolName == "snowflake" {
                         self?.coloringMethod(symbolName: "snowflake")
@@ -255,6 +284,8 @@ extension WeatherController: ViewDrawable {
                         self?.coloringMethod(symbolName: "cloud.drizzle")
                     } else if currentWeather.symbolName == "cloud.bolt.rain" {
                         self?.coloringMethod(symbolName: "cloud.bolt.rain")
+                    } else if currentWeather.symbolName == "cloud.moon.rain" {
+                        self?.coloringMethod(symbolName: "cloud.moon.rain")
                     } else {
                         self?.coloringMethod(symbolName: "moon.stars")
                     }
@@ -270,6 +301,7 @@ extension WeatherController: ViewDrawable {
                 
                 // MARK: - Temperature 영역
                 self?.mainInformationView.todayWeatherTemperature.text = String(round(currentWeather.temperature.value * 10) / 10)
+                self?.currentTemperature = String(round(currentWeather.temperature.value * 10) / 10)
                 
                 // MARK: - 사용자의 위치
                 guard let userLocation = self?.userLocation else { return }
@@ -277,6 +309,7 @@ extension WeatherController: ViewDrawable {
                 
                 // MARK: - 하늘상태
                 self?.mainInformationView.currentSky.text = currentWeather.condition.description
+                self?.currentSky = currentWeather.condition.description
                 
                 // MARK: - 최고 & 최저 온도
                 let formatter = DateFormatter()
@@ -292,6 +325,8 @@ extension WeatherController: ViewDrawable {
                         
                         let highestCelsius = String(round(dayWeather.highTemperature.value * 10) / 10) + "°"
                         self?.mainInformationView.highestCelsius.text = "최고: " + highestCelsius
+                        self?.highestTemperature = "최고: " + highestCelsius
+                        
                         if self?.mainInformationView.backgroundColor == .snowyBackground || self?.mainInformationView.backgroundColor == .rainyBackground ||
                             self?.mainInformationView.backgroundColor == .nightBackground ||
                             self?.mainInformationView.backgroundColor == .foggyBackground {
@@ -302,6 +337,8 @@ extension WeatherController: ViewDrawable {
                         
                         let lowestCelsius = String(round(dayWeather.lowTemperature.value * 10) / 10) + "°"
                         self?.mainInformationView.lowestCelsius.text = "최저: " + lowestCelsius
+                        self?.lowestTemperature = "최저: " + lowestCelsius
+                        
                         if self?.mainInformationView.backgroundColor == .snowyBackground || self?.mainInformationView.backgroundColor == .rainyBackground ||
                             self?.mainInformationView.backgroundColor == .nightBackground ||
                             self?.mainInformationView.backgroundColor == .foggyBackground {
@@ -1438,18 +1475,6 @@ extension WeatherController: CLLocationManagerDelegate {
         particulateMatterViewModel.fetchWeather(location: location)
         koreaWeatherViewModel.fetchWeather()
         otherViewModel.fetchWeather(location: location)
-    }
-}
-
-extension WeatherController: UISearchResultsUpdating {
-    // 유저가 글자를 입력하는 순간마다 호출되는 메서드 ===> 일반적으로 다른 화면을 보여줄때 구현
-    func updateSearchResults(for searchController: UISearchController) {
-        print("서치바에 입력되는 단어", searchController.searchBar.text ?? "")
-        // 글자를 치는 순간에 다른 화면을 보여주고 싶다면 (컬렉션뷰를 보여줌)
-        let vc = searchController.searchResultsController as! SearchResultViewController
-        // 컬렉션뷰에 찾으려는 단어 전달
-        // SearchResultController에 반드시 searchTerm 변수가 존재해야 한다.
-        vc.searchTerm = searchController.searchBar.text ?? ""
     }
 }
 

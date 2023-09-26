@@ -8,92 +8,170 @@
 import UIKit
 import Combine
 import SnapKit
+import CombineCocoa
+import CombineReactor
+import CoreLocation
 
-final class SearchResultViewController: UIViewController {
+protocol CellTappedDelegate: AnyObject {
+    func sendWeatherData(locationName: String, latitude: String, longitude: String)
+}
 
-    // MARK: - Cancellables
+final class SearchResultViewController: UIViewController, View {
+    
     var cancellables: Set<AnyCancellable> = []
     
-    // MARK: - ViewModel
-    private let countryInformationViewModel = CountryInformationViewModel()
+    // MARK: - WeatherController로부터 받아야 할 데이터
+    var userLocation = String()
+    var currentTemperature = String()
+    var highestTemperature = String()
+    var lowestTemperature = String()
+    var currentSky = String()
     
-    // MARK: - 검색 결과 처리할 코드
-    var searchTerm = String() {
-        didSet {
-            setCountryInformationData(regionName: searchTerm)
-        }
-    }
+    
+    // MARK: - TableView에 들어갈 Array
+    var searchResultWeatherArray: [SearchResultWeather] = [
+        SearchResultWeather(locationName: <#T##String#>, image: <#T##UIImage#>, currentTemperature: <#T##String#>, currentSkyStatus: <#T##String#>, highestTemperature: <#T##String#>, lowestTemperature: <#T##String#>)
+    ]
     
     // MARK: - UI Components
+    private lazy var searchController: UISearchController = {
+        let searchResult = UISearchController(searchResultsController: CountryInformationController())
+        searchResult.searchResultsUpdater = self
+        searchResult.searchBar.autocapitalizationType = .none
+        searchResult.searchBar.searchTextField.borderStyle = .none
+        searchResult.searchBar.searchTextField.layer.cornerRadius = 10
+        searchResult.searchBar.searchTextField.backgroundColor = .white
+        searchResult.searchBar.placeholder = "지역을 입력해주세요"
+        return searchResult
+    }()
+ 
+    private let backButton: UIBarButtonItem = {
+        let button = UIBarButtonItem()
+        button.title = "Back"
+        button.tintColor = .white
+        return button
+    }()
+    
     private lazy var tableView: UITableView = {
         let table = UITableView()
-        table.register(CountryInformationCell.self, forCellReuseIdentifier: CountryInformationCell.identifier)
+        table.register(SearchResultCell.self, forCellReuseIdentifier: SearchResultCell.identifier)
         table.dataSource = self
         table.delegate = self
         return table
     }()
     
-    // MARK: - ViewModel로부터 받은 데이터를 저장할 변수
-    private var countryInformation: CountryInformation = [] {
-        didSet {
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
-    }
+    // MARK: - CoreLocation
+    let locationManger = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        reactor = SearchResultViewModel()
         configureUI()
     }
+}
+
+extension SearchResultViewController: Bindable {
+    func bind(reactor: SearchResultViewModel) {
+        bindAction(reactor)
+        bindState(reactor)
+    }
     
-    private func setCountryInformationData(regionName: String) {
-        countryInformationViewModel.fetchCountryInformationNetwork(regionName: regionName)
-        countryInformationViewModel.$countryInformation
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] countryInformation in
-                self?.countryInformation = countryInformation
+    func bindAction(_ reactor: Reactor) {
+        backButton.tapPublisher
+            .eraseToAnyPublisher()
+            .map { SearchResultViewModel.Action.backButtonTapped }
+            .subscribe(reactor.action)
+            .store(in: &cancellables)
+    }
+    
+    func bindState(_ reactor: Reactor) {
+        reactor.state
+            .map { $0.backButtonIsTapped }
+            .removeDuplicates()
+            .map { $0 }
+            .sink { [weak self] value in
+                if value {
+                    self?.dismiss(animated: true)
+                }
             }
-            .store(in: &self.cancellables)
+            .store(in: &cancellables)
     }
 }
 
 extension SearchResultViewController: ViewDrawable {
     func configureUI() {
+        view.backgroundColor = .searchControllerColor
         setAutolayout()
+        setNavigationBar()
+        setLocationManger()
     }
     
     func setAutolayout() {
-        view.addSubview(tableView)
-        
-        tableView.snp.makeConstraints { make in
-            make.leading.equalTo(view.snp.leading)
-            make.trailing.equalTo(view.snp.trailing)
-            make.top.equalTo(view.snp.top)
-            make.bottom.equalTo(view.snp.bottom)
-        }
+        navigationItem.searchController = searchController
+        navigationItem.rightBarButtonItem = backButton
+    }
+    
+    private func setNavigationBar() {
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground() 
+        appearance.backgroundColor = .searchControllerColor
+        appearance.titleTextAttributes = [NSAttributedString.Key.font: UIFont.init(name: "Poppins-Semibold", size: 17)!, NSAttributedString.Key.foregroundColor: UIColor.white]
+        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        title = "지역 검색"
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.compactAppearance = appearance
+    }
+    
+    private func setLocationManger() {
+        locationManger.delegate = self
+        locationManger.startUpdatingLocation()
     }
 }
 
-extension SearchResultViewController: UITableViewDataSource, UITableViewDelegate {
+extension SearchResultViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("현재 SearchResult의 테이블뷰 개수는 \(countryInformation.count)")
-        return countryInformation.count
+        return searchResultWeatherArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: CountryInformationCell.identifier, for: indexPath) as! CountryInformationCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultCell.identifier, for: indexPath) as! SearchResultCell
         
-        cell.regionName.text = countryInformation[indexPath.row].displayName
+        cell.backgroundColor = .searchControllerColor
         
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+}
+
+extension SearchResultViewController: UISearchResultsUpdating {
+    // 유저가 글자를 입력하는 순간마다 호출되는 메서드 ===> 일반적으로 다른 화면을 보여줄때 구현
+    func updateSearchResults(for searchController: UISearchController) {
+        print("서치바에 입력되는 단어", searchController.searchBar.text ?? "")
+        let vc = searchController.searchResultsController as! CountryInformationController
+        vc.delegate = self
+        vc.searchTerm = searchController.searchBar.text ?? ""
     }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+}
+
+extension SearchResultViewController: CellTappedDelegate {
+    func sendWeatherData(locationName: String, latitude: String, longitude: String) {
         
+    }
+}
+
+extension SearchResultViewController: CLLocationManagerDelegate {
+    
+    // 위도, 경도 정보를 얻는 메소드
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        // 가장 최근 업데이트 된 위치를 설정
+        let currentLoaction = locations.first
+        
+        guard let currentLoaction = currentLoaction else { return }
+        
+        // 최근 업데이트 된 위치의 위도와 경도를 설정
+        let latitude = currentLoaction.coordinate.latitude
+        let longtitude = currentLoaction.coordinate.longitude
+        print("위도: \(latitude) | 경도: \(longtitude)")
     }
 }

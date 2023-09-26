@@ -9,6 +9,9 @@ import UIKit
 
 extension UIColor {
     
+    // SearchController 색깔
+    static let searchControllerColor = UIColor(red: 0.11, green: 0.11, blue: 0.12, alpha: 1.00)
+    
     // 맵 색깔
     static let seaColor = UIColor(red: 0.18, green: 0.53, blue: 0.78, alpha: 1.00)
     static let earthColor = UIColor(red: 0.73, green: 0.79, blue: 0.88, alpha: 1.00)

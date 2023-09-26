@@ -70,6 +70,10 @@
 		EA1D888F2AC180D700A3368E /* CountryInformationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D888E2AC180D700A3368E /* CountryInformationCell.swift */; };
 		EA1D88B12AC28B1700A3368E /* WeatherControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D88B02AC28B1700A3368E /* WeatherControllerViewModel.swift */; };
 		EA1D88B32AC28D4E00A3368E /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D88B22AC28D4E00A3368E /* Bindable.swift */; };
+		EA1D88B52AC29ED300A3368E /* CountryInformationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D88B42AC29ED300A3368E /* CountryInformationController.swift */; };
+		EA1D88B72AC2BFB500A3368E /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D88B62AC2BFB500A3368E /* SearchResultCell.swift */; };
+		EA1D88B92AC2D1FD00A3368E /* SearchResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D88B82AC2D1FD00A3368E /* SearchResultViewModel.swift */; };
+		EA1D88BB2AC2E08E00A3368E /* SearchResultWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D88BA2AC2E08E00A3368E /* SearchResultWeather.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -143,6 +147,10 @@
 		EA1D888E2AC180D700A3368E /* CountryInformationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryInformationCell.swift; sourceTree = "<group>"; };
 		EA1D88B02AC28B1700A3368E /* WeatherControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherControllerViewModel.swift; sourceTree = "<group>"; };
 		EA1D88B22AC28D4E00A3368E /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
+		EA1D88B42AC29ED300A3368E /* CountryInformationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryInformationController.swift; sourceTree = "<group>"; };
+		EA1D88B62AC2BFB500A3368E /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
+		EA1D88B82AC2D1FD00A3368E /* SearchResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewModel.swift; sourceTree = "<group>"; };
+		EA1D88BA2AC2E08E00A3368E /* SearchResultWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultWeather.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,6 +233,7 @@
 			children = (
 				EA1D888C2AC17EA500A3368E /* CountryInformationViewModel.swift */,
 				EA1D88B02AC28B1700A3368E /* WeatherControllerViewModel.swift */,
+				EA1D88B82AC2D1FD00A3368E /* SearchResultViewModel.swift */,
 				EA1D87D32AA8903800A3368E /* MainInformationViewModel.swift */,
 				EA1D882C2AA9D40100A3368E /* HourlyForecastViewModel.swift */,
 				EA1D88322AAEF04D00A3368E /* DailyForecastViewModel.swift */,
@@ -239,6 +248,7 @@
 			isa = PBXGroup;
 			children = (
 				EA1D88882AC17E0100A3368E /* CountryInformation.swift */,
+				EA1D88BA2AC2E08E00A3368E /* SearchResultWeather.swift */,
 				EA1D881F2AA97DA100A3368E /* ParticulateMatter.swift */,
 				EA1D887E2ABAD7B300A3368E /* KoreaWeather.swift */,
 			);
@@ -263,6 +273,7 @@
 			children = (
 				EA1D87BA2AA875E800A3368E /* WeatherController.swift */,
 				EA1D87DE2AA8984600A3368E /* SearchResultViewController.swift */,
+				EA1D88B42AC29ED300A3368E /* CountryInformationController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -308,6 +319,7 @@
 				EA1D88262AA9D27800A3368E /* HourlyForecastCell.swift */,
 				EA1D88302AAEEE8100A3368E /* DailyForecastCell.swift */,
 				EA1D884D2AB8722500A3368E /* NewsCell.swift */,
+				EA1D88B62AC2BFB500A3368E /* SearchResultCell.swift */,
 				EA1D888E2AC180D700A3368E /* CountryInformationCell.swift */,
 			);
 			path = Cell;
@@ -522,15 +534,19 @@
 				EA1D87B72AA875E800A3368E /* AppDelegate.swift in Sources */,
 				EA1D88892AC17E0100A3368E /* CountryInformation.swift in Sources */,
 				EA1D88432AB84B6200A3368E /* UltraParticulateMatterData.swift in Sources */,
+				EA1D88B52AC29ED300A3368E /* CountryInformationController.swift in Sources */,
 				EA1D88832ABADC8300A3368E /* KoreaWeatherViewModel.swift in Sources */,
+				EA1D88B92AC2D1FD00A3368E /* SearchResultViewModel.swift in Sources */,
 				EA1D88762ABAAEB500A3368E /* KoreaWeatherView.swift in Sources */,
 				EA1D88312AAEEE8100A3368E /* DailyForecastCell.swift in Sources */,
+				EA1D88B72AC2BFB500A3368E /* SearchResultCell.swift in Sources */,
 				EA1D87D22AA88C0400A3368E /* Location.swift in Sources */,
 				EA1D88272AA9D27800A3368E /* HourlyForecastCell.swift in Sources */,
 				EA1D882D2AA9D40100A3368E /* HourlyForecastViewModel.swift in Sources */,
 				EA1D88332AAEF04D00A3368E /* DailyForecastViewModel.swift in Sources */,
 				EA1D88812ABAD7F500A3368E /* KoreaWeatherNetworkManger.swift in Sources */,
 				EA1D88492AB8712000A3368E /* OtherView.swift in Sources */,
+				EA1D88BB2AC2E08E00A3368E /* SearchResultWeather.swift in Sources */,
 				EA1D88392AB80C8100A3368E /* DailyForecastHeaderView.swift in Sources */,
 				EA1D88372AB80A6700A3368E /* ParticulateMatterView.swift in Sources */,
 				EA1D87D92AA8954200A3368E /* HourlyForecastView.swift in Sources */,

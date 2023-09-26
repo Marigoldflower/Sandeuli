@@ -16,6 +16,7 @@ final class CountryInformationCell: UITableViewCell {
     let regionName: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Poppins-Medium", size: 15)
+        label.textColor = .white
         return label
     }()
     

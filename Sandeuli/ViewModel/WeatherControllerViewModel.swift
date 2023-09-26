@@ -35,9 +35,8 @@ final class WeatherControllerViewModel: Reactor {
     
     func mutate(action: Action) -> AnyPublisher<Mutation, Never> {
         switch action {
-        case .magnifyingButtonTapped(let vc): // appleButton이 눌리면
+        case .magnifyingButtonTapped(let vc): 
             return Just(Mutation.moveToSearchResultController(vc))
-                .append(Mutation.moveToSearchResultController(nil))
                 .eraseToAnyPublisher()
         }
     }
@@ -60,7 +59,7 @@ final class WeatherControllerViewModel: Reactor {
         switch type {
         case .searchResultViewController:
             let getSearchResult = SearchResultViewController()
-//            getSearchResult.reactor = SearchResultViewController()
+            getSearchResult.reactor = SearchResultViewModel()
             shouldPresent = getSearchResult
         }
         
