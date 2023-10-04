@@ -9,9 +9,9 @@ import UIKit
 
 struct SearchResultWeather {
     var locationName: String
-    var image: UIImage
-    var currentTemperature: String
     var currentSkyStatus: String
+    var currentTemperature: String
+    var image: UIImage
     var highestTemperature: String
     var lowestTemperature: String
 }

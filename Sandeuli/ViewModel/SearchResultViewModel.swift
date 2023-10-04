@@ -8,8 +8,39 @@
 import Combine
 import UIKit
 import CombineReactor
+import WeatherKit
+import CoreLocation
 
 final class SearchResultViewModel: Reactor {
+    
+    // MARK: - Cancellables
+    private var cancellables: Set<AnyCancellable> = []
+    
+    // MARK: - 나머지 날씨 데이터 영역
+    @Published var currentWeather: CurrentWeather!
+    @Published var dailyForecast: [DayWeather] = []
+    
+    // MARK: - Weather Service
+    private let weatherService = WeatherService()
+    
+    // MARK: - Fetch Weather
+    func fetchWeather(location: CLLocation) {
+        Task {
+            do {
+                let weather = try await weatherService.weather(for: location)
+                
+                // 강수, 바람
+                print("오늘의 강우량은 \(weather.dailyForecast.forecast[0].precipitationAmount.value)")
+                print("오늘의 강우 확률을 예측해보자면 \(weather.dailyForecast.forecast[0].precipitationChance.description)")
+                print("비올 확률이 어떻게 되냐면 \(weather.dailyForecast.forecast[0].precipitationChance)")
+                
+                self.currentWeather = weather.currentWeather
+                self.dailyForecast = weather.dailyForecast.forecast
+            } catch {
+                print(String(describing: error))
+            }
+        }
+    }
     
     enum Action {
         case backButtonTapped

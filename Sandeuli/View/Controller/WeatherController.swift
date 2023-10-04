@@ -49,6 +49,7 @@ final class WeatherController: UIViewController, View {
     private let mainInformationViewModel = MainInformationViewModel()
     private let hourlyForecastViewModel = HourlyForecastViewModel()
     private let dailyForecastViewModel = DailyForecastViewModel()
+    private let uvIndexViewModel = UVIndexViewModel()
     private let particulateMatterViewModel = ParticulateMatterViewModel()
     private let koreaWeatherViewModel = KoreaWeatherViewModel()
     private let otherViewModel = OtherViewModel()
@@ -119,6 +120,22 @@ final class WeatherController: UIViewController, View {
 
     private let dailyForecastView: DailyForecastView = {
         let view = DailyForecastView()
+        view.layer.cornerRadius = 15
+        view.layer.masksToBounds = true
+        view.backgroundColor = .gradientBlue.withAlphaComponent(0.75)
+        return view
+    }()
+    
+    private let uvIndexView: UVIndexView = {
+        let view = UVIndexView()
+        view.layer.cornerRadius = 15
+        view.layer.masksToBounds = true
+        view.backgroundColor = .gradientBlue.withAlphaComponent(0.75)
+        return view
+    }()
+    
+    private let rainDropView: RainDropView = {
+        let view = RainDropView()
         view.layer.cornerRadius = 15
         view.layer.masksToBounds = true
         view.backgroundColor = .gradientBlue.withAlphaComponent(0.75)
@@ -216,7 +233,7 @@ extension WeatherController: Bindable {
                 viewController.highestTemperature = self?.highestTemperature ?? String()
                 viewController.lowestTemperature = self?.lowestTemperature ?? String()
                 // 4. 현재 날씨 상태
-                viewController.currentSky = self?.currentSky ?? String()
+                viewController.currentSkyStatus = self?.currentSky ?? String()
                 
                 let navigationController = UINavigationController(rootViewController: viewController)
                 navigationController.modalPresentationStyle = .fullScreen
@@ -410,7 +427,7 @@ extension WeatherController: ViewDrawable {
                 userFormatter.dateFormat = "yyyy-MM-dd"
                 let userToday = userFormatter.string(from: Date())
                 
-                // MARK: - 현재 날짜보다 뒤에 있으면서 현재 시간보다 뒤에 있는 시간대만 통과시키겠다는 로직
+                // MARK: - "현재 날짜"와 "그 이후 날짜"를 포함하되, "현재 시간"보다 뒤에 있는 시간대만 통과시키겠다는 로직
                 if userToday <= compareDate {
                     // 오늘에 해당할 경우에만 현재 시간보다 뒤에 있는 시간대만 통과시키고
                     // 오늘이 아닐 경우에는 모든 시간대를 통과시켜야 한다.
@@ -607,6 +624,7 @@ extension WeatherController: ViewDrawable {
                     
                     print("비가 오는 날짜는 \(dailyWeather.date)")
                     print("비가 올 확률은 \(dailyWeather.precipitationChance.description)")
+                    print("비가 얼마나 왔냐면 \(dailyWeather.precipitationAmount.value)")
                     
                     if userToday <= compareDate {
                         // MARK: - 요일 데이터
@@ -675,6 +693,20 @@ extension WeatherController: ViewDrawable {
                         
                     }
                 }
+            }
+            .store(in: &cancellables)
+        setUVIndexData()
+    }
+    
+    private func setUVIndexData() {
+        uvIndexViewModel.$currentWeather
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] currentWeather in
+                
+                guard let currentWeather = currentWeather else { return }
+                
+                self?.uvIndexView.uvIndexDataReceiver = currentWeather.uvIndex.value
+                self?.uvIndexView.uvIndexStatus.text = currentWeather.uvIndex.category.description
             }
             .store(in: &cancellables)
         setParticulateMatterViewData()
@@ -1160,6 +1192,14 @@ extension WeatherController: ViewDrawable {
             make.height.equalTo(740)
         }
         
+        uvIndexView.snp.makeConstraints { make in
+            make.height.equalTo(250)
+        }
+        
+        rainDropView.snp.makeConstraints { make in
+            make.height.equalTo(200)
+        }
+        
         particulateMatterView.snp.makeConstraints { make in
             make.height.equalTo(400)
         }
@@ -1187,12 +1227,12 @@ extension WeatherController: ViewDrawable {
     }
     
     private func fillStackView() {
-        let companyArray = [mainInformationView, hourlyForecastView, dailyForecastView, particulateMatterView, koreaWeatherView]
+        let companyArray = [mainInformationView, hourlyForecastView, dailyForecastView, uvIndexView, rainDropView, particulateMatterView, koreaWeatherView]
         for company in companyArray {
             var elementView = UIView()
             elementView = company
             elementView.translatesAutoresizingMaskIntoConstraints = false
-            elementView.heightAnchor.constraint(equalToConstant: 3000).isActive = true
+            elementView.heightAnchor.constraint(equalToConstant: 3200).isActive = true
             stackView.addArrangedSubview(elementView)
         }
     }
@@ -1472,6 +1512,7 @@ extension WeatherController: CLLocationManagerDelegate {
         mainInformationViewModel.fetchWeather(location: location)
         hourlyForecastViewModel.fetchWeather(location: location)
         dailyForecastViewModel.fetchWeather(location: location)
+        uvIndexViewModel.fetchWeather(location: location)
         particulateMatterViewModel.fetchWeather(location: location)
         koreaWeatherViewModel.fetchWeather()
         otherViewModel.fetchWeather(location: location)

@@ -45,6 +45,7 @@ final class MainInformationView: UIView {
         let label = UILabel()
         label.text = "--"
         label.font = UIFont(name: "Poppins-Semibold", size: 24)
+        label.numberOfLines = 0
         label.textColor = .dayImage
         return label
     }()

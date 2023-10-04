@@ -35,7 +35,7 @@ final class ParticulateMatterData: UIView {
     
     var symbolName = String() {
         didSet {
-            if symbolName == "cloud.drizzle" || symbolName == "cloud.rain" || symbolName == "cloud.heavyrain" || symbolName == "cloud.fog" || symbolName == "cloud.bolt.rain" || symbolName == "cloud.moon.rain" || symbolName == "snowflake" {
+            if symbolName == "cloud.drizzle" || symbolName == "cloud.rain" || symbolName == "cloud.heavyrain" || symbolName == "cloud.fog" || symbolName == "cloud.bolt.rain" || symbolName == "cloud.moon.rain" || symbolName == "snowflake" || symbolName == "moon.stars" || symbolName == "cloud.moon"  {
                 goodLabel.textColor = .particulateGoodColorTextNight
                 normalLabel.textColor = .particulateNormalColorTextNight
                 badLabel.textColor = .particulateBadColorTextNight
@@ -53,15 +53,15 @@ final class ParticulateMatterData: UIView {
         didSet {
             print("지금 낮인지 밤인지는 \(dayOrNightDistributor)")
             if dayOrNightDistributor {
+                goodLabel.textColor = .particulateGoodColorNight
+                normalLabel.textColor = .particulateNormalColorNight
+                badLabel.textColor = .particulateBadColorNight
+                veryBadLabel.textColor = .particulateVeryBadColorNight
+            } else {
                 goodLabel.textColor = .particulateGoodColorDay
                 normalLabel.textColor = .particulateNormalColorDay
                 badLabel.textColor = .particulateBadColorDay
                 veryBadLabel.textColor = .particulateVeryBadColorDay
-            } else {
-                goodLabel.textColor = .particulateGoodColorTextNight
-                normalLabel.textColor = .particulateNormalColorTextNight
-                badLabel.textColor = .particulateBadColorTextNight
-                veryBadLabel.textColor = .particulateVeryBadColorNight
             }
         }
     }
@@ -95,7 +95,7 @@ final class ParticulateMatterData: UIView {
         let label = UILabel()
         label.font = UIFont(name: "Poppins-Medium", size: 15)
         label.text = "좋음"
-        label.textColor = .particulateGoodColorDay
+        label.textColor = .particulateGoodColorNight
         return label
     }()
     
@@ -103,7 +103,7 @@ final class ParticulateMatterData: UIView {
         let label = UILabel()
         label.font = UIFont(name: "Poppins-Medium", size: 15)
         label.text = "보통"
-        label.textColor = .particulateNormalColorDay
+        label.textColor = .particulateNormalColorNight
         return label
     }()
     
@@ -111,7 +111,7 @@ final class ParticulateMatterData: UIView {
         let label = UILabel()
         label.font = UIFont(name: "Poppins-Medium", size: 15)
         label.text = "나쁨"
-        label.textColor = .particulateBadColorDay
+        label.textColor = .particulateBadColorNight
         return label
     }()
     
@@ -119,7 +119,7 @@ final class ParticulateMatterData: UIView {
         let label = UILabel()
         label.font = UIFont(name: "Poppins-Medium", size: 15)
         label.text = "매우나쁨"
-        label.textColor = .particulateVeryBadColorDay
+        label.textColor = .particulateVeryBadColorNight
         return label
     }()
     

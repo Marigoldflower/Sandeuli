@@ -74,6 +74,9 @@
 		EA1D88B72AC2BFB500A3368E /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D88B62AC2BFB500A3368E /* SearchResultCell.swift */; };
 		EA1D88B92AC2D1FD00A3368E /* SearchResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D88B82AC2D1FD00A3368E /* SearchResultViewModel.swift */; };
 		EA1D88BB2AC2E08E00A3368E /* SearchResultWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D88BA2AC2E08E00A3368E /* SearchResultWeather.swift */; };
+		EA1D88F72ACD545200A3368E /* UVIndexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D88F62ACD545200A3368E /* UVIndexView.swift */; };
+		EA1D88F92ACD577900A3368E /* UVIndexViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D88F82ACD577900A3368E /* UVIndexViewModel.swift */; };
+		EA1D88FC2ACD8FB300A3368E /* RainDropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D88FB2ACD8FB300A3368E /* RainDropView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -151,6 +154,9 @@
 		EA1D88B62AC2BFB500A3368E /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		EA1D88B82AC2D1FD00A3368E /* SearchResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewModel.swift; sourceTree = "<group>"; };
 		EA1D88BA2AC2E08E00A3368E /* SearchResultWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultWeather.swift; sourceTree = "<group>"; };
+		EA1D88F62ACD545200A3368E /* UVIndexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UVIndexView.swift; sourceTree = "<group>"; };
+		EA1D88F82ACD577900A3368E /* UVIndexViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UVIndexViewModel.swift; sourceTree = "<group>"; };
+		EA1D88FB2ACD8FB300A3368E /* RainDropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RainDropView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,6 +224,8 @@
 				EA1D87D62AA8952A00A3368E /* MainInformationView.swift */,
 				EA1D87D82AA8954200A3368E /* HourlyForecastView.swift */,
 				EA1D883A2AB8107B00A3368E /* DailyForecastView */,
+				EA1D88F52ACD53FF00A3368E /* UVIndexView */,
+				EA1D88FA2ACD8F9E00A3368E /* RainDropView */,
 				EA1D883B2AB8109200A3368E /* ParticulateMatterView */,
 				EA1D88792ABAB48700A3368E /* KoreaWeatherView */,
 				EA1D884A2AB8712600A3368E /* OtherView */,
@@ -231,12 +239,13 @@
 		EA1D87CB2AA875F400A3368E /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				EA1D888C2AC17EA500A3368E /* CountryInformationViewModel.swift */,
 				EA1D88B02AC28B1700A3368E /* WeatherControllerViewModel.swift */,
 				EA1D88B82AC2D1FD00A3368E /* SearchResultViewModel.swift */,
+				EA1D888C2AC17EA500A3368E /* CountryInformationViewModel.swift */,
 				EA1D87D32AA8903800A3368E /* MainInformationViewModel.swift */,
 				EA1D882C2AA9D40100A3368E /* HourlyForecastViewModel.swift */,
 				EA1D88322AAEF04D00A3368E /* DailyForecastViewModel.swift */,
+				EA1D88F82ACD577900A3368E /* UVIndexViewModel.swift */,
 				EA1D88402AB8356300A3368E /* ParticulateMatterViewModel.swift */,
 				EA1D88822ABADC8300A3368E /* KoreaWeatherViewModel.swift */,
 				EA1D88532AB9B77000A3368E /* OtherViewModel.swift */,
@@ -369,6 +378,22 @@
 				EA1D88862AC11EE100A3368E /* KoreaDetailWeatherReportContainer.swift */,
 			);
 			path = KoreaWeatherView;
+			sourceTree = "<group>";
+		};
+		EA1D88F52ACD53FF00A3368E /* UVIndexView */ = {
+			isa = PBXGroup;
+			children = (
+				EA1D88F62ACD545200A3368E /* UVIndexView.swift */,
+			);
+			path = UVIndexView;
+			sourceTree = "<group>";
+		};
+		EA1D88FA2ACD8F9E00A3368E /* RainDropView */ = {
+			isa = PBXGroup;
+			children = (
+				EA1D88FB2ACD8FB300A3368E /* RainDropView.swift */,
+			);
+			path = RainDropView;
 			sourceTree = "<group>";
 		};
 		EE4FE625B82005F22B1F5E8C /* Frameworks */ = {
@@ -525,6 +550,7 @@
 				EA1D88412AB8356300A3368E /* ParticulateMatterViewModel.swift in Sources */,
 				EA1D888D2AC17EA500A3368E /* CountryInformationViewModel.swift in Sources */,
 				EA1D87D72AA8952A00A3368E /* MainInformationView.swift in Sources */,
+				EA1D88F72ACD545200A3368E /* UVIndexView.swift in Sources */,
 				EA1D88472AB8675F00A3368E /* UIImage.swift in Sources */,
 				EA1D87D42AA8903800A3368E /* MainInformationViewModel.swift in Sources */,
 				EA1D88542AB9B77000A3368E /* OtherViewModel.swift in Sources */,
@@ -535,6 +561,7 @@
 				EA1D88892AC17E0100A3368E /* CountryInformation.swift in Sources */,
 				EA1D88432AB84B6200A3368E /* UltraParticulateMatterData.swift in Sources */,
 				EA1D88B52AC29ED300A3368E /* CountryInformationController.swift in Sources */,
+				EA1D88FC2ACD8FB300A3368E /* RainDropView.swift in Sources */,
 				EA1D88832ABADC8300A3368E /* KoreaWeatherViewModel.swift in Sources */,
 				EA1D88B92AC2D1FD00A3368E /* SearchResultViewModel.swift in Sources */,
 				EA1D88762ABAAEB500A3368E /* KoreaWeatherView.swift in Sources */,
@@ -544,6 +571,7 @@
 				EA1D88272AA9D27800A3368E /* HourlyForecastCell.swift in Sources */,
 				EA1D882D2AA9D40100A3368E /* HourlyForecastViewModel.swift in Sources */,
 				EA1D88332AAEF04D00A3368E /* DailyForecastViewModel.swift in Sources */,
+				EA1D88F92ACD577900A3368E /* UVIndexViewModel.swift in Sources */,
 				EA1D88812ABAD7F500A3368E /* KoreaWeatherNetworkManger.swift in Sources */,
 				EA1D88492AB8712000A3368E /* OtherView.swift in Sources */,
 				EA1D88BB2AC2E08E00A3368E /* SearchResultWeather.swift in Sources */,

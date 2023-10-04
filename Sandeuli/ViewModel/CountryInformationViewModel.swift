@@ -5,9 +5,11 @@
 //  Created by 황홍필 on 2023/09/25.
 //
 
-import Foundation
+import CombineReactor
+import WeatherKit
 import Combine
 import UIKit
+import CoreLocation
 
 final class CountryInformationViewModel {
     
@@ -17,7 +19,28 @@ final class CountryInformationViewModel {
     // MARK: - 나라 정보
     @Published var countryInformation: CountryInformation = []
     
-    // MARK: - 미세 & 초미세 네트워크 패칭
+    // MARK: - 나머지 날씨 데이터 영역
+    @Published var currentWeather: CurrentWeather!
+    @Published var dailyForecast: [DayWeather] = []
+    
+    // MARK: - Weather Service
+    private let weatherService = WeatherService()
+    
+    // MARK: - Fetch Weather
+    func fetchWeather(location: CLLocation) {
+        Task {
+            do {
+                let weather = try await weatherService.weather(for: location)
+                self.currentWeather = weather.currentWeather
+                self.dailyForecast = weather.dailyForecast.forecast
+                
+            } catch {
+                print(String(describing: error))
+            }
+        }
+    }
+    
+    // MARK: - 지역 네트워크 패칭
     func fetchCountryInformationNetwork(regionName: String) {
         CountryInformationNetworkManager.shared.getNetworkDatas(regionName: regionName)
             .sink { completion in

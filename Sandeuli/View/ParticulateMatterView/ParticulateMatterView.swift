@@ -69,13 +69,18 @@ final class ParticulateMatterView: UIView {
     required init?(coder: NSCoder) {
         fatalError()
     }
+    
+    // View 자체에 그라디언트 효과를 적용하기 위해 필요한 변수
+    override public class var layerClass: AnyClass {
+        return CAGradientLayer.classForCoder()
+    }
 }
 
 extension ParticulateMatterView: ViewDrawable {
     func configureUI() {
         setAutolayout()
-        addGradientToView(self)
-        backgroundColor = UIColor.gradientBlue.withAlphaComponent(0.65)
+        setupGradient()
+        backgroundColor = UIColor.gradientBlue.withAlphaComponent(0.9)
         
     }
     
@@ -112,13 +117,10 @@ extension ParticulateMatterView: ViewDrawable {
     }
     
     // MARK: - Gradient 적용 메소드
-    private func addGradientToView(_ view: UIView) {
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = view.bounds
-        gradientLayer.colors = [UIColor.gradientBlue.cgColor, UIColor.gradientWhite.cgColor]
+    private func setupGradient() {
+        let gradientLayer = layer as! CAGradientLayer
+        gradientLayer.colors = [UIColor.gradientBlue.cgColor.withAdjustedAlpha(0.7), UIColor.gradientWhite.cgColor.withAdjustedAlpha(0.3)]
         gradientLayer.startPoint = CGPoint(x: 0, y: 0)
         gradientLayer.endPoint = CGPoint(x: 1, y: 1)
-
-        view.layer.insertSublayer(gradientLayer, at: 0)
     }
 }

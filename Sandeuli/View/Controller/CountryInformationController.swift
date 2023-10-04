@@ -8,6 +8,8 @@
 import UIKit
 import SnapKit
 import Combine
+import CoreLocation
+import WeatherKit
 
 final class CountryInformationController: UIViewController {
     // MARK: - Cancellables
@@ -19,19 +21,90 @@ final class CountryInformationController: UIViewController {
     // MARK: - Delegate
     weak var delegate: CellTappedDelegate?
     
-    // MARK: - 검색결과를 처리할 코드
+    // MARK: - DidSetCallCount
+    private var putDatasMethodDidSetCallCount = Int()
+    
+    // MARK: - 사용자의 검색 지역을 네트워크 처리할 코드
     var searchTerm = String() {
         didSet {
             setCountryInformationData(regionName: searchTerm)
         }
     }
     
-    // MARK: - ViewModel로부터 받은 데이터를 저장할 변수
+    // MARK: - Notification Name
+    let newLocation: Notification.Name = Notification.Name("newLocation")
+    
+    // MARK: - ViewModel로부터 받은 데이터를 저장할 변수 (테이블 뷰를 그릴 때 사용됨)
     private var countryInformation: CountryInformation = [] {
         didSet {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
+        }
+    }
+    
+    // MARK: - CoreLocation
+    let locationManager = CLLocationManager()
+    
+    // MARK: - 이전 화면
+    var searchResultViewController: SearchResultViewController! = nil
+    
+    // MARK: - GeoCoder
+    let geoCoder = CLGeocoder()
+    private var selectedCellLocation = CLLocation(latitude: Double(), longitude: Double()) {
+        didSet {
+            
+            countryInformationViewModel.fetchWeather(location: selectedCellLocation)
+            geoCoder.reverseGeocodeLocation(selectedCellLocation) { [weak self] placemark, error in
+                if let error = error {
+                    print("Error fetching address: \(error)")
+                    return
+                }
+                
+                if let placemark = placemark?.first {
+                    guard let userLocation = placemark.locality else { return }
+                    self?.userLocation = userLocation
+                }
+            }
+            setTableViewData()
+        }
+    }
+    
+    // MARK: - 테이블 뷰에 사용될 변수값들
+    var userLocation = String() {
+        didSet {
+            print("Country의 userLocation값은 \(userLocation)")
+        }
+    }
+    var currentSkyStatus = String() {
+        didSet {
+            print("Country의 currentSkyStatus값은 \(currentSkyStatus)")
+        }
+    }
+    var symbolName = String() {
+        didSet {
+            print("Country의 symbolName값은 \(symbolName)")
+            
+            putDatasMethodDidSetCallCount += 1
+            
+            if putDatasMethodDidSetCallCount == 1 {
+                putDatasIntoSearchResultArray(userLocation: userLocation, currentSky: currentSkyStatus, currentTemperature: currentTemperature, symbolName: symbolName, highestTemperature: highestTemperature, lowestTemperature: lowestTemperature)
+            }
+        }
+    }
+    var currentTemperature = String() {
+        didSet {
+            print("Country의 currentTemperature값은 \(currentTemperature)")
+        }
+    }
+    var highestTemperature = String() {
+        didSet {
+            print("Country의 highestTemperature값은 \(highestTemperature)")
+        }
+    }
+    var lowestTemperature = String() {
+        didSet {
+            print("Country의 lowestTemperature값은 \(lowestTemperature)")
         }
     }
     
@@ -77,6 +150,29 @@ extension CountryInformationController: ViewDrawable {
             make.bottom.equalTo(view.snp.bottom)
         }
     }
+    
+    private func setTableViewData() {
+        Publishers.Zip(countryInformationViewModel.$currentWeather,
+                       countryInformationViewModel.$dailyForecast)
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] currentWeather, dailyForecast in
+            guard let currentWeather = currentWeather else { return }
+            
+            self?.currentTemperature = String(round(currentWeather.temperature.value * 10) / 10) + "°"
+            self?.currentSkyStatus = currentWeather.condition.description
+            self?.symbolName = currentWeather.symbolName
+            self?.highestTemperature = String(round(dailyForecast[0].highTemperature.value * 10) / 10 ) + "°"
+            self?.lowestTemperature = String(round(dailyForecast[0].lowTemperature.value * 10) / 10 ) + "°"
+        }
+        .store(in: &cancellables)
+    }
+    
+    private func putDatasIntoSearchResultArray(userLocation: String, currentSky: String, currentTemperature: String, symbolName: String, highestTemperature: String, lowestTemperature: String) {
+        let newLocation = SearchResultWeather(locationName: userLocation, currentSkyStatus: currentSky, currentTemperature: currentTemperature, image: UIImage(systemName: "\(symbolName).fill") ?? UIImage(), highestTemperature: highestTemperature, lowestTemperature: lowestTemperature)
+        delegate?.cellIsTapped(searchResultWeather: newLocation)
+        putDatasMethodDidSetCallCount = 0
+        self.dismiss(animated: true)
+    }
 }
 
 extension CountryInformationController: UITableViewDataSource, UITableViewDelegate {
@@ -100,10 +196,17 @@ extension CountryInformationController: UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        guard let locationName = countryInformation[indexPath.row].displayName else { return }
-        guard let latitude = countryInformation[indexPath.row].lat else { return }
-        guard let longitude = countryInformation[indexPath.row].lon else { return }
+        guard let lat = countryInformation[indexPath.row].lat else { return }
+        guard let long = countryInformation[indexPath.row].lon else { return }
         
-        delegate?.sendWeatherData(locationName: locationName, latitude: latitude, longitude: longitude)
+        guard let latitude = Double(lat) else { return }
+        guard let longitude = Double(long) else { return }
+        
+        // 일단 latitude와 longitude는 한 개씩 가므로 여기서 발생하는 문제는 아닌 듯하다.
+        print("탭한 셀의 latitude는 \(latitude)")
+        print("탭한 셀의 longitude는 \(longitude)")
+        
+        self.selectedCellLocation = CLLocation(latitude: latitude, longitude: longitude)
     }
 }
+
