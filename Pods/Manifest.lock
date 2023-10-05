@@ -1,30 +1,16 @@
 PODS:
-  - CombineCocoa (0.4.1)
-  - CombineReactor (0.3.0):
-    - CombineReactor/Core (= 0.3.0)
-  - CombineReactor/Core (0.3.0):
-    - WeakMapTable (~> 1.1)
   - SnapKit (5.6.0)
-  - WeakMapTable (1.2.0)
 
 DEPENDENCIES:
-  - CombineCocoa
-  - CombineReactor
   - SnapKit
 
 SPEC REPOS:
   trunk:
-    - CombineCocoa
-    - CombineReactor
     - SnapKit
-    - WeakMapTable
 
 SPEC CHECKSUMS:
-  CombineCocoa: e5210dbfb480ff251078929459ac17e750e7af1d
-  CombineReactor: 8fce88ae2d77ac6e9dab41e625bf3c540dcc9f6d
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
-  WeakMapTable: 05c694ce8439a7a9ebabb56187287a63c57673d6
 
-PODFILE CHECKSUM: c3848f4b8f4d2f911bd6db6f341a888c6f12af95
+PODFILE CHECKSUM: fdf2b0e341893b61c13dff429c3b85f1fd1ec869
 
 COCOAPODS: 1.11.3

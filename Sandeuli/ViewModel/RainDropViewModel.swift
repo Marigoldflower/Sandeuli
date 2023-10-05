@@ -1,5 +1,5 @@
 //
-//  UVIndexViewModel.swift
+//  RainDropViewModel.swift
 //  Sandeuli
 //
 //  Created by 황홍필 on 2023/10/04.
@@ -10,13 +10,13 @@ import CoreLocation
 import Combine
 import UIKit
 
-final class UVIndexViewModel {
+final class RainDropViewModel {
     
     // MARK: - Cancellables
     private var cancellables: Set<AnyCancellable> = []
     
     // MARK: - 날씨 데이터
-    @Published var currentWeather: CurrentWeather!
+    @Published var dailyForecast: [DayWeather] = []
     
     // MARK: - Weather Service
     private let weatherService = WeatherService()
@@ -26,12 +26,14 @@ final class UVIndexViewModel {
         Task {
             do {
                 let weather = try await weatherService.weather(for: location)
-                self.currentWeather = weather.currentWeather
+                self.dailyForecast = weather.dailyForecast.forecast
+                
             } catch {
                 print(String(describing: error))
             }
         }
     }
 }
+
 
 

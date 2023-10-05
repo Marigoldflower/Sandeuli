@@ -1,25 +1,25 @@
 //
-//  RainDropView.swift
+//  HumidityView.swift
 //  Sandeuli
 //
-//  Created by 황홍필 on 2023/10/04.
+//  Created by 황홍필 on 2023/10/05.
 //
 
 import UIKit
 import SnapKit
 
-final class RainDropView: UIView {
+final class HumidityView: UIView {
     // MARK: - Header 영역
     private let headerImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "drop.fill")?.applyingSymbolConfiguration(.init(paletteColors: [.white]))
+        imageView.image = UIImage(systemName: "humidity")?.applyingSymbolConfiguration(.init(paletteColors: [.white]))
         return imageView
     }()
     
     private let headerLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Poppins-Medium", size: 15)
-        label.text = "강우"
+        label.text = "습도"
         label.textColor = .white
         return label
     }()
@@ -32,14 +32,14 @@ final class RainDropView: UIView {
     }()
     
     // MARK: - UI Components
-    let precipitationAmount: UILabel = {
+    let humidity: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Poppins-Medium", size: 25)
         label.textColor = .white
         return label
     }()
     
-    let precipitaionDescription: UILabel = {
+    let humidityDescription: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Poppins-Medium", size: 18)
         label.textColor = .white
@@ -48,23 +48,9 @@ final class RainDropView: UIView {
     }()
     
     // MARK: - Data Receiver
-    var rainDropDataReceiver = String() {
+    var humidityDataReceiver = Int() {
         didSet {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy/MM/dd"
-            
-            let startDateString = dateFormatter.string(from: Date())
-            let endDateString = rainDropDataReceiver
-
-            guard let startDate = dateFormatter.date(from: startDateString) else { return }
-            guard let endDate = dateFormatter.date(from: endDateString) else { return }
-            
-            let calendar = Calendar.current
-            let components = calendar.dateComponents([.day], from: startDate, to: endDate)
-            
-            guard let dayBetweenDate = components.day else { return }
-            
-            self.precipitaionDescription.text = "이후 \(dayBetweenDate + 1)일 이내 강우가 예상되지 않습니다."
+            self.humidityDescription.text = "현재 이슬점이 \(String(humidityDataReceiver) + "°")입니다."
         }
     }
     
@@ -76,14 +62,14 @@ final class RainDropView: UIView {
     required init?(coder: NSCoder) {
         fatalError()
     }
-
+    
     // View 자체에 그라디언트 효과를 적용하기 위해 필요한 변수
     override public class var layerClass: AnyClass {
         return CAGradientLayer.classForCoder()
     }
 }
 
-extension RainDropView: ViewDrawable {
+extension HumidityView: ViewDrawable {
     func configureUI() {
         setAutolayout()
         setupGradient()
@@ -91,22 +77,22 @@ extension RainDropView: ViewDrawable {
     }
     
     func setAutolayout() {
-        [headerStackView, precipitationAmount, precipitaionDescription].forEach { addSubview($0) }
+        [headerStackView, humidity, humidityDescription].forEach { addSubview($0) }
         
         headerStackView.snp.makeConstraints { make in
             make.leading.equalTo(snp.leading).offset(15)
             make.top.equalTo(snp.top).offset(12)
         }
         
-        precipitationAmount.snp.makeConstraints { make in
+        humidity.snp.makeConstraints { make in
             make.leading.equalTo(snp.leading).offset(15)
             make.top.equalTo(headerStackView.snp.bottom).offset(15)
         }
         
-        precipitaionDescription.snp.makeConstraints { make in
+        humidityDescription.snp.makeConstraints { make in
             make.leading.equalTo(snp.leading).offset(15)
             make.trailing.equalTo(snp.trailing).offset(-10)
-            make.top.equalTo(precipitationAmount.snp.bottom).offset(20)
+            make.top.equalTo(humidity.snp.bottom).offset(20)
         }
     }
     

@@ -13,7 +13,7 @@ import Combine
 import CombineReactor
 import CombineCocoa
 
-final class WeatherController: UIViewController, View {
+final class WeatherController: UIViewController {
     // MARK: - 지역 이름
     var seoul = "nx=60&ny=127"
     var incheon = "nx=55&ny=124"
@@ -50,61 +50,23 @@ final class WeatherController: UIViewController, View {
     private let hourlyForecastViewModel = HourlyForecastViewModel()
     private let dailyForecastViewModel = DailyForecastViewModel()
     private let uvIndexViewModel = UVIndexViewModel()
+    private let rainDropViewModel = RainDropViewModel()
+    private let apparentTemperatureViewModel = ApparentTemperatureViewModel()
+    private let humidityViewModel = HumidityViewModel()
     private let particulateMatterViewModel = ParticulateMatterViewModel()
     private let koreaWeatherViewModel = KoreaWeatherViewModel()
-    private let otherViewModel = OtherViewModel()
     
     // MARK: - CLLocationManager
     private let locationManager = CLLocationManager()
     
-    // MARK: - SearchResultController에게 전달할 데이터
+    // MARK: - 현재 위치
     private var userLocation = String() {
         didSet {
             print("userLocation에 값이 들어왔어요! \(userLocation)")
         }
     }
-    private var currentTemperature = String() {
-        didSet {
-            print("currentTemperature에 값이 들어왔어요! \(currentTemperature)")
-        }
-    }
-    private var highestTemperature = String() {
-        didSet {
-            print("highestTemperature에 값이 들어왔어요! \(highestTemperature)")
-        }
-    }
-    private var lowestTemperature = String() {
-        didSet {
-            print("lowestTemperature에 값이 들어왔어요! \(lowestTemperature)")
-        }
-    }
-    private var currentSky = String() {
-        didSet {
-            print("currentSky에 값이 들어왔어요! \(currentSky)")
-        }
-    }
     
     // MARK: - UI Components
-    private let searchMagnifyingButton: UIButton = {
-        let button = UIButton(type: .system)
-        if let originalImage = UIImage(systemName: "magnifyingglass") {
-            let resizedImage = originalImage.resizeImage(targetSize: CGSize(width: 30, height: 30))
-            button.setImage(resizedImage, for: .normal)
-        }
-        return button
-    }()
-    
-    // MARK: - Page Control
-    let pageControl: UIPageControl = {
-        let page = UIPageControl()
-        page.numberOfPages = 3
-        page.backgroundColor = .searchControllerWhite
-        page.pageIndicatorTintColor = .pageIndicatorGray
-        page.currentPageIndicatorTintColor = .currentPageIndicatorDarkBlue
-        page.layer.cornerRadius = 5
-        return page
-    }()
-    
     private let mainInformationView: MainInformationView = {
         let view = MainInformationView()
         view.backgroundColor = .dayBackground
@@ -142,6 +104,22 @@ final class WeatherController: UIViewController, View {
         return view
     }()
     
+    private let apparentTemperatureView: ApparentTemperatureView = {
+        let view = ApparentTemperatureView()
+        view.layer.cornerRadius = 15
+        view.layer.masksToBounds = true
+        view.backgroundColor = .gradientBlue.withAlphaComponent(0.75)
+        return view
+    }()
+    
+    private let humidityView: HumidityView = {
+        let view = HumidityView()
+        view.layer.cornerRadius = 15
+        view.layer.masksToBounds = true
+        view.backgroundColor = .gradientBlue.withAlphaComponent(0.75)
+        return view
+    }()
+    
     private let particulateMatterView: ParticulateMatterView = {
         let view = ParticulateMatterView()
         view.layer.cornerRadius = 15
@@ -153,6 +131,12 @@ final class WeatherController: UIViewController, View {
         let view = KoreaWeatherView()
         view.layer.cornerRadius = 15
         view.layer.masksToBounds = true
+        return view
+    }()
+    
+    private let otherDetailView: OtherDetailView = {
+        let view = OtherDetailView()
+        view.backgroundColor = .dayBackground
         return view
     }()
     
@@ -198,49 +182,7 @@ final class WeatherController: UIViewController, View {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        reactor = WeatherControllerViewModel()
         configureUI()
-    }
-}
-
-extension WeatherController: Bindable {
-    func bind(reactor: WeatherControllerViewModel) {
-        bindAction(reactor)
-        bindState(reactor)
-    }
-    
-    func bindAction(_ reactor: Reactor) {
-        searchMagnifyingButton.tapPublisher
-            .eraseToAnyPublisher()
-            .map { WeatherControllerViewModel.PresentType.searchResultViewController }
-            .map { WeatherControllerViewModel.Action.magnifyingButtonTapped($0) }
-            .subscribe(reactor.action)
-            .store(in: &cancellables)
-    }
-    
-    func bindState(_ reactor: Reactor) {
-        reactor.state
-            .map { $0.youAreInSearchResultController }
-            .filter { $0 != nil }
-            .map { reactor.getSearchResultViewController($0!) }
-            .sink(receiveValue: { [weak self] viewController in
-                // viewController에 보내야 하는 것들
-                // 1. 유저의 위치 👏
-                viewController.userLocation = self?.userLocation ?? String()
-                // 2. 현재 온도
-                viewController.currentTemperature = self?.currentTemperature ?? String()
-                // 3. 최고, 최저 온도
-                viewController.highestTemperature = self?.highestTemperature ?? String()
-                viewController.lowestTemperature = self?.lowestTemperature ?? String()
-                // 4. 현재 날씨 상태
-                viewController.currentSkyStatus = self?.currentSky ?? String()
-                
-                let navigationController = UINavigationController(rootViewController: viewController)
-                navigationController.modalPresentationStyle = .fullScreen
-                navigationController.modalTransitionStyle = .crossDissolve
-                self?.present(navigationController, animated: true)
-            })
-            .store(in: &cancellables)
     }
 }
 
@@ -270,27 +212,10 @@ extension WeatherController: ViewDrawable {
                 // MARK: - 낮과 밤을 나누어서 처리하는 영역
                 if currentWeather.isDaylight {
                     // 낮이라면
-                    if currentWeather.symbolName == "snowflake" {
-                        self?.searchMagnifyingButton.tintColor = .nightSideLabel
-                    } else if currentWeather.symbolName == "cloud.rain" {
-                        self?.searchMagnifyingButton.tintColor = .nightSideLabel
-                    } else if currentWeather.symbolName == "cloud.heavyrain" {
-                        self?.searchMagnifyingButton.tintColor = .nightSideLabel
-                    } else if currentWeather.symbolName == "cloud.drizzle" {
-                        self?.searchMagnifyingButton.tintColor = .nightSideLabel
-                    } else if currentWeather.symbolName == "cloud.bolt.rain" {
-                        self?.searchMagnifyingButton.tintColor = .nightSideLabel
-                    } else {
-                        self?.searchMagnifyingButton.tintColor = .daySideLabel
-                    }
-                    
                     // MARK: - WeatherImage에 따라 색깔을 바꾸는 영역
                     self?.coloringMethod(symbolName: currentWeather.symbolName)
                 } else {
                     // 밤이라면
-                    self?.searchMagnifyingButton.tintColor = .nightSideLabel
-                    print("지금 현재 currentWeather.symbolName은 \(currentWeather.symbolName)")
-                    
                     if currentWeather.symbolName == "snowflake" {
                         self?.coloringMethod(symbolName: "snowflake")
                     } else if currentWeather.symbolName == "cloud.rain" {
@@ -306,19 +231,10 @@ extension WeatherController: ViewDrawable {
                     } else {
                         self?.coloringMethod(symbolName: "moon.stars")
                     }
-                    
-//                    if currentWeather.condition.description == "눈옴" {
-//                        self?.coloringMethod(symbolName: "snowflake")
-//                    } else if currentWeather.condition.description == "비" {
-//                        self?.coloringMethod(symbolName: "cloud.moon.rain")
-//                    } else {
-//                        self?.coloringMethod(symbolName: "moon.stars")
-//                    }
                 }
                 
                 // MARK: - Temperature 영역
                 self?.mainInformationView.todayWeatherTemperature.text = String(round(currentWeather.temperature.value * 10) / 10)
-                self?.currentTemperature = String(round(currentWeather.temperature.value * 10) / 10)
                 
                 // MARK: - 사용자의 위치
                 guard let userLocation = self?.userLocation else { return }
@@ -326,7 +242,6 @@ extension WeatherController: ViewDrawable {
                 
                 // MARK: - 하늘상태
                 self?.mainInformationView.currentSky.text = currentWeather.condition.description
-                self?.currentSky = currentWeather.condition.description
                 
                 // MARK: - 최고 & 최저 온도
                 let formatter = DateFormatter()
@@ -342,7 +257,6 @@ extension WeatherController: ViewDrawable {
                         
                         let highestCelsius = String(round(dayWeather.highTemperature.value * 10) / 10) + "°"
                         self?.mainInformationView.highestCelsius.text = "최고: " + highestCelsius
-                        self?.highestTemperature = "최고: " + highestCelsius
                         
                         if self?.mainInformationView.backgroundColor == .snowyBackground || self?.mainInformationView.backgroundColor == .rainyBackground ||
                             self?.mainInformationView.backgroundColor == .nightBackground ||
@@ -354,7 +268,6 @@ extension WeatherController: ViewDrawable {
                         
                         let lowestCelsius = String(round(dayWeather.lowTemperature.value * 10) / 10) + "°"
                         self?.mainInformationView.lowestCelsius.text = "최저: " + lowestCelsius
-                        self?.lowestTemperature = "최저: " + lowestCelsius
                         
                         if self?.mainInformationView.backgroundColor == .snowyBackground || self?.mainInformationView.backgroundColor == .rainyBackground ||
                             self?.mainInformationView.backgroundColor == .nightBackground ||
@@ -622,10 +535,6 @@ extension WeatherController: ViewDrawable {
                     let weekDay = weekDayFormatter.string(from: daily)
                     print("비가 오는 요일은 \(weekDay)")
                     
-                    print("비가 오는 날짜는 \(dailyWeather.date)")
-                    print("비가 올 확률은 \(dailyWeather.precipitationChance.description)")
-                    print("비가 얼마나 왔냐면 \(dailyWeather.precipitationAmount.value)")
-                    
                     if userToday <= compareDate {
                         // MARK: - 요일 데이터
                         self?.dailyForecastView.weekDayArray.append(weekDay)
@@ -707,6 +616,66 @@ extension WeatherController: ViewDrawable {
                 
                 self?.uvIndexView.uvIndexDataReceiver = currentWeather.uvIndex.value
                 self?.uvIndexView.uvIndexStatus.text = currentWeather.uvIndex.category.description
+            }
+            .store(in: &cancellables)
+        setRainDropData()
+    }
+    
+    private func setRainDropData() {
+        rainDropViewModel.$dailyForecast
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] dailyForecast in
+                self?.rainDropView.precipitationAmount.text = dailyForecast.first?.precipitationAmount.description
+                
+                for dailyWeather in dailyForecast {
+                    print("비가 오는 날짜는 \(dailyWeather.date)")
+                    print("비가 올 확률은 \(dailyWeather.precipitationChance.description)")
+                    if dailyWeather.precipitationChance.description != "0.0" {
+                        let formatter = DateFormatter()
+                        formatter.locale = Locale(identifier: "ko_KR")
+                        formatter.dateFormat = "yyyy/MM/dd"
+                        let rainIsFallingDate = formatter.string(from: dailyWeather.date)
+                        
+                        self?.rainDropView.rainDropDataReceiver = rainIsFallingDate
+                    } else {
+                        let now = Date()
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.dateFormat = "yyyy/MM/dd"
+                        let calendar = Calendar.current
+                        guard let tenDaysLater = calendar.date(byAdding: .day, value: 9, to: now) else { return }
+                        let tenDaysLaterString = dateFormatter.string(from: tenDaysLater)
+                        
+                        self?.rainDropView.rainDropDataReceiver = tenDaysLaterString
+                    }
+                    
+                    print("비가 얼마나 왔냐면 \(dailyWeather.precipitationAmount.description)")
+                }
+            }
+            .store(in: &cancellables)
+        setApparentTemperatureDate()
+    }
+    
+    private func setApparentTemperatureDate() {
+        apparentTemperatureViewModel.$currentWeather
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] currentWeather in
+                guard let currentWeather = currentWeather else { return }
+                
+                self?.apparentTemperatureView.apparentTemperatureDataReceiver = currentWeather.apparentTemperature.value
+            }
+            .store(in: &cancellables)
+        
+        setHumidityData()
+    }
+    
+    private func setHumidityData() {
+        humidityViewModel.$currentWeather
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] currentWeather in
+                guard let currentWeather = currentWeather else { return }
+                
+                self?.humidityView.humidity.text = String(Int(currentWeather.humidity * 100)) + "%"
+                self?.humidityView.humidityDataReceiver = Int(currentWeather.dewPoint.value)
             }
             .store(in: &cancellables)
         setParticulateMatterViewData()
@@ -1153,33 +1122,13 @@ extension WeatherController: ViewDrawable {
         }
         .store(in: &cancellables)
         
-        setOtherViewData()
-    }
-    
-    private func setOtherViewData() {
-        otherViewModel.$currentWeather
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] currentWeather in
-                
-            }
-            .store(in: &cancellables)
     }
     
     func setAutolayout() {
-        [scrollView, searchMagnifyingButton, pageControl].forEach { view.addSubview($0) }
+        [scrollView].forEach { view.addSubview($0) }
         scrollView.addSubview(stackView)
         
         // MARK: - 뷰 레이아웃
-        searchMagnifyingButton.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(30)
-            make.trailing.equalTo(view.snp.trailing).offset(-30)
-        }
-        
-        pageControl.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(70)
-        }
-        
         mainInformationView.snp.makeConstraints { make in
             make.height.equalTo(500)
         }
@@ -1197,7 +1146,15 @@ extension WeatherController: ViewDrawable {
         }
         
         rainDropView.snp.makeConstraints { make in
-            make.height.equalTo(200)
+            make.height.equalTo(150)
+        }
+        
+        apparentTemperatureView.snp.makeConstraints { make in
+            make.height.equalTo(150)
+        }
+        
+        humidityView.snp.makeConstraints { make in
+            make.height.equalTo(150)
         }
         
         particulateMatterView.snp.makeConstraints { make in
@@ -1208,11 +1165,14 @@ extension WeatherController: ViewDrawable {
             make.height.equalTo(500)
         }
         
-        
+        otherDetailView.snp.makeConstraints { make in
+            make.height.equalTo(200)
+        }
+
         // MARK: - 스크롤 뷰 및 스택 뷰 레이아웃
         scrollView.snp.makeConstraints { make in
             make.leading.equalTo(view.snp.leading).offset(20)
-            make.top.equalTo(pageControl.snp.bottom).offset(30)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(30)
             make.trailing.equalTo(view.snp.trailing).offset(-20)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-20)
         }
@@ -1227,12 +1187,12 @@ extension WeatherController: ViewDrawable {
     }
     
     private func fillStackView() {
-        let companyArray = [mainInformationView, hourlyForecastView, dailyForecastView, uvIndexView, rainDropView, particulateMatterView, koreaWeatherView]
+        let companyArray = [mainInformationView, hourlyForecastView, dailyForecastView, uvIndexView, rainDropView, apparentTemperatureView, humidityView, particulateMatterView, koreaWeatherView, otherDetailView]
         for company in companyArray {
             var elementView = UIView()
             elementView = company
             elementView.translatesAutoresizingMaskIntoConstraints = false
-            elementView.heightAnchor.constraint(equalToConstant: 3200).isActive = true
+            elementView.heightAnchor.constraint(equalToConstant: 4200).isActive = true
             stackView.addArrangedSubview(elementView)
         }
     }
@@ -1513,9 +1473,11 @@ extension WeatherController: CLLocationManagerDelegate {
         hourlyForecastViewModel.fetchWeather(location: location)
         dailyForecastViewModel.fetchWeather(location: location)
         uvIndexViewModel.fetchWeather(location: location)
+        rainDropViewModel.fetchWeather(location: location)
+        apparentTemperatureViewModel.fetchWeather(location: location)
+        humidityViewModel.fetchWeather(location: location)
         particulateMatterViewModel.fetchWeather(location: location)
         koreaWeatherViewModel.fetchWeather()
-        otherViewModel.fetchWeather(location: location)
     }
 }
 

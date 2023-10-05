@@ -1,16 +1,16 @@
 //
-//  NewsViewModel.swift
+//  HumidityViewModel.swift
 //  Sandeuli
 //
-//  Created by 황홍필 on 2023/09/19.
+//  Created by 황홍필 on 2023/10/05.
 //
 
-import Combine
-import UIKit
 import WeatherKit
 import CoreLocation
+import Combine
+import UIKit
 
-final class OtherViewModel {
+final class HumidityViewModel {
     
     // MARK: - Cancellables
     private var cancellables: Set<AnyCancellable> = []
@@ -28,15 +28,10 @@ final class OtherViewModel {
                 let weather = try await weatherService.weather(for: location)
                 self.currentWeather = weather.currentWeather
                 
-                print("현재 날씨 습도는 \(weather.currentWeather.dewPoint.value)")
-                
             } catch {
                 print(String(describing: error))
             }
         }
     }
 }
-
-
-
 

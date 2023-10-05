@@ -1,25 +1,25 @@
 //
-//  RainDropView.swift
+//  ApparentTemperatureView.swift
 //  Sandeuli
 //
-//  Created by 황홍필 on 2023/10/04.
+//  Created by 황홍필 on 2023/10/05.
 //
 
 import UIKit
 import SnapKit
 
-final class RainDropView: UIView {
+final class ApparentTemperatureView: UIView {
     // MARK: - Header 영역
     private let headerImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "drop.fill")?.applyingSymbolConfiguration(.init(paletteColors: [.white]))
+        imageView.image = UIImage(systemName: "thermometer.medium")?.applyingSymbolConfiguration(.init(paletteColors: [.white]))
         return imageView
     }()
     
     private let headerLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Poppins-Medium", size: 15)
-        label.text = "강우"
+        label.text = "체감 온도"
         label.textColor = .white
         return label
     }()
@@ -32,14 +32,14 @@ final class RainDropView: UIView {
     }()
     
     // MARK: - UI Components
-    let precipitationAmount: UILabel = {
+    let apparentTemperature: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Poppins-Medium", size: 25)
         label.textColor = .white
         return label
     }()
     
-    let precipitaionDescription: UILabel = {
+    let apparentDescription: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Poppins-Medium", size: 18)
         label.textColor = .white
@@ -48,26 +48,23 @@ final class RainDropView: UIView {
     }()
     
     // MARK: - Data Receiver
-    var rainDropDataReceiver = String() {
+    var apparentTemperatureDataReceiver = Double() {
         didSet {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy/MM/dd"
             
-            let startDateString = dateFormatter.string(from: Date())
-            let endDateString = rainDropDataReceiver
-
-            guard let startDate = dateFormatter.date(from: startDateString) else { return }
-            guard let endDate = dateFormatter.date(from: endDateString) else { return }
+            self.apparentTemperature.text = String(round(apparentTemperatureDataReceiver * 10) / 10 ) + "°"
             
-            let calendar = Calendar.current
-            let components = calendar.dateComponents([.day], from: startDate, to: endDate)
-            
-            guard let dayBetweenDate = components.day else { return }
-            
-            self.precipitaionDescription.text = "이후 \(dayBetweenDate + 1)일 이내 강우가 예상되지 않습니다."
+            switch apparentTemperatureDataReceiver {
+            case apparentTemperatureDataReceiver - 1 ... apparentTemperatureDataReceiver + 1:
+                self.apparentDescription.text = "실제 온도와 비슷합니다"
+            case apparentTemperatureDataReceiver - Double(Int.random(in: Int(apparentTemperatureDataReceiver) + 2 ... 100)) ... apparentTemperatureDataReceiver:
+                self.apparentDescription.text = "실제 온도보다 따뜻합니다"
+            case apparentTemperatureDataReceiver ... apparentTemperatureDataReceiver + Double(Int.random(in: Int(apparentTemperatureDataReceiver) + 2 ... 100)):
+                self.apparentDescription.text = "실제 온도보다 춥습니다"
+            default: break
+            }
         }
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureUI()
@@ -76,14 +73,14 @@ final class RainDropView: UIView {
     required init?(coder: NSCoder) {
         fatalError()
     }
-
+    
     // View 자체에 그라디언트 효과를 적용하기 위해 필요한 변수
     override public class var layerClass: AnyClass {
         return CAGradientLayer.classForCoder()
     }
 }
 
-extension RainDropView: ViewDrawable {
+extension ApparentTemperatureView: ViewDrawable {
     func configureUI() {
         setAutolayout()
         setupGradient()
@@ -91,22 +88,22 @@ extension RainDropView: ViewDrawable {
     }
     
     func setAutolayout() {
-        [headerStackView, precipitationAmount, precipitaionDescription].forEach { addSubview($0) }
+        [headerStackView, apparentTemperature, apparentDescription].forEach { addSubview($0) }
         
         headerStackView.snp.makeConstraints { make in
             make.leading.equalTo(snp.leading).offset(15)
             make.top.equalTo(snp.top).offset(12)
         }
         
-        precipitationAmount.snp.makeConstraints { make in
+        apparentTemperature.snp.makeConstraints { make in
             make.leading.equalTo(snp.leading).offset(15)
             make.top.equalTo(headerStackView.snp.bottom).offset(15)
         }
         
-        precipitaionDescription.snp.makeConstraints { make in
+        apparentDescription.snp.makeConstraints { make in
             make.leading.equalTo(snp.leading).offset(15)
             make.trailing.equalTo(snp.trailing).offset(-10)
-            make.top.equalTo(precipitationAmount.snp.bottom).offset(20)
+            make.top.equalTo(apparentTemperature.snp.bottom).offset(20)
         }
     }
     

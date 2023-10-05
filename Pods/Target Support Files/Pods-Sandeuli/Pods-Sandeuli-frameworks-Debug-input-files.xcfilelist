@@ -1,5 +1,2 @@
 ${PODS_ROOT}/Target Support Files/Pods-Sandeuli/Pods-Sandeuli-frameworks.sh
-${BUILT_PRODUCTS_DIR}/CombineCocoa/CombineCocoa.framework
-${BUILT_PRODUCTS_DIR}/CombineReactor/CombineReactor.framework
 ${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework
-${BUILT_PRODUCTS_DIR}/WeakMapTable/WeakMapTable.framework

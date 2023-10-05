@@ -16,6 +16,7 @@ final class DailyForecastView: UIView {
         table.register(DailyForecastCell.self, forCellReuseIdentifier: DailyForecastCell.identifier)
         table.dataSource = self
         table.delegate = self
+        table.isScrollEnabled = false // 테이블 뷰 스크롤이 안 되도록 하는 기능
         table.backgroundColor = .gradientBlue.withAlphaComponent(0.75)
         return table
     }()

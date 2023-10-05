@@ -15,10 +15,6 @@ final class MainInformationViewModel {
     // MARK: - Cancellables
     private var cancellables: Set<AnyCancellable> = []
     
-    // MARK: - 미세 & 초미세 데이터 영역
-    @Published var particulateMatter: ParticulateMatter?
-    @Published var ultraParticulateMatter: ParticulateMatter?
-    
     // MARK: - 나머지 날씨 데이터 영역
     @Published var todayCurrentWeather: CurrentWeather!
     @Published var dailyForecast: [DayWeather] = []
@@ -32,44 +28,16 @@ final class MainInformationViewModel {
             do {
                 let weather = try await weatherService.weather(for: location)
                 self.todayCurrentWeather = weather.currentWeather
-                print("지금은 낮입니까? \(weather.currentWeather.isDaylight)")
-                print("현재 날씨 상태는 \(weather.currentWeather.condition)")
-                print("현재 날씨 symbol은 \(weather.currentWeather.symbolName)")
+                // 바람, 습도
+                print("오늘의 습도는 \(weather.currentWeather.humidity.description)")
+                print("오늘의 이슬점은 \(weather.currentWeather.dewPoint.value)")
+                
                 self.dailyForecast = weather.dailyForecast.forecast
                 
             } catch {
                 print(String(describing: error))
             }
         }
-    }
-    
-    // MARK: - 미세 & 초미세 네트워크 패칭
-    func fetchParticulateMatterNetwork(density: String) {
-        ParticulateMatterNetworkManager.shared.getNetworkDatas(density: density)
-            .sink { completion in
-                switch completion {
-                case .failure:
-                    print("오류 발생 ㅠㅠ")
-                case .finished:
-                    print("미세먼지 네트워크 끝!")
-                }
-            } receiveValue: { [weak self] particulateMatter in
-                self?.particulateMatter = particulateMatter
-            }.store(in: &cancellables)
-    }
-    
-    func fetchUltraParticulateMatterNetwork(density: String) {
-        ParticulateMatterNetworkManager.shared.getNetworkDatas(density: density)
-            .sink { completion in
-                switch completion {
-                case .failure:
-                    print("오류 발생 ㅠㅠ")
-                case .finished:
-                    print("초미세먼지 네트워크 끝!")
-                }
-            } receiveValue: { [weak self] ultraParticulate in
-                self?.ultraParticulateMatter = ultraParticulate
-            }.store(in: &cancellables)
     }
 }
 

@@ -1,8 +1,8 @@
 //
-//  UVIndexViewModel.swift
+//  ApparentTemperatureViewModel.swift
 //  Sandeuli
 //
-//  Created by 황홍필 on 2023/10/04.
+//  Created by 황홍필 on 2023/10/05.
 //
 
 import WeatherKit
@@ -10,7 +10,7 @@ import CoreLocation
 import Combine
 import UIKit
 
-final class UVIndexViewModel {
+final class ApparentTemperatureViewModel {
     
     // MARK: - Cancellables
     private var cancellables: Set<AnyCancellable> = []
@@ -27,11 +27,10 @@ final class UVIndexViewModel {
             do {
                 let weather = try await weatherService.weather(for: location)
                 self.currentWeather = weather.currentWeather
+                
             } catch {
                 print(String(describing: error))
             }
         }
     }
 }
-
-
