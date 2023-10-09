@@ -971,6 +971,7 @@ extension WeatherController: ViewDrawable {
                     }
                 }
             }
+            
             self?.koreaWeatherView.koreaMap.chungbuk.weatherImageView.image = UIImage(systemName: chungbukWeather)?.withRenderingMode(.alwaysTemplate)
             
             // MARK: - 충청남도
