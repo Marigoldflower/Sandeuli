@@ -10,8 +10,6 @@ import WeatherKit
 import CoreLocation
 import SnapKit
 import Combine
-import CombineReactor
-import CombineCocoa
 
 final class WeatherController: UIViewController {
     // MARK: - 지역 이름
@@ -1166,7 +1164,7 @@ extension WeatherController: ViewDrawable {
         }
         
         otherDetailView.snp.makeConstraints { make in
-            make.height.equalTo(200)
+            make.height.equalTo(170)
         }
 
         // MARK: - 스크롤 뷰 및 스택 뷰 레이아웃
@@ -1211,46 +1209,46 @@ extension WeatherController {
     private func coloringMethod(symbolName: String) {
         switch symbolName {
         case "sun.max":
-            detailColoring(mainInformationView: mainInformationView, backgroundColor: .dayBackground, mainLabelColor: .dayMainLabel, sideLabelColor: .daySideLabel, symbolName: symbolName, paletteColors1: .dayImage, paletteColors2: .clear, paletteColors3: .clear)
+            detailColoring(mainInformationView: mainInformationView, backgroundColor: .dayBackground, mainLabelColor: .dayMainLabel, sideLabelColor: .daySideLabel, symbolName: symbolName, paletteColors1: .dayImage, paletteColors2: .clear, paletteColors3: .clear, otherDetailView: otherDetailView)
         case "sun.min":
-            detailColoring(mainInformationView: mainInformationView, backgroundColor: .dayBackground, mainLabelColor: .dayMainLabel, sideLabelColor: .daySideLabel, symbolName: symbolName, paletteColors1: .dayImage, paletteColors2: .clear, paletteColors3: .clear)
+            detailColoring(mainInformationView: mainInformationView, backgroundColor: .dayBackground, mainLabelColor: .dayMainLabel, sideLabelColor: .daySideLabel, symbolName: symbolName, paletteColors1: .dayImage, paletteColors2: .clear, paletteColors3: .clear, otherDetailView: otherDetailView)
             
         case "moon.stars":
-            detailColoring(mainInformationView: mainInformationView, backgroundColor: .nightBackground, mainLabelColor: .nightMainLabel, sideLabelColor: .nightSideLabel, symbolName: symbolName, paletteColors1: .nightImage, paletteColors2: .white, paletteColors3: .clear)
+            detailColoring(mainInformationView: mainInformationView, backgroundColor: .nightBackground, mainLabelColor: .nightMainLabel, sideLabelColor: .nightSideLabel, symbolName: symbolName, paletteColors1: .nightImage, paletteColors2: .white, paletteColors3: .clear, otherDetailView: otherDetailView)
             
         case "cloud":
-            detailColoring(mainInformationView: mainInformationView, backgroundColor: .cloudyBackground, mainLabelColor: .cloudyMainLabel, sideLabelColor: .cloudySideLabel, symbolName: symbolName, paletteColors1: .cloudyImage, paletteColors2: .cloudyImage, paletteColors3: .clear)
+            detailColoring(mainInformationView: mainInformationView, backgroundColor: .cloudyBackground, mainLabelColor: .cloudyMainLabel, sideLabelColor: .cloudySideLabel, symbolName: symbolName, paletteColors1: .cloudyImage, paletteColors2: .cloudyImage, paletteColors3: .clear, otherDetailView: otherDetailView)
             
         case "cloud.sun":
-            detailColoring(mainInformationView: mainInformationView, backgroundColor: .cloudyBackground, mainLabelColor: .cloudyMainLabel, sideLabelColor: .cloudySideLabel, symbolName: symbolName, paletteColors1: .cloudyImage, paletteColors2: .dayImage, paletteColors3: .clear)
+            detailColoring(mainInformationView: mainInformationView, backgroundColor: .cloudyBackground, mainLabelColor: .cloudyMainLabel, sideLabelColor: .cloudySideLabel, symbolName: symbolName, paletteColors1: .cloudyImage, paletteColors2: .dayImage, paletteColors3: .clear, otherDetailView: otherDetailView)
             
         case "cloud.drizzle":
-            detailColoring(mainInformationView: mainInformationView, backgroundColor: .rainyBackground, mainLabelColor: .rainyMainLabel, sideLabelColor: .rainySideLabel, symbolName: symbolName, paletteColors1: .rainyImage, paletteColors2: .systemCyan, paletteColors3: .clear)
+            detailColoring(mainInformationView: mainInformationView, backgroundColor: .rainyBackground, mainLabelColor: .rainyMainLabel, sideLabelColor: .rainySideLabel, symbolName: symbolName, paletteColors1: .rainyImage, paletteColors2: .systemCyan, paletteColors3: .clear, otherDetailView: otherDetailView)
             
         case "cloud.rain":
-            detailColoring(mainInformationView: mainInformationView, backgroundColor: .rainyBackground, mainLabelColor: .rainyMainLabel, sideLabelColor: .rainySideLabel, symbolName: symbolName, paletteColors1: .rainyImage, paletteColors2: .systemCyan, paletteColors3: .clear)
+            detailColoring(mainInformationView: mainInformationView, backgroundColor: .rainyBackground, mainLabelColor: .rainyMainLabel, sideLabelColor: .rainySideLabel, symbolName: symbolName, paletteColors1: .rainyImage, paletteColors2: .systemCyan, paletteColors3: .clear, otherDetailView: otherDetailView)
             
         case "cloud.bolt.rain":
-            detailColoring(mainInformationView: mainInformationView, backgroundColor: .rainyBackground, mainLabelColor: .rainyMainLabel, sideLabelColor: .rainySideLabel, symbolName: symbolName, paletteColors1: .rainyImage, paletteColors2: .systemCyan, paletteColors3: .clear)
+            detailColoring(mainInformationView: mainInformationView, backgroundColor: .rainyBackground, mainLabelColor: .rainyMainLabel, sideLabelColor: .rainySideLabel, symbolName: symbolName, paletteColors1: .rainyImage, paletteColors2: .systemCyan, paletteColors3: .clear, otherDetailView: otherDetailView)
 
         case "cloud.heavyrain":
-            detailColoring(mainInformationView: mainInformationView, backgroundColor: .rainyBackground, mainLabelColor: .rainyMainLabel, sideLabelColor: .rainySideLabel, symbolName: symbolName, paletteColors1: .rainyImage, paletteColors2: .systemCyan, paletteColors3: .clear)
+            detailColoring(mainInformationView: mainInformationView, backgroundColor: .rainyBackground, mainLabelColor: .rainyMainLabel, sideLabelColor: .rainySideLabel, symbolName: symbolName, paletteColors1: .rainyImage, paletteColors2: .systemCyan, paletteColors3: .clear, otherDetailView: otherDetailView)
             
         case "cloud.fog":
-            detailColoring(mainInformationView: mainInformationView, backgroundColor: .rainyBackground, mainLabelColor: .rainyMainLabel, sideLabelColor: .rainySideLabel, symbolName: symbolName, paletteColors1: .rainyImage, paletteColors2: .systemCyan, paletteColors3: .clear)
+            detailColoring(mainInformationView: mainInformationView, backgroundColor: .rainyBackground, mainLabelColor: .rainyMainLabel, sideLabelColor: .rainySideLabel, symbolName: symbolName, paletteColors1: .rainyImage, paletteColors2: .systemCyan, paletteColors3: .clear, otherDetailView: otherDetailView)
             
         case "cloud.moon":
-            detailColoring(mainInformationView: mainInformationView, backgroundColor: .nightBackground, mainLabelColor: .nightMainLabel, sideLabelColor: .nightSideLabel, symbolName: symbolName, paletteColors1: .rainyImage, paletteColors2: .nightImage, paletteColors3: .clear)
+            detailColoring(mainInformationView: mainInformationView, backgroundColor: .nightBackground, mainLabelColor: .nightMainLabel, sideLabelColor: .nightSideLabel, symbolName: symbolName, paletteColors1: .rainyImage, paletteColors2: .nightImage, paletteColors3: .clear, otherDetailView: otherDetailView)
             
         case "cloud.moon.rain":
-            detailColoring(mainInformationView: mainInformationView, backgroundColor: .nightBackground, mainLabelColor: .nightMainLabel, sideLabelColor: .nightSideLabel, symbolName: symbolName, paletteColors1: .rainyImage, paletteColors2: .nightImage, paletteColors3: .systemCyan)
+            detailColoring(mainInformationView: mainInformationView, backgroundColor: .nightBackground, mainLabelColor: .nightMainLabel, sideLabelColor: .nightSideLabel, symbolName: symbolName, paletteColors1: .rainyImage, paletteColors2: .nightImage, paletteColors3: .systemCyan, otherDetailView: otherDetailView)
             
         default:
             break
         }
     }
     
-    private func detailColoring(mainInformationView: MainInformationView, backgroundColor: UIColor, mainLabelColor: UIColor, sideLabelColor: UIColor, symbolName: String, paletteColors1: UIColor, paletteColors2: UIColor, paletteColors3: UIColor) {
+    private func detailColoring(mainInformationView: MainInformationView, backgroundColor: UIColor, mainLabelColor: UIColor, sideLabelColor: UIColor, symbolName: String, paletteColors1: UIColor, paletteColors2: UIColor, paletteColors3: UIColor, otherDetailView: OtherDetailView) {
         mainInformationView.backgroundColor = backgroundColor
         view.backgroundColor = backgroundColor
         mainInformationView.todayWeatherTemperature.textColor = mainLabelColor
@@ -1264,6 +1262,12 @@ extension WeatherController {
         mainInformationView.sunrise.textColor = sideLabelColor
         mainInformationView.sunset.textColor = sideLabelColor
         mainInformationView.todayWeatherImage.image = UIImage(systemName: "\(symbolName).fill")?.applyingSymbolConfiguration(.init(paletteColors: [paletteColors1, paletteColors2, paletteColors3]))
+        
+        otherDetailView.backgroundColor = backgroundColor
+        otherDetailView.appImage.image?.applyingSymbolConfiguration(.init(paletteColors: [mainLabelColor]))
+        otherDetailView.appName.textColor = mainLabelColor
+        otherDetailView.appSource.textColor = sideLabelColor
+        otherDetailView.caution.textColor = sideLabelColor
     }
     
     // MARK: - 지역에 따라 미세 & 초미세를 구하는 메소드

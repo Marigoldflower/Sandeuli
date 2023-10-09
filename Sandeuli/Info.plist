@@ -10,6 +10,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>Poppins-Medium.otf</string>
+		<string>Poppins-Bold.otf</string>
 		<string>Poppins-SemiBold.otf</string>
 		<string>Poppins-Regular.otf</string>
 	</array>

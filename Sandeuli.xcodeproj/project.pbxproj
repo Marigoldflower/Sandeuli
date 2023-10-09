@@ -62,7 +62,6 @@
 		EA1D88832ABADC8300A3368E /* KoreaWeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D88822ABADC8300A3368E /* KoreaWeatherViewModel.swift */; };
 		EA1D88872AC11EE100A3368E /* KoreaDetailWeatherReportContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D88862AC11EE100A3368E /* KoreaDetailWeatherReportContainer.swift */; };
 		EA1D888F2AC180D700A3368E /* CountryInformationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D888E2AC180D700A3368E /* CountryInformationCell.swift */; };
-		EA1D88B32AC28D4E00A3368E /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D88B22AC28D4E00A3368E /* Bindable.swift */; };
 		EA1D88B72AC2BFB500A3368E /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D88B62AC2BFB500A3368E /* SearchResultCell.swift */; };
 		EA1D88F72ACD545200A3368E /* UVIndexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D88F62ACD545200A3368E /* UVIndexView.swift */; };
 		EA1D88F92ACD577900A3368E /* UVIndexViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1D88F82ACD577900A3368E /* UVIndexViewModel.swift */; };
@@ -138,7 +137,6 @@
 		EA1D88822ABADC8300A3368E /* KoreaWeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KoreaWeatherViewModel.swift; sourceTree = "<group>"; };
 		EA1D88862AC11EE100A3368E /* KoreaDetailWeatherReportContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KoreaDetailWeatherReportContainer.swift; sourceTree = "<group>"; };
 		EA1D888E2AC180D700A3368E /* CountryInformationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryInformationCell.swift; sourceTree = "<group>"; };
-		EA1D88B22AC28D4E00A3368E /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
 		EA1D88B62AC2BFB500A3368E /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		EA1D88F62ACD545200A3368E /* UVIndexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UVIndexView.swift; sourceTree = "<group>"; };
 		EA1D88F82ACD577900A3368E /* UVIndexViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UVIndexViewModel.swift; sourceTree = "<group>"; };
@@ -259,7 +257,6 @@
 			isa = PBXGroup;
 			children = (
 				EA1D87CF2AA87A6800A3368E /* ViewDrawable.swift */,
-				EA1D88B22AC28D4E00A3368E /* Bindable.swift */,
 				EA1D87D12AA88C0400A3368E /* Location.swift */,
 				EA1D87DC2AA8955A00A3368E /* Colors.swift */,
 				EA1D87E02AA898A700A3368E /* SearchBar.swift */,
@@ -547,7 +544,6 @@
 				EA1D87DB2AA8954C00A3368E /* DailyForecastView.swift in Sources */,
 				EA1D88872AC11EE100A3368E /* KoreaDetailWeatherReportContainer.swift in Sources */,
 				EA1D88232AA97DBF00A3368E /* PatriculateMatterNetworkManager.swift in Sources */,
-				EA1D88B32AC28D4E00A3368E /* Bindable.swift in Sources */,
 				EA1D884E2AB8722500A3368E /* NewsCell.swift in Sources */,
 				EA1D88782ABAB48000A3368E /* KoreaMap.swift in Sources */,
 				EA1D887F2ABAD7B300A3368E /* KoreaWeather.swift in Sources */,
@@ -664,7 +660,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -719,7 +715,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

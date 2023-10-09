@@ -10,32 +10,32 @@ import SnapKit
 
 final class OtherDetailView: UIView {
     // MARK: - UI Components
-    private let appImage: UIImageView = {
+    let appImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .red
+        imageView.image = UIImage(named: "logo")
         return imageView
     }()
     
-    private let appName: UILabel = {
+    let appName: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Poppins-SemiBold", size: 30)
+        label.font = UIFont(name: "Poppins-Bold", size: 18)
         label.text = "산들이"
         label.textColor = .black
         return label
     }()
     
-    private let appSource: UILabel = {
+    let appSource: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Poppins-Medium", size: 15)
+        label.font = UIFont(name: "Poppins-Medium", size: 13)
         label.text = "자료: WeatherKit(애플), 기상청(공공데이터)"
         label.textColor = .black
         return label
     }()
     
-    private let caution: UILabel = {
+    let caution: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Poppins-Medium", size: 15)
-        label.text = "이 날씨 자료는 애플의 자산인 WeatherKit과 기상청으로부터 나온 것입니다.\n자료 오류 및 표출방식에 따라 값이 다를 수 있음을 양해 부탁드립니다."
+        label.font = UIFont(name: "Poppins-Medium", size: 13)
+        label.text = "이 날씨 자료는 애플의 자산인 WeatherKit과 기상청(공공데이터)으로부터 나온 것입니다. 자료 오류 및 표출방식에 따라 값이 다를 수 있음을 양해 부탁드립니다."
         label.textColor = .black
         label.numberOfLines = 0
         return label
@@ -53,7 +53,7 @@ final class OtherDetailView: UIView {
         let stack = UIStackView(arrangedSubviews: [appImageAndName, appSource, caution])
         stack.axis = .vertical
         stack.alignment = .center
-        stack.spacing = 20
+        stack.spacing = 7
         return stack
     }()
     
@@ -76,7 +76,8 @@ extension OtherDetailView: ViewDrawable {
         [totalStackView].forEach { addSubview($0) }
         
         appImage.snp.makeConstraints { make in
-            make.width.height.equalTo(30)
+            make.width.equalTo(29.85)
+            make.height.equalTo(23.2)
         }
         
         totalStackView.snp.makeConstraints { make in

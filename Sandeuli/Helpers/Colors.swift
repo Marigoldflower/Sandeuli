@@ -9,9 +9,6 @@ import UIKit
 
 extension UIColor {
     
-    // SearchController 색깔
-    static let searchControllerColor = UIColor(red: 0.11, green: 0.11, blue: 0.12, alpha: 1.00)
-    
     // 맵 색깔
     static let seaColor = UIColor(red: 0.18, green: 0.53, blue: 0.78, alpha: 1.00)
     static let earthColor = UIColor(red: 0.73, green: 0.79, blue: 0.88, alpha: 1.00)
@@ -19,13 +16,6 @@ extension UIColor {
     // 데이터의 색깔 (밝은 날씨일 때에는 어두운 주황, 어두운 날씨일 때에는 밝은 주황)
     static let dayDataText = UIColor(red: 0.94, green: 0.67, blue: 0.51, alpha: 1.00)
     static let nightDataText = UIColor(red: 1.00, green: 0.80, blue: 0.67, alpha: 1.00)
-    
-    // MARK: - SearchController
-    static let searchControllerWhite = UIColor(red: 0.99, green: 0.99, blue: 0.99, alpha: 1.00)
-    
-    // MARK: - PageControl
-    static let pageIndicatorGray = UIColor(red: 0.77, green: 0.77, blue: 0.77, alpha: 1.00)
-    static let currentPageIndicatorDarkBlue = UIColor(red: 0.00, green: 0.12, blue: 0.44, alpha: 1.00)
     
     // MARK: - Day
     static let dayBackground = UIColor(red: 0.87, green: 0.93, blue: 0.95, alpha: 1.00)
