@@ -22,9 +22,13 @@
 
 
 
-|실시간 주가 업데이트|주식 삭제|주식의 Detail 화면|메인화면에 주식 담기|
+|청명함|구름많음|주식의 Detail 화면|메인화면에 주식 담기|
 |:---:|:---:|:---:|:---:|
-|<img src="https://github.com/Marigoldflower/PinkyStocky/assets/100112897/081482b9-6f8c-47d6-a93c-cabb48a78bab" width="200" height="400"/>|<img src="https://github.com/Marigoldflower/PinkyStocky/assets/100112897/0c069c72-80ac-45db-896c-f937bc0a00aa" width="200" height="400"/>|<img src="https://github.com/Marigoldflower/PinkyStocky/assets/100112897/5a804545-5fd2-40ef-80c9-f31644555551" width="200" height="400"/>|<img src="https://github.com/Marigoldflower/PinkyStocky/assets/100112897/90d4c3ec-9dda-4ad3-b6cd-4662b1db3e9f" width="200" height="400"/>|
+|<img src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/9ea173dc-dc5b-4574-b456-ad9c35411393" width="200" height="400"/>|<img src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/01722f88-1cc7-44de-ab86-fbae2b791089" width="200" height="400"/>|<img src="https://github.com/Marigoldflower/PinkyStocky/assets/100112897/5a804545-5fd2-40ef-80c9-f31644555551" width="200" height="400"/>|<img src="https://github.com/Marigoldflower/PinkyStocky/assets/100112897/90d4c3ec-9dda-4ad3-b6cd-4662b1db3e9f" width="200" height="400"/>|
+
+|낮|밤|
+|:---:|:---:|
+|<img src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/ea6a903e-b7d4-4621-967c-d62e359a89a2" width="200" height="400"/>|<img src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/83e134ac-e8de-46a5-9b8e-e55c9874b0ac" width="200" height="400"/>|
 
 
 
