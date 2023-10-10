@@ -56,7 +56,7 @@
 
 |자외선 지수|강우량|최신 뉴스 검색|
 |:---:|:---:|:---:|
-|<img src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/6fbd1e00-2c62-4fef-9270-b6dacacdda5d" width="200" height="200"/>|<img src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/3141978e-9e38-45db-afd5-e7f96ad91303" width="200" height="200"/>|<img src="https://github.com/Marigoldflower/PinkyStocky/assets/100112897/a9863a05-4d3f-48f8-a534-1fa81ae7220a" width="200" height="400"/>|
+|<img src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/6fbd1e00-2c62-4fef-9270-b6dacacdda5d" width="200" height="200"/>|<img src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/3141978e-9e38-45db-afd5-e7f96ad91303" width="300" height="200"/>|<img src="https://github.com/Marigoldflower/PinkyStocky/assets/100112897/a9863a05-4d3f-48f8-a534-1fa81ae7220a" width="200" height="400"/>|
 
 <img width="310" alt="스크린샷 2023-10-10 오후 1 21 28" src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/3141978e-9e38-45db-afd5-e7f96ad91303">
 
