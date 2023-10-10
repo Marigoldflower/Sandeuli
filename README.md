@@ -56,7 +56,7 @@
 
 |자외선 지수|강우량|체감온도|
 |:---:|:---:|:---:|
-|<img src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/6fbd1e00-2c62-4fef-9270-b6dacacdda5d" width="200" height="200"/>|<img src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/3141978e-9e38-45db-afd5-e7f96ad91303" width="310" height="200"/>|<img src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/f471d5e0-9868-4df5-8056-4cb722f3139a" width="311" height="400"/>|
+|<img src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/6fbd1e00-2c62-4fef-9270-b6dacacdda5d" width="200" height="200"/>|<img src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/3141978e-9e38-45db-afd5-e7f96ad91303" width="310" height="200"/>|<img src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/f471d5e0-9868-4df5-8056-4cb722f3139a" width="311" height="200"/>|
 
 
 <img width="311" alt="스크린샷 2023-10-10 오후 1 25 39" src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/f471d5e0-9868-4df5-8056-4cb722f3139a">
