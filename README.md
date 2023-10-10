@@ -56,6 +56,6 @@
 
 |자외선 지수|최신 뉴스|최신 뉴스 검색|
 |:---:|:---:|:---:|
-|<img src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/6fbd1e00-2c62-4fef-9270-b6dacacdda5d" width="200" height="400"/>|<img src="https://github.com/Marigoldflower/PinkyStocky/assets/100112897/67228bb0-2ad1-43a8-8da8-06653e954c70" width="200" height="400"/>|<img src="https://github.com/Marigoldflower/PinkyStocky/assets/100112897/a9863a05-4d3f-48f8-a534-1fa81ae7220a" width="200" height="400"/>|
+|<img src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/6fbd1e00-2c62-4fef-9270-b6dacacdda5d" width="400" height="400"/>|<img src="https://github.com/Marigoldflower/PinkyStocky/assets/100112897/67228bb0-2ad1-43a8-8da8-06653e954c70" width="200" height="400"/>|<img src="https://github.com/Marigoldflower/PinkyStocky/assets/100112897/a9863a05-4d3f-48f8-a534-1fa81ae7220a" width="200" height="400"/>|
 
 
