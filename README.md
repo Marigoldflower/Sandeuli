@@ -24,7 +24,7 @@
 
 
 
-|청명함|구름많음|
+|청명함|흐림|
 |:---:|:---:|
 |<img src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/4621ed2a-451e-436e-a53b-e21e2ce05648" width="200" height="400"/>|<img src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/01722f88-1cc7-44de-ab86-fbae2b791089" width="200" height="400"/>|
 
