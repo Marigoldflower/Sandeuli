@@ -79,7 +79,7 @@
 
 |전국날씨|
 |:---:|
-|<img src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/fa18eb4c-d33d-40a1-bea9-e97cdf82b537" width="310" height="200"/>|
+|<img src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/fa18eb4c-d33d-40a1-bea9-e97cdf82b537" width="310" height="400"/>|
 
 
 
