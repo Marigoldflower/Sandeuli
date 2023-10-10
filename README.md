@@ -69,7 +69,7 @@
 
 |습도|미세먼지 & 초미세먼지|
 |:---:|:---:|
-|<img src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/becd747f-f619-4257-bb8a-68d200271b2a" width="310" height="200"/>|<img src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/d8a5f05d-91d1-4bed-8ad1-382ee06322ed" width="310" height="200"/>|
+|<img src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/becd747f-f619-4257-bb8a-68d200271b2a" width="310" height="200"/>|<img src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/d8a5f05d-91d1-4bed-8ad1-382ee06322ed" width="310" height="400"/>|
 
 
 
