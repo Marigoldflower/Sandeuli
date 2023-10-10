@@ -19,6 +19,8 @@
 > - 낮인지 밤인지에 따라서 배경화면의 색상을 밝게 또는 어둡게 설정하였습니다.
 > - 오늘 날짜의 최고 온도와 최저 온도를 확인할 수 있습니다.
 > - 일출 시간과 일몰 시간을 확인할 수 있습니다.
+> - 오늘 하루의 날씨를 예보합니다.
+
 
 
 
@@ -27,24 +29,22 @@
 |<img src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/4621ed2a-451e-436e-a53b-e21e2ce05648" width="200" height="400"/>|<img src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/01722f88-1cc7-44de-ab86-fbae2b791089" width="200" height="400"/>|<img src="https://github.com/Marigoldflower/PinkyStocky/assets/100112897/5a804545-5fd2-40ef-80c9-f31644555551" width="200" height="400"/>|<img src="https://github.com/Marigoldflower/PinkyStocky/assets/100112897/90d4c3ec-9dda-4ad3-b6cd-4662b1db3e9f" width="200" height="400"/>|
 
 
-
-
 |낮|밤|
 |:---:|:---:|
 |<img src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/ea6a903e-b7d4-4621-967c-d62e359a89a2" width="200" height="400"/>|<img src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/83e134ac-e8de-46a5-9b8e-e55c9874b0ac" width="200" height="400"/>|
 
 
 
-### 🏦 금융 정보 화면 (Financial)
-> - 환율과 코인의 실시간 가격을 확인할 수 있습니다. 오른쪽으로 스크롤하여 더 많은 데이터를 확인할 수 있습니다.
-> - Reload 버튼을 눌러 실시간 환율과 코인 및 주식의 가격을 업데이트 할 수 있습니다.
-> - 아래로 스크롤하여 최신 경제 뉴스를 확인할 수 있습니다. (테이블 뷰로 구현)
-> - 우량주의 현재가와 실시간 데이터를 확인합니다.
+### 🌦️ 10일간의 일기 예보
+> - 오늘로부터 10일간의 날씨를 예보합니다.
+> - 10일간의 최고 온도와, 최저 온도를 확인할 수 있습니다.
+> - 10일간의 하늘 상태를 확인할 수 있습니다.
 
 
-|환율과 코인의 실시간 가격 확인|실시간 환율, 코인 및 주식 가격 업데이트|최신 경제 뉴스 확인|
-|:---:|:---:|:---:|
-|<img src="https://github.com/Marigoldflower/PinkyStocky/assets/100112897/414755da-9f0b-4288-a27f-e1993d063499" width="200" height="400"/>|<img src="https://github.com/Marigoldflower/PinkyStocky/assets/100112897/a9eef009-f4e5-45aa-8737-f634b05e64d6" width="200" height="400"/>|<img src="https://github.com/Marigoldflower/PinkyStocky/assets/100112897/cb8abeaa-639a-415d-9eb5-fb8193692305" width="200" height="400"/>|
+|10일간의 일기 예보|
+|:---:|
+|<img src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/7f7b5f31-f438-40b6-b39b-e66e71d45325" width="200" height="400"/>|
+
 
 
 
