@@ -31,7 +31,7 @@
 
 |낮|밤|
 |:---:|:---:|
-|<img src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/ea6a903e-b7d4-4621-967c-d62e359a89a2" width="200" height="400"/>|<img src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/83e134ac-e8de-46a5-9b8e-e55c9874b0ac" width="200" height="400"/>|
+|<img src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/ea6a903e-b7d4-4621-967c-d62e359a89a2" width="200" height="400"/>|<img src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/79a98650-7bb1-4778-9ab9-794f4e7b491b" width="200" height="400"/>|
 
 
 
