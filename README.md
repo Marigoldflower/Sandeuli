@@ -26,7 +26,7 @@
 
 |청명함|구름많음|주식의 Detail 화면|메인화면에 주식 담기|
 |:---:|:---:|:---:|:---:|
-|<img src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/4621ed2a-451e-436e-a53b-e21e2ce05648" width="200" height="400"/>|<img src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/01722f88-1cc7-44de-ab86-fbae2b791089" width="200" height="400"/>|<img src="https://github.com/Marigoldflower/PinkyStocky/assets/100112897/5a804545-5fd2-40ef-80c9-f31644555551" width="200" height="400"/>|<img src="https://github.com/Marigoldflower/PinkyStocky/assets/100112897/90d4c3ec-9dda-4ad3-b6cd-4662b1db3e9f" width="200" height="400"/>|
+|<img src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/4621ed2a-451e-436e-a53b-e21e2ce05648" width="400" height="400"/>|<img src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/01722f88-1cc7-44de-ab86-fbae2b791089" width="200" height="400"/>|<img src="https://github.com/Marigoldflower/PinkyStocky/assets/100112897/5a804545-5fd2-40ef-80c9-f31644555551" width="200" height="400"/>|<img src="https://github.com/Marigoldflower/PinkyStocky/assets/100112897/90d4c3ec-9dda-4ad3-b6cd-4662b1db3e9f" width="200" height="400"/>|
 
 
 |낮|밤|
