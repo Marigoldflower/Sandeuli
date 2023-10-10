@@ -54,8 +54,11 @@
 > - 현재 날짜의 강우량을 확인할 수 있으며, 강우 예보를 간략하게 체크할 수 있습니다.
 > - 바람과 햇빛의 강도를 게산하여 현재 체감 온도를 측정합니다.
 
-|자외선 지수|최신 뉴스|최신 뉴스 검색|
+|자외선 지수|강우량|최신 뉴스 검색|
 |:---:|:---:|:---:|
-|<img src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/6fbd1e00-2c62-4fef-9270-b6dacacdda5d" width="200" height="200"/>|<img src="https://github.com/Marigoldflower/PinkyStocky/assets/100112897/67228bb0-2ad1-43a8-8da8-06653e954c70" width="200" height="400"/>|<img src="https://github.com/Marigoldflower/PinkyStocky/assets/100112897/a9863a05-4d3f-48f8-a534-1fa81ae7220a" width="200" height="400"/>|
+|<img src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/6fbd1e00-2c62-4fef-9270-b6dacacdda5d" width="200" height="200"/>|<img src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/3141978e-9e38-45db-afd5-e7f96ad91303" width="200" height="200"/>|<img src="https://github.com/Marigoldflower/PinkyStocky/assets/100112897/a9863a05-4d3f-48f8-a534-1fa81ae7220a" width="200" height="400"/>|
+
+<img width="310" alt="스크린샷 2023-10-10 오후 1 21 28" src="https://github.com/Marigoldflower/Sandeuli/assets/100112897/3141978e-9e38-45db-afd5-e7f96ad91303">
+
 
 
