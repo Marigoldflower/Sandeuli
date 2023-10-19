@@ -21,6 +21,13 @@ final class KoreaWeatherViewModel {
     // MARK: - Weather Service
     private let weatherService = WeatherService()
     
+    // MARK: - KoreaWeatherNetworkProtocol을 채택한 진짜 네트워크와 가짜 네트워크가 모두 이 자리에 들어올 수 있다. (의존성 주입)
+    private let koreaWeatherNetworkProtocol: KoreaWeatherNetworkProtocol!
+    
+    init(koreaWeatherNetworkProtocol: KoreaWeatherNetworkProtocol) {
+        self.koreaWeatherNetworkProtocol = koreaWeatherNetworkProtocol
+    }
+    
     // MARK: - 전국 날씨 저장 변수
     @Published var seoul: KoreaWeather?
     @Published var incheon: KoreaWeather?
@@ -92,7 +99,8 @@ final class KoreaWeatherViewModel {
     
     // MARK: - 전국 날씨 네트워크 패칭
     func fetchKoreaWeatherNetwork(regionURL: String) {
-        KoreaWeatherNetworkManager.shared.getNetworkDatas(regionURL: regionURL)
+        // koreaWeatherNetworkProtocol로 교체해서 getNetworkDatas 메소드를 실행해야 진짜 네트워크와 가짜 네트워크를 둘 다 실행할 수 있게 된다.
+        koreaWeatherNetworkProtocol.getNetworkDatas(regionURL: regionURL)
             .sink { completion in
                 switch completion {
                 case .failure:

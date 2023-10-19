@@ -24,9 +24,7 @@ struct ParticulateMatterResponse: Codable {
 
 // MARK: - Body
 struct ParticulateMatterBody: Codable {
-    let totalCount: Int
     let items: [ParticulateMatterItem]?
-    let pageNo, numOfRows: Int
 }
 
 // MARK: - Item

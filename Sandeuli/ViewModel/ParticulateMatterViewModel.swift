@@ -23,6 +23,13 @@ final class ParticulateMatterViewModel {
     // MARK: - Weather Service
     private let weatherService = WeatherService()
     
+    // MARK: - ParticulateMatterNetworkProtocol을 채택한 진짜 네트워크와 가짜 네트워크가 모두 이 자리에 들어올 수 있다. (의존성 주입)
+    private let particulateMatterNetworkProtocol: ParticulateMatterNetworkProtocol!
+    
+    init(particulateMatterNetworkProtocol: ParticulateMatterNetworkProtocol) {
+        self.particulateMatterNetworkProtocol = particulateMatterNetworkProtocol
+    }
+    
     // MARK: - Fetch Weather
     func fetchWeather(location: CLLocation) {
         Task {
@@ -38,7 +45,8 @@ final class ParticulateMatterViewModel {
     
     // MARK: - 미세 & 초미세 네트워크 패칭
     func fetchParticulateMatterNetwork(density: String) {
-        ParticulateMatterNetworkManager.shared.getNetworkDatas(density: density)
+        // particulateMatterNetworkProtocol로 교체해서 getNetworkDatas 메소드를 실행해야 진짜 네트워크와 가짜 네트워크를 둘 다 실행할 수 있게 된다.
+        particulateMatterNetworkProtocol.getNetworkDatas(density: density)
             .sink { completion in
                 switch completion {
                 case .failure:
@@ -52,7 +60,8 @@ final class ParticulateMatterViewModel {
     }
     
     func fetchUltraParticulateMatterNetwork(density: String) {
-        ParticulateMatterNetworkManager.shared.getNetworkDatas(density: density)
+        // particulateMatterNetworkProtocol로 교체해서 getNetworkDatas 메소드를 실행해야 진짜 네트워크와 가짜 네트워크를 둘 다 실행할 수 있게 된다.
+        particulateMatterNetworkProtocol.getNetworkDatas(density: density)
             .sink { completion in
                 switch completion {
                 case .failure:

@@ -72,7 +72,45 @@
 		EA25BCD42ACE9790003EA6EE /* HumidityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA25BCD32ACE9790003EA6EE /* HumidityView.swift */; };
 		EA25BCD62ACE9AFC003EA6EE /* HumidityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA25BCD52ACE9AFC003EA6EE /* HumidityViewModel.swift */; };
 		EA25BCD92ACEA2E4003EA6EE /* OtherDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA25BCD82ACEA2E4003EA6EE /* OtherDetailView.swift */; };
+		EA25BDEE2AE00C44003EA6EE /* ParticulateMatterNetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA25BDED2AE00C44003EA6EE /* ParticulateMatterNetworkProtocol.swift */; };
+		EA25BDF02AE00C86003EA6EE /* KoreaWeatherNetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA25BDEF2AE00C86003EA6EE /* KoreaWeatherNetworkProtocol.swift */; };
+		EA25BDF22AE00CD7003EA6EE /* MockParticulateMatterNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA25BDF12AE00CD7003EA6EE /* MockParticulateMatterNetworkManager.swift */; };
+		EA25BDF42AE00DAE003EA6EE /* MockKoreaWeatherNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA25BDF32AE00DAE003EA6EE /* MockKoreaWeatherNetworkManager.swift */; };
+		EA25BDFC2AE00F31003EA6EE /* ParticulateMatterNetworkTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA25BDFB2AE00F31003EA6EE /* ParticulateMatterNetworkTest.swift */; };
+		EA25BE092AE00F46003EA6EE /* KoreaWeatherNetworkTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA25BE082AE00F46003EA6EE /* KoreaWeatherNetworkTest.swift */; };
+		EA25BE322AE0C518003EA6EE /* WeatherControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA25BE312AE0C518003EA6EE /* WeatherControllerTest.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EA25BDFD2AE00F31003EA6EE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA1D87AB2AA875E700A3368E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EA1D87B22AA875E800A3368E;
+			remoteInfo = Sandeuli;
+		};
+		EA25BE0A2AE00F46003EA6EE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA1D87AB2AA875E700A3368E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EA1D87B22AA875E800A3368E;
+			remoteInfo = Sandeuli;
+		};
+		EA25BE332AE0C518003EA6EE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA1D87AB2AA875E700A3368E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EA1D87B22AA875E800A3368E;
+			remoteInfo = Sandeuli;
+		};
+		EA25BEAB2AE11177003EA6EE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA1D87AB2AA875E700A3368E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EA1D87B22AA875E800A3368E;
+			remoteInfo = Sandeuli;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		01B5754B7D806A41F48E9C84 /* Pods-Sandeuli.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sandeuli.release.xcconfig"; path = "Target Support Files/Pods-Sandeuli/Pods-Sandeuli.release.xcconfig"; sourceTree = "<group>"; };
@@ -147,6 +185,17 @@
 		EA25BCD32ACE9790003EA6EE /* HumidityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HumidityView.swift; sourceTree = "<group>"; };
 		EA25BCD52ACE9AFC003EA6EE /* HumidityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HumidityViewModel.swift; sourceTree = "<group>"; };
 		EA25BCD82ACEA2E4003EA6EE /* OtherDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherDetailView.swift; sourceTree = "<group>"; };
+		EA25BDED2AE00C44003EA6EE /* ParticulateMatterNetworkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticulateMatterNetworkProtocol.swift; sourceTree = "<group>"; };
+		EA25BDEF2AE00C86003EA6EE /* KoreaWeatherNetworkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KoreaWeatherNetworkProtocol.swift; sourceTree = "<group>"; };
+		EA25BDF12AE00CD7003EA6EE /* MockParticulateMatterNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockParticulateMatterNetworkManager.swift; sourceTree = "<group>"; };
+		EA25BDF32AE00DAE003EA6EE /* MockKoreaWeatherNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockKoreaWeatherNetworkManager.swift; sourceTree = "<group>"; };
+		EA25BDF92AE00F30003EA6EE /* ParticulateMatterNetworkTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ParticulateMatterNetworkTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA25BDFB2AE00F31003EA6EE /* ParticulateMatterNetworkTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticulateMatterNetworkTest.swift; sourceTree = "<group>"; };
+		EA25BE062AE00F46003EA6EE /* KoreaWeatherNetworkTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KoreaWeatherNetworkTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA25BE082AE00F46003EA6EE /* KoreaWeatherNetworkTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KoreaWeatherNetworkTest.swift; sourceTree = "<group>"; };
+		EA25BE2F2AE0C518003EA6EE /* WeatherControllerTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeatherControllerTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA25BE312AE0C518003EA6EE /* WeatherControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherControllerTest.swift; sourceTree = "<group>"; };
+		EA25BEA52AE11177003EA6EE /* SandeuliUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SandeuliUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +204,34 @@
 			buildActionMask = 2147483647;
 			files = (
 				323BFBFF9AB1A5CF77232F30 /* Pods_Sandeuli.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA25BDF62AE00F30003EA6EE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA25BE032AE00F46003EA6EE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA25BE2C2AE0C518003EA6EE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA25BEA22AE11177003EA6EE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,6 +261,10 @@
 			isa = PBXGroup;
 			children = (
 				EA1D87B32AA875E800A3368E /* Sandeuli.app */,
+				EA25BDF92AE00F30003EA6EE /* ParticulateMatterNetworkTest.xctest */,
+				EA25BE062AE00F46003EA6EE /* KoreaWeatherNetworkTest.xctest */,
+				EA25BE2F2AE0C518003EA6EE /* WeatherControllerTest.xctest */,
+				EA25BEA52AE11177003EA6EE /* SandeuliUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -194,7 +275,9 @@
 				EA1D87CD2AA8785800A3368E /* Sandeuli.entitlements */,
 				EA1D87B62AA875E800A3368E /* AppDelegate.swift */,
 				EA1D87B82AA875E800A3368E /* SceneDelegate.swift */,
+				EA25BDEC2AE00BC6003EA6EE /* MockNetwork */,
 				EA1D88212AA97DB000A3368E /* Network */,
+				EA25BDEB2AE00BB9003EA6EE /* NetworkProtocol */,
 				EA1D87E42AA89AF200A3368E /* Fonts */,
 				EA1D87CE2AA87A5D00A3368E /* Helpers */,
 				EA1D87CC2AA875FE00A3368E /* Model */,
@@ -204,6 +287,7 @@
 				EA1D87BF2AA875E900A3368E /* Assets.xcassets */,
 				EA1D87C12AA875E900A3368E /* LaunchScreen.storyboard */,
 				EA1D87C42AA875E900A3368E /* Info.plist */,
+				EA25BE0F2AE00F51003EA6EE /* UnitTest */,
 			);
 			path = Sandeuli;
 			sourceTree = "<group>";
@@ -397,6 +481,58 @@
 			path = OtherDetailView;
 			sourceTree = "<group>";
 		};
+		EA25BDEB2AE00BB9003EA6EE /* NetworkProtocol */ = {
+			isa = PBXGroup;
+			children = (
+				EA25BDED2AE00C44003EA6EE /* ParticulateMatterNetworkProtocol.swift */,
+				EA25BDEF2AE00C86003EA6EE /* KoreaWeatherNetworkProtocol.swift */,
+			);
+			path = NetworkProtocol;
+			sourceTree = "<group>";
+		};
+		EA25BDEC2AE00BC6003EA6EE /* MockNetwork */ = {
+			isa = PBXGroup;
+			children = (
+				EA25BDF12AE00CD7003EA6EE /* MockParticulateMatterNetworkManager.swift */,
+				EA25BDF32AE00DAE003EA6EE /* MockKoreaWeatherNetworkManager.swift */,
+			);
+			path = MockNetwork;
+			sourceTree = "<group>";
+		};
+		EA25BDFA2AE00F31003EA6EE /* ParticulateMatterNetworkTest */ = {
+			isa = PBXGroup;
+			children = (
+				EA25BDFB2AE00F31003EA6EE /* ParticulateMatterNetworkTest.swift */,
+			);
+			path = ParticulateMatterNetworkTest;
+			sourceTree = "<group>";
+		};
+		EA25BE072AE00F46003EA6EE /* KoreaWeatherNetworkTest */ = {
+			isa = PBXGroup;
+			children = (
+				EA25BE082AE00F46003EA6EE /* KoreaWeatherNetworkTest.swift */,
+			);
+			path = KoreaWeatherNetworkTest;
+			sourceTree = "<group>";
+		};
+		EA25BE0F2AE00F51003EA6EE /* UnitTest */ = {
+			isa = PBXGroup;
+			children = (
+				EA25BE302AE0C518003EA6EE /* WeatherControllerTest */,
+				EA25BDFA2AE00F31003EA6EE /* ParticulateMatterNetworkTest */,
+				EA25BE072AE00F46003EA6EE /* KoreaWeatherNetworkTest */,
+			);
+			path = UnitTest;
+			sourceTree = "<group>";
+		};
+		EA25BE302AE0C518003EA6EE /* WeatherControllerTest */ = {
+			isa = PBXGroup;
+			children = (
+				EA25BE312AE0C518003EA6EE /* WeatherControllerTest.swift */,
+			);
+			path = WeatherControllerTest;
+			sourceTree = "<group>";
+		};
 		EE4FE625B82005F22B1F5E8C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -427,6 +563,78 @@
 			productReference = EA1D87B32AA875E800A3368E /* Sandeuli.app */;
 			productType = "com.apple.product-type.application";
 		};
+		EA25BDF82AE00F30003EA6EE /* ParticulateMatterNetworkTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EA25BDFF2AE00F31003EA6EE /* Build configuration list for PBXNativeTarget "ParticulateMatterNetworkTest" */;
+			buildPhases = (
+				EA25BDF52AE00F30003EA6EE /* Sources */,
+				EA25BDF62AE00F30003EA6EE /* Frameworks */,
+				EA25BDF72AE00F30003EA6EE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EA25BDFE2AE00F31003EA6EE /* PBXTargetDependency */,
+			);
+			name = ParticulateMatterNetworkTest;
+			productName = ParticulateMatterNetworkTest;
+			productReference = EA25BDF92AE00F30003EA6EE /* ParticulateMatterNetworkTest.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		EA25BE052AE00F46003EA6EE /* KoreaWeatherNetworkTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EA25BE0C2AE00F46003EA6EE /* Build configuration list for PBXNativeTarget "KoreaWeatherNetworkTest" */;
+			buildPhases = (
+				EA25BE022AE00F46003EA6EE /* Sources */,
+				EA25BE032AE00F46003EA6EE /* Frameworks */,
+				EA25BE042AE00F46003EA6EE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EA25BE0B2AE00F46003EA6EE /* PBXTargetDependency */,
+			);
+			name = KoreaWeatherNetworkTest;
+			productName = KoreaWeatherNetworkTest;
+			productReference = EA25BE062AE00F46003EA6EE /* KoreaWeatherNetworkTest.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		EA25BE2E2AE0C518003EA6EE /* WeatherControllerTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EA25BE372AE0C519003EA6EE /* Build configuration list for PBXNativeTarget "WeatherControllerTest" */;
+			buildPhases = (
+				EA25BE2B2AE0C518003EA6EE /* Sources */,
+				EA25BE2C2AE0C518003EA6EE /* Frameworks */,
+				EA25BE2D2AE0C518003EA6EE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EA25BE342AE0C518003EA6EE /* PBXTargetDependency */,
+			);
+			name = WeatherControllerTest;
+			productName = WeatherControllerTest;
+			productReference = EA25BE2F2AE0C518003EA6EE /* WeatherControllerTest.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		EA25BEA42AE11177003EA6EE /* SandeuliUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EA25BEAF2AE11177003EA6EE /* Build configuration list for PBXNativeTarget "SandeuliUITests" */;
+			buildPhases = (
+				EA25BEA12AE11177003EA6EE /* Sources */,
+				EA25BEA22AE11177003EA6EE /* Frameworks */,
+				EA25BEA32AE11177003EA6EE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EA25BEAC2AE11177003EA6EE /* PBXTargetDependency */,
+			);
+			name = SandeuliUITests;
+			productName = SandeuliUITests;
+			productReference = EA25BEA52AE11177003EA6EE /* SandeuliUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -439,6 +647,22 @@
 				TargetAttributes = {
 					EA1D87B22AA875E800A3368E = {
 						CreatedOnToolsVersion = 14.3.1;
+					};
+					EA25BDF82AE00F30003EA6EE = {
+						CreatedOnToolsVersion = 14.3.1;
+						TestTargetID = EA1D87B22AA875E800A3368E;
+					};
+					EA25BE052AE00F46003EA6EE = {
+						CreatedOnToolsVersion = 14.3.1;
+						TestTargetID = EA1D87B22AA875E800A3368E;
+					};
+					EA25BE2E2AE0C518003EA6EE = {
+						CreatedOnToolsVersion = 14.3.1;
+						TestTargetID = EA1D87B22AA875E800A3368E;
+					};
+					EA25BEA42AE11177003EA6EE = {
+						CreatedOnToolsVersion = 14.3.1;
+						TestTargetID = EA1D87B22AA875E800A3368E;
 					};
 				};
 			};
@@ -457,6 +681,10 @@
 			projectRoot = "";
 			targets = (
 				EA1D87B22AA875E800A3368E /* Sandeuli */,
+				EA25BDF82AE00F30003EA6EE /* ParticulateMatterNetworkTest */,
+				EA25BE052AE00F46003EA6EE /* KoreaWeatherNetworkTest */,
+				EA25BE2E2AE0C518003EA6EE /* WeatherControllerTest */,
+				EA25BEA42AE11177003EA6EE /* SandeuliUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -487,6 +715,34 @@
 				EA1D880D2AA8A58400A3368E /* Poppins-ExtraBold.otf in Resources */,
 				EA1D88182AA8A59C00A3368E /* Poppins-SemiBoldItalic.otf in Resources */,
 				EA1D88142AA8A59200A3368E /* Poppins-Medium.otf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA25BDF72AE00F30003EA6EE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA25BE042AE00F46003EA6EE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA25BE2D2AE0C518003EA6EE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA25BEA32AE11177003EA6EE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -539,10 +795,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA25BDF42AE00DAE003EA6EE /* MockKoreaWeatherNetworkManager.swift in Sources */,
 				EA1D87BB2AA875E800A3368E /* WeatherController.swift in Sources */,
 				EA1D87DD2AA8955A00A3368E /* Colors.swift in Sources */,
 				EA1D87DB2AA8954C00A3368E /* DailyForecastView.swift in Sources */,
 				EA1D88872AC11EE100A3368E /* KoreaDetailWeatherReportContainer.swift in Sources */,
+				EA25BDF02AE00C86003EA6EE /* KoreaWeatherNetworkProtocol.swift in Sources */,
 				EA1D88232AA97DBF00A3368E /* PatriculateMatterNetworkManager.swift in Sources */,
 				EA1D884E2AB8722500A3368E /* NewsCell.swift in Sources */,
 				EA1D88782ABAB48000A3368E /* KoreaMap.swift in Sources */,
@@ -551,6 +809,7 @@
 				EA1D87D72AA8952A00A3368E /* MainInformationView.swift in Sources */,
 				EA1D88F72ACD545200A3368E /* UVIndexView.swift in Sources */,
 				EA25BCD92ACEA2E4003EA6EE /* OtherDetailView.swift in Sources */,
+				EA25BDEE2AE00C44003EA6EE /* ParticulateMatterNetworkProtocol.swift in Sources */,
 				EA1D88472AB8675F00A3368E /* UIImage.swift in Sources */,
 				EA1D87D42AA8903800A3368E /* MainInformationViewModel.swift in Sources */,
 				EA1D87E12AA898A700A3368E /* SearchBar.swift in Sources */,
@@ -569,6 +828,7 @@
 				EA1D882D2AA9D40100A3368E /* HourlyForecastViewModel.swift in Sources */,
 				EA1D88332AAEF04D00A3368E /* DailyForecastViewModel.swift in Sources */,
 				EA25BCCF2ACE856B003EA6EE /* ApparentTemperatureView.swift in Sources */,
+				EA25BDF22AE00CD7003EA6EE /* MockParticulateMatterNetworkManager.swift in Sources */,
 				EA1D88F92ACD577900A3368E /* UVIndexViewModel.swift in Sources */,
 				EA1D88812ABAD7F500A3368E /* KoreaWeatherNetworkManger.swift in Sources */,
 				EA1D88392AB80C8100A3368E /* DailyForecastHeaderView.swift in Sources */,
@@ -585,7 +845,61 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EA25BDF52AE00F30003EA6EE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA25BDFC2AE00F31003EA6EE /* ParticulateMatterNetworkTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA25BE022AE00F46003EA6EE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA25BE092AE00F46003EA6EE /* KoreaWeatherNetworkTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA25BE2B2AE0C518003EA6EE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA25BE322AE0C518003EA6EE /* WeatherControllerTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA25BEA12AE11177003EA6EE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EA25BDFE2AE00F31003EA6EE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EA1D87B22AA875E800A3368E /* Sandeuli */;
+			targetProxy = EA25BDFD2AE00F31003EA6EE /* PBXContainerItemProxy */;
+		};
+		EA25BE0B2AE00F46003EA6EE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EA1D87B22AA875E800A3368E /* Sandeuli */;
+			targetProxy = EA25BE0A2AE00F46003EA6EE /* PBXContainerItemProxy */;
+		};
+		EA25BE342AE0C518003EA6EE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EA1D87B22AA875E800A3368E /* Sandeuli */;
+			targetProxy = EA25BE332AE0C518003EA6EE /* PBXContainerItemProxy */;
+		};
+		EA25BEAC2AE11177003EA6EE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EA1D87B22AA875E800A3368E /* Sandeuli */;
+			targetProxy = EA25BEAB2AE11177003EA6EE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		EA1D87BC2AA875E800A3368E /* Main.storyboard */ = {
@@ -785,6 +1099,174 @@
 			};
 			name = Release;
 		};
+		EA25BE002AE00F31003EA6EE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = T9LJ52AQY5;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tistory.frenchmarigold.ParticulateMatterNetworkTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sandeuli.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Sandeuli";
+			};
+			name = Debug;
+		};
+		EA25BE012AE00F31003EA6EE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = T9LJ52AQY5;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tistory.frenchmarigold.ParticulateMatterNetworkTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sandeuli.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Sandeuli";
+			};
+			name = Release;
+		};
+		EA25BE0D2AE00F46003EA6EE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = T9LJ52AQY5;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tistory.frenchmarigold.KoreaWeatherNetworkTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sandeuli.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Sandeuli";
+			};
+			name = Debug;
+		};
+		EA25BE0E2AE00F46003EA6EE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = T9LJ52AQY5;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tistory.frenchmarigold.KoreaWeatherNetworkTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sandeuli.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Sandeuli";
+			};
+			name = Release;
+		};
+		EA25BE352AE0C519003EA6EE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = T9LJ52AQY5;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tistory.frenchmarigold.WeatherControllerTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sandeuli.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Sandeuli";
+			};
+			name = Debug;
+		};
+		EA25BE362AE0C519003EA6EE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = T9LJ52AQY5;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tistory.frenchmarigold.WeatherControllerTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sandeuli.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Sandeuli";
+			};
+			name = Release;
+		};
+		EA25BEAD2AE11177003EA6EE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = T9LJ52AQY5;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tistory.frenchmarigold.SandeuliUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Sandeuli;
+			};
+			name = Debug;
+		};
+		EA25BEAE2AE11177003EA6EE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = T9LJ52AQY5;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tistory.frenchmarigold.SandeuliUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Sandeuli;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -802,6 +1284,42 @@
 			buildConfigurations = (
 				EA1D87C82AA875E900A3368E /* Debug */,
 				EA1D87C92AA875E900A3368E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EA25BDFF2AE00F31003EA6EE /* Build configuration list for PBXNativeTarget "ParticulateMatterNetworkTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA25BE002AE00F31003EA6EE /* Debug */,
+				EA25BE012AE00F31003EA6EE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EA25BE0C2AE00F46003EA6EE /* Build configuration list for PBXNativeTarget "KoreaWeatherNetworkTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA25BE0D2AE00F46003EA6EE /* Debug */,
+				EA25BE0E2AE00F46003EA6EE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EA25BE372AE0C519003EA6EE /* Build configuration list for PBXNativeTarget "WeatherControllerTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA25BE352AE0C519003EA6EE /* Debug */,
+				EA25BE362AE0C519003EA6EE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EA25BEAF2AE11177003EA6EE /* Build configuration list for PBXNativeTarget "SandeuliUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA25BEAD2AE11177003EA6EE /* Debug */,
+				EA25BEAE2AE11177003EA6EE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -1,4 +1,4 @@
-//
+    //
 //  ViewController.swift
 //  Sandeuli
 //
@@ -51,8 +51,8 @@ final class WeatherController: UIViewController {
     private let rainDropViewModel = RainDropViewModel()
     private let apparentTemperatureViewModel = ApparentTemperatureViewModel()
     private let humidityViewModel = HumidityViewModel()
-    private let particulateMatterViewModel = ParticulateMatterViewModel()
-    private let koreaWeatherViewModel = KoreaWeatherViewModel()
+    private let particulateMatterViewModel = ParticulateMatterViewModel(particulateMatterNetworkProtocol: ParticulateMatterNetworkManager.shared) 
+    private let koreaWeatherViewModel = KoreaWeatherViewModel(koreaWeatherNetworkProtocol: KoreaWeatherNetworkManager.shared)
     
     // MARK: - CLLocationManager
     private let locationManager = CLLocationManager()
@@ -65,7 +65,7 @@ final class WeatherController: UIViewController {
     }
     
     // MARK: - UI Components
-    private let mainInformationView: MainInformationView = {
+    let mainInformationView: MainInformationView = {
         let view = MainInformationView()
         view.backgroundColor = .dayBackground
         return view
@@ -118,7 +118,7 @@ final class WeatherController: UIViewController {
         return view
     }()
     
-    private let particulateMatterView: ParticulateMatterView = {
+    let particulateMatterView: ParticulateMatterView = {
         let view = ParticulateMatterView()
         view.layer.cornerRadius = 15
         view.layer.masksToBounds = true
@@ -132,7 +132,7 @@ final class WeatherController: UIViewController {
         return view
     }()
     
-    private let otherDetailView: OtherDetailView = {
+    let otherDetailView: OtherDetailView = {
         let view = OtherDetailView()
         view.backgroundColor = .dayBackground
         return view
@@ -981,7 +981,6 @@ extension WeatherController: ViewDrawable {
                     let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = "HHmm"
                     let date = dateFormatter.date(from: chungnam.fcstTime)!
-
                     let formatter = DateFormatter()
                     formatter.dateFormat = "HH"
                     let chungnamTime = formatter.string(from: date)
@@ -1207,7 +1206,7 @@ extension WeatherController: ViewDrawable {
 extension WeatherController {
     
     // MARK: - 날씨 이미지에 따라 색깔을 바꾸는 메소드
-    private func coloringMethod(symbolName: String) {
+    func coloringMethod(symbolName: String) {
         switch symbolName {
         case "sun.max":
             detailColoring(mainInformationView: mainInformationView, backgroundColor: .dayBackground, mainLabelColor: .dayMainLabel, sideLabelColor: .daySideLabel, symbolName: symbolName, paletteColors1: .dayImage, paletteColors2: .clear, paletteColors3: .clear, otherDetailView: otherDetailView)
@@ -1249,7 +1248,7 @@ extension WeatherController {
         }
     }
     
-    private func detailColoring(mainInformationView: MainInformationView, backgroundColor: UIColor, mainLabelColor: UIColor, sideLabelColor: UIColor, symbolName: String, paletteColors1: UIColor, paletteColors2: UIColor, paletteColors3: UIColor, otherDetailView: OtherDetailView) {
+    func detailColoring(mainInformationView: MainInformationView, backgroundColor: UIColor, mainLabelColor: UIColor, sideLabelColor: UIColor, symbolName: String, paletteColors1: UIColor, paletteColors2: UIColor, paletteColors3: UIColor, otherDetailView: OtherDetailView) {
         mainInformationView.backgroundColor = backgroundColor
         view.backgroundColor = backgroundColor
         mainInformationView.todayWeatherTemperature.textColor = mainLabelColor
@@ -1272,7 +1271,7 @@ extension WeatherController {
     }
     
     // MARK: - 지역에 따라 미세 & 초미세를 구하는 메소드
-    private func particulateMatterCalculatorAccordingToLocation(location: String, particulateData: [ParticulateMatterItem], isDayLight: Bool, symbolName: String) {
+    func particulateMatterCalculatorAccordingToLocation(location: String, particulateData: [ParticulateMatterItem], isDayLight: Bool, symbolName: String) {
         switch location {
         case "daegu":
             for data in particulateData {
@@ -1472,6 +1471,9 @@ extension WeatherController: CLLocationManagerDelegate {
         }
         
         locationManager.stopUpdatingLocation()
+        
+        // MARK: - 실험용 Location
+        let rainyLocation = CLLocation(latitude: 27.7172, longitude: 85.3240)
         
         // MARK: - WeatherKit 실행
         mainInformationViewModel.fetchWeather(location: location)
