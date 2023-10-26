@@ -141,7 +141,7 @@ final class WeatherController: UIViewController {
     // MARK: - 스택 뷰
     private let stackView: UIStackView = {
         let stack = UIStackView() // arrangedSubview를 이용해서 바로 할당하지 말 것
-        stack.axis = .vertical // 가로로 스크롤하고 싶으면 horizontal로 맞추기
+        stack.axis = .vertical // 가로로 스크롤하려면 horizontal, 세로로 스크롤하려면 vertical
         stack.spacing = 15
         stack.distribution = .fill
         return stack
@@ -486,7 +486,7 @@ extension WeatherController: ViewDrawable {
                 
                 // MARK: - CollectionView와 일출, 일몰 시간을 비교할 임시 데이터
                 let sunnyFormatter = DateFormatter()
-                sunnyFormatter.dateFormat = "HH시"
+                sunnyFormatter.dateFormat = "HH시" 
                 
                 let sunriseCompareWithCollectionView = sunnyFormatter.string(from: sunriseData)
                 let sunsetCompareWithCollectionView = sunnyFormatter.string(from: sunsetData)
@@ -1180,6 +1180,7 @@ extension WeatherController: ViewDrawable {
             make.top.equalTo(scrollView.snp.top)
             make.trailing.equalTo(scrollView.snp.trailing)
             make.bottom.equalTo(scrollView.snp.bottom)
+            // ⭐️ 스크롤 방향이 가로 방향이면 heightAnchor로, 세로 방향이면 widthAnchor로
             make.width.equalTo(scrollView.snp.width)
         }
     }
@@ -1190,6 +1191,7 @@ extension WeatherController: ViewDrawable {
             var elementView = UIView()
             elementView = company
             elementView.translatesAutoresizingMaskIntoConstraints = false
+            // 스크롤 뷰의 최종높이를 4200으로 설정
             elementView.heightAnchor.constraint(equalToConstant: 4200).isActive = true
             stackView.addArrangedSubview(elementView)
         }

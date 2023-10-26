@@ -30,7 +30,7 @@ final class ParticulateMatterNetworkTest: XCTestCase {
         let mockData = ParticulateMatter(particulateMatterResponse: ParticulateMatterResponse(body: ParticulateMatterBody(items: [ParticulateMatterItem(daegu: "대구", chungnam: "충남", incheon: "인천", daejeon: "대전", gyeongbuk: "경북", sejong: "세종", gwangju: "광주", jeonbuk: "전북", gangwon: "강원", ulsan: "울산", jeonnam: "전남", seoul: "서울", busan: "부산", jeju: "제주", chungbuk: "충북", gyeongnam: "경남", dataTime: "몰라", dataGubun: "몰라", gyeonggi: "경기", itemCode: "00")]), header: ParticulateMatterHeader(resultMsg: "몰라", resultCode: "몰라")))
         mockNetworkManager.particulateMockData = mockData
         
-        //When - ViewModel에 진짜 네트워크나 가짜 네트워크를 할당할 수 있다.
+        //When - ViewModel에 진짜 네트워크나 가짜 네트워크를 할당할 수 있다. 여기선 가짜 네트워크를 할당한다.
         let viewModel = ParticulateMatterViewModel(particulateMatterNetworkProtocol: mockNetworkManager)
         
         // Expectation (비동기 처리가 끝나면 실행될 구문)
@@ -38,8 +38,6 @@ final class ParticulateMatterNetworkTest: XCTestCase {
         
         var mockParticulate: ParticulateMatter!
         
-        // 방금 들어간 mockData를 리턴하는 코드.
-        // 그 mockData를 mockPersonalInfo에 할당해놓는다.
         mockNetworkManager.getNetworkDatas(density: "PM10")
             .sink { completion in
                 switch completion {

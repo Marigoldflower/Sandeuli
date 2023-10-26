@@ -27,11 +27,7 @@ final class MainInformationViewModel {
         Task {
             do {
                 let weather = try await weatherService.weather(for: location)
-                self.todayCurrentWeather = weather.currentWeather
-                // 바람, 습도
-                print("오늘의 습도는 \(weather.currentWeather.humidity.description)")
-                print("오늘의 이슬점은 \(weather.currentWeather.dewPoint.value)")
-                
+                self.todayCurrentWeather = weather.currentWeather                
                 self.dailyForecast = weather.dailyForecast.forecast
                 
             } catch {

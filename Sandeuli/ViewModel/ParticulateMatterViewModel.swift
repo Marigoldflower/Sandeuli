@@ -45,7 +45,7 @@ final class ParticulateMatterViewModel {
     
     // MARK: - 미세 & 초미세 네트워크 패칭
     func fetchParticulateMatterNetwork(density: String) {
-        // particulateMatterNetworkProtocol로 교체해서 getNetworkDatas 메소드를 실행해야 진짜 네트워크와 가짜 네트워크를 둘 다 실행할 수 있게 된다.
+        // ParticulateMatterNetworkProtocol로 인해서 진짜 네트워크 통신 코드와 가짜 네트워크 통신 코드를 모두 사용할 수 있다.
         particulateMatterNetworkProtocol.getNetworkDatas(density: density)
             .sink { completion in
                 switch completion {
